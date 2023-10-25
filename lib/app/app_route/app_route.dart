@@ -7,6 +7,7 @@ import 'app_route.gr.dart';
   replaceInRouteName: 'Page|Dialog,Route',
 )
 class AppAutoRoute extends $AppAutoRoute {
+
   @override
   RouteType get defaultRouteType => const RouteType.material();
   @override
