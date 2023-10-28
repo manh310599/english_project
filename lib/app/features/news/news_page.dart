@@ -1,5 +1,7 @@
 import 'package:auto_route/annotations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 @RoutePage()
 class NewsPage extends StatelessWidget {
@@ -7,6 +9,13 @@ class NewsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return InkWell(onTap: () {
+      Future<void> _signOut() async {
+        await FirebaseAuth.instance.signOut();
+
+        Phoenix.rebirth(context);
+      }
+      _signOut();
+    },child: const Placeholder());
   }
 }

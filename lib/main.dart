@@ -1,13 +1,19 @@
-import 'package:english_project/check_internet.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 import 'app/app_route/app_route.dart';
 import 'depedence.dart';
+import 'firebase_options.dart';
 
-void main() async {
+Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await setupAppDepedence();
-  runApp(const App());
+  runApp(Phoenix(child: const App()));
 }
 
 class App extends StatefulWidget {
@@ -17,10 +23,7 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-
-
 class _AppState extends State<App> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -29,15 +32,13 @@ class _AppState extends State<App> {
   }
 
   AppAutoRoute get appRouter => getIt<AppAutoRoute>();
+
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp.router(
+      theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter.config(),
     );
   }
 }
-
-
-

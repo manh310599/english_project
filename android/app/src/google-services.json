@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "199804307385",
+    "project_id": "smartenglish-dd78e",
+    "storage_bucket": "smartenglish-dd78e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:199804307385:android:1001dc9008dc6fe38f1868",
+        "android_client_info": {
+          "package_name": "com.example.english_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfcVX6SI7EhOHv6cuAuCzV4xR0cVmngg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
