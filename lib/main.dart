@@ -1,3 +1,5 @@
+
+import 'package:english_project/check_internet.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -7,12 +9,12 @@ import 'depedence.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-
+  await setupAppDepedence();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await setupAppDepedence();
+
   runApp(Phoenix(child: const App()));
 }
 
@@ -27,7 +29,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     // TODO: implement initState
-
+    getConnect(context);
     super.initState();
   }
 

@@ -8,14 +8,18 @@ class EditText extends StatefulWidget {
       required this.icon,
       this.callback,
       this.click,
-      this.stylePassWord});
+      this.stylePassWord,
+        this.preIcon
+      });
 
   final String? hinText;
   final Icon icon;
   final bool? click;
   bool? stylePassWord;
 
+
   final Function(String? data)? callback;
+  final Icon? preIcon;
 
   @override
   State<EditText> createState() => _EditTextState();
@@ -33,6 +37,7 @@ class _EditTextState extends State<EditText> {
           widget.callback!(value);
         },
         decoration: InputDecoration(
+          icon: widget.preIcon,
           enabledBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Dimens.rad_circular),
               borderSide: BorderSide(

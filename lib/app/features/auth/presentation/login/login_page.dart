@@ -49,6 +49,7 @@ class LoginPage extends StatelessWidget {
                       context.read<LoginCubit>().loginWithEmail(context);
                     },
                   ),
+                  const TextButtonCustom(text: 'Bạn quên mật khẩu click vào đây',textColor: Colors.amberAccent),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
