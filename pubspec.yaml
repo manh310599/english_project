@@ -84,6 +84,8 @@ dependencies:
   #translate
   #translator: ^0.1.7
 
+  #isolate
+  flutter_isolate: ^2.0.4
 
   #check internet
   connectivity_plus: ^5.0.1

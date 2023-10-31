@@ -5,7 +5,7 @@ class EditText extends StatefulWidget {
   EditText(
       {super.key,
       this.hinText,
-      required this.icon,
+       this.icon,
       this.callback,
       this.click,
       this.stylePassWord,
@@ -13,7 +13,7 @@ class EditText extends StatefulWidget {
       });
 
   final String? hinText;
-  final Icon icon;
+  final Icon? icon;
   final bool? click;
   bool? stylePassWord;
 
@@ -34,10 +34,12 @@ class _EditTextState extends State<EditText> {
       child: TextFormField(
         obscureText: widget.stylePassWord ?? false,
         onChanged: (value) {
-          widget.callback!(value);
+          if(widget.callback != null) {
+            widget.callback!(value);
+          }
         },
         decoration: InputDecoration(
-          icon: widget.preIcon,
+
           enabledBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Dimens.rad_circular),
               borderSide: BorderSide(
@@ -45,6 +47,7 @@ class _EditTextState extends State<EditText> {
               )),
           hintText: widget.hinText,
           border: const OutlineInputBorder(),
+          prefixIcon: widget.preIcon,
           suffixIcon: InkWell(
               onTap: () {
                 widget.click == true ? setState(() {

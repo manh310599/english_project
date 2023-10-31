@@ -19,7 +19,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     // TODO: implement initState
-    getConnect(context);
+    //getConnect(context);
     super.initState();
   }
 

@@ -3,6 +3,7 @@ import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/check_isvaid.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../../common/widget/dialog/show_dialog.dart';
@@ -58,5 +59,26 @@ class LoginCubit extends Cubit<LoginState> {
 
       }
     }
+  }
+
+  Future<void> loginWithGoogle(context) async {
+    Future<UserCredential> signInWithGoogle() async {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    }
+
+    signInWithGoogle();
   }
 }

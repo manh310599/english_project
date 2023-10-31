@@ -14,6 +14,7 @@ class AppAutoRoute extends $AppAutoRoute {
   RouteType get defaultRouteType => const RouteType.material();
   @override
   final List<AutoRoute> routes = [
+
     AutoRoute(
       path: '/main',
       page: MainRoute.page,

@@ -9,5 +9,9 @@ final AuthRoutes = [
   AutoRoute(
     path: '/register',
     page: RegisterRoute.page,
+  ),
+  AutoRoute(
+    path: '/forgot-pass',
+    page: ForgotPasswordRoute.page,
   )
 ];
