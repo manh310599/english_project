@@ -5,7 +5,7 @@ class EditText extends StatefulWidget {
   EditText(
       {super.key,
       this.hinText,
-      required this.icon,
+       this.icon,
       this.callback,
       this.click,
       this.stylePassWord,
@@ -13,7 +13,7 @@ class EditText extends StatefulWidget {
       });
 
   final String? hinText;
-  final Icon icon;
+  final Icon? icon;
   final bool? click;
   bool? stylePassWord;
 
