@@ -1,6 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:english_project/app/features/auth/auth_guard.dart';
+
 import 'package:english_project/app/features/auth/core/routes/auth_routes.dart';
 
 import 'app_route.gr.dart';
@@ -19,7 +19,6 @@ class AppAutoRoute extends $AppAutoRoute {
       path: '/main',
       page: MainRoute.page,
       initial: true,
-      guards: [AuthGuard()],
       children: [
         AutoRoute(path: 'news', page: NewsRoute.page,),
         AutoRoute(path: 'learn-vocabulary', page: LearnVocabularyRoute.page),

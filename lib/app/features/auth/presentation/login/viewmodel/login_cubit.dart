@@ -27,21 +27,26 @@ class LoginCubit extends Cubit<LoginState> {
     if (state.email.isEmptyOrNull || state.pass.isEmptyOrNull) {
       showDiaLogCustom(context, 'Không được để trống các thông tin ',
           'Hãy nhập đầy đủ thông tin');
+      emit(state.copyWith(apiStatus: ApiStatus.fail));
     } else if (!checkEmail(state.email)) {
       showDiaLogCustom(
           context, 'Email không đúng định dạng', 'Hãy nhập lại email');
+      emit(state.copyWith(apiStatus: ApiStatus.fail));
     } else if (state.pass!.length < 6) {
       showDiaLogCustom(context, 'Mật khẩu phải lớn hơn hoặc bằng 6 kí tự',
           'Hãy nhập lại mật khẩu');
-      emit(state.copyWith(apiStatus: ApiStatus.success));
+      emit(state.copyWith(apiStatus: ApiStatus.fail));
     } else {
       try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
+        final login = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: state.email!,
           password: state.pass!,
         );
-
-        //context.popRoute();
+        if (login.user != null) {
+          emit(state.copyWith(apiStatus: ApiStatus.success));
+        } else {
+          emit(state.copyWith(apiStatus: ApiStatus.fail));
+        }
       } on FirebaseAuthException catch (e) {
         //if(e.code == 'INVALID_LOGIN_CREDENTIALS')
         if (e.code == 'user-not-found') {
@@ -51,12 +56,15 @@ class LoginCubit extends Cubit<LoginState> {
         } else if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
           showDiaLogCustom(context, 'Tài khoản hoặc mật khẩu không trung khớp',
               'Hãy nhập lại');
-        } else if (e.code == 'ACCOUNT_TEMPORARILY_DISABLED'){
-          showDiaLogCustom(context, 'Truy cập vào tài khoản này đã bị tạm thời vô hiệu hóa do hoạt động không bình thường.',
+        } else if (e.code == 'ACCOUNT_TEMPORARILY_DISABLED') {
+          showDiaLogCustom(
+              context,
+              'Truy cập vào tài khoản này đã bị tạm thời vô hiệu hóa do hoạt động không bình thường.',
               'Bạn có thể khôi phục tài khoản ngay bằng cách đặt lại mật khẩu hoặc thử lại sau.');
         }
+        emit(state.copyWith(apiStatus: ApiStatus.fail));
       } catch (e) {
-
+        emit(state.copyWith(apiStatus: ApiStatus.fail));
       }
     }
   }
@@ -67,7 +75,8 @@ class LoginCubit extends Cubit<LoginState> {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
@@ -79,6 +88,7 @@ class LoginCubit extends Cubit<LoginState> {
       return await FirebaseAuth.instance.signInWithCredential(credential);
     }
 
-    signInWithGoogle();
+    await signInWithGoogle();
+    emit(state.copyWith(apiStatus: ApiStatus.success));
   }
 }

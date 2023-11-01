@@ -42,34 +42,39 @@ class RegisterCubit extends Cubit<RegisterState> {
     try {
       if (state.customUser!.email.isEmptyOrNull &&
           state.customUser!.passWord.isEmptyOrNull &&
-          state.customUser!.repass.isEmptyOrNull)
-      {
-        showDiaLogCustom(
-            context, 'Bạn không được để trống bất kì trường nào', 'Hãy điền đầy đủ thông tin nhé');
+          state.customUser!.repass.isEmptyOrNull) {
+        showDiaLogCustom(context, 'Bạn không được để trống bất kì trường nào',
+            'Hãy điền đầy đủ thông tin nhé');
+        emit(state.copyWith(apiStatus: ApiStatus.fail));
       } else if (state.customUser!.email.isEmptyOrNull) {
         showDiaLogCustom(
             context, 'Không được để trống email', 'Hãy điền email của bạn');
+        emit(state.copyWith(apiStatus: ApiStatus.fail));
       } else if (state.customUser!.passWord != state.customUser!.repass) {
         showDiaLogCustom(context, 'Mật khẩu nhập lại không chính xác',
             'Hãy nhập lại mật khẩu');
+        emit(state.copyWith(apiStatus: ApiStatus.fail));
       } else if (state.customUser!.passWord.isEmptyOrNull ||
           state.customUser!.repass.isEmptyOrNull) {
         showDiaLogCustom(context, 'Không được trống các trường',
             'Hãy nhập đầy đủ các trường');
+        emit(state.copyWith(apiStatus: ApiStatus.fail));
       } else if (!checkEmail(state.customUser!.email)) {
         showDiaLogCustom(
             context, 'Định dạng email không đúng', 'Hãy nhập lại email');
+        emit(state.copyWith(apiStatus: ApiStatus.fail));
       } else {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        final regis = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: state.customUser?.email ?? '',
           password: state.customUser?.passWord ?? '',
         );
-
-        await showDiaLogCustom(
-            context, 'Chúc mừng bạn đăng kí thành công', '');
-
-        await Future.delayed(const Duration(seconds: 2));
-        context.popRoute();
+        if(regis.user !=null) {
+          await showDiaLogCustom(context, 'Chúc mừng bạn đăng kí thành công', '');
+          emit(state.copyWith(apiStatus: ApiStatus.success));
+        }
+        else{
+          emit(state.copyWith(apiStatus: ApiStatus.fail));
+        }
 
       }
     } on FirebaseAuthException catch (e) {
@@ -84,8 +89,10 @@ class RegisterCubit extends Cubit<RegisterState> {
         emit(state.copyWith(registerStatus: RegisterStatus.emailIsValid));
         print('The account already exists for that email.');
       }
+      emit(state.copyWith(apiStatus: ApiStatus.fail));
     } catch (e) {
       print(e);
+      emit(state.copyWith(apiStatus: ApiStatus.fail));
     }
   }
 }

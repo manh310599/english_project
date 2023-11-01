@@ -1,8 +1,9 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:english_project/app/app_route/app_route.gr.dart';
-import 'package:english_project/app/features/learn_vocabulary/learn_vocabulary_page.dart';
+
 import 'package:flutter/material.dart';
+
 
 import 'check_internet.dart';
 
@@ -16,10 +17,12 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
+
+
   @override
   void initState() {
     // TODO: implement initState
-    //getConnect(context);
+    getConnect(context);
     super.initState();
   }
 

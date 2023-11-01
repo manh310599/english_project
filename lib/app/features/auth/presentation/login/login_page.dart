@@ -1,16 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:english_project/all_file/all_file.dart';
 import 'package:english_project/app/app_route/app_route.gr.dart';
+import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/widget/button/cupertino_button.dart';
 import 'package:english_project/app/common/widget/button/image_button.dart';
 import 'package:english_project/app/common/widget/button/text_button.dart';
 import 'package:english_project/app/common/widget/edit_text/edit_text.dart';
+import 'package:english_project/app/features/auth/presentation/check_user/viewmodel/checkauth_bloc.dart';
 import 'package:english_project/app/features/auth/presentation/login/viewmodel/login_cubit.dart';
 import 'package:english_project/gaps.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 @RoutePage()
 class LoginPage extends StatelessWidget {
@@ -44,27 +43,45 @@ class LoginPage extends StatelessWidget {
                     stylePassWord: true,
                     click: true,
                   ),
-                  CupertinoButtonEdit(
-                    text: 'Đăng nhập',
-                    onPressed: () {
-                      context.read<LoginCubit>().loginWithEmail(context);
-
-
+                  BlocBuilder<CheckauthBloc, CheckauthState>(
+                    builder: (context, state) {
+                      final login = context.read<LoginCubit>();
+                      final checkAuth = context.read<CheckauthBloc>();
+                      return CupertinoButtonEdit(
+                        text: 'Đăng nhập',
+                        onPressed: () async {
+                          await context
+                              .read<LoginCubit>()
+                              .loginWithEmail(context);
+                          login.state.apiStatus == ApiStatus.success
+                              ? checkAuth.add(const CheckauthEvent.logged())
+                              : null;
+                        },
+                      );
                     },
                   ),
-                   TextButtonCustom(
-                      text: 'Bạn quên mật khẩu click vào đây',
-                      textColor: Colors.amberAccent,
-                      action: () {
-                        context.pushRoute(const ForgotPasswordRoute());
-                      },
+                  TextButtonCustom(
+                    text: 'Bạn quên mật khẩu click vào đây',
+                    textColor: Colors.amberAccent,
+                    action: () {
+                      context.pushRoute(const ForgotPasswordRoute());
+                    },
                   ),
-                   ImageButton(
-                     src: 'assets/images/google.png',
-                     action: () {
-                       context.read<LoginCubit>().loginWithGoogle(context);
-                     },
-                   ),
+                  BlocBuilder<CheckauthBloc, CheckauthState>(
+                    builder: (context, state) {
+                      final login = context.read<LoginCubit>();
+                      final checkAuth = context.read<CheckauthBloc>();
+                      return ImageButton(
+                        src: 'assets/images/google.png',
+                        action: () async {
+                          await login.loginWithGoogle(context);
+                          login.state.apiStatus == ApiStatus.success
+                              ? checkAuth.add(const CheckauthEvent.logged())
+                              : null;
+                        },
+                      );
+                    },
+                  ),
                   Gaps.vGap8,
                   TextButtonCustom(
                     text: 'bạn chưa có tài khoản hãy click vào đây nhé',
