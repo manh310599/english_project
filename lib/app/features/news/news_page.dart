@@ -1,5 +1,9 @@
 import 'package:auto_route/annotations.dart';
+import 'package:english_project/app/common/widget/button/cupertino_button.dart';
+import 'package:english_project/app/common/widget/button/image_button.dart';
 import 'package:english_project/app/common/widget/edit_text/edit_text.dart';
+import 'package:english_project/app/features/news/presentation/view/news_body.dart';
+import 'package:english_project/dimens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -11,55 +15,50 @@ class NewsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      body: Container(
-        margin: const EdgeInsets.fromLTRB(8, 24, 8, 8),
+      body: SafeArea(
         child: Column(
+
           children: [
             Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                  width: width*.7,
-                  height: 70,
-                  child: EditText(icon: const Icon(Icons.search),
-                    hinText: 'Search news',
-                  ),
-              ),
-              IconButton(onPressed: () {
-
-              }, icon: const Icon(Icons.local_fire_department, size: 35,)),
-              IconButton(onPressed: () {
-
-              }, icon: Icon(Icons.notifications, size: 35,))
-            ],
+              children: [
+                EditText(icon: Icon(Icons.search),hinText: 'tìm kiếm',).flexible(),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.local_fire_department,
+                      size: Dimens.ic_XL2,
+                    )),
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.notifications,
+                      size: Dimens.ic_XL2,
+                    ))
+              ],
             ),
             SingleChildScrollView(
-              scrollDirection: axisDirectionToAxis(AxisDirection.right),
+              scrollDirection: axisDirectionToAxis(AxisDirection.left),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                ButtonBar(
-                alignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  TextButton( child: const Text('TechCrunch'), onPressed: () {}),
-                  TextButton( child: const Text('Tesla'), onPressed: () {}),
-                  TextButton( child: const Text('Apple news'), onPressed: () {}),
-                  TextButton( child: const Text('Business'), onPressed: () {}),
-                  TextButton( child: const Text('Wall Street Journal'), onPressed: () {}),
+                  CupertinoButtonEdit(
+                      text: 'TechCrunch',textColor: Colors.black, onPressed: () {}),
+                  CupertinoButtonEdit(
+                      text: 'Tesla',textColor: Colors.black, onPressed: () {}),
+                  CupertinoButtonEdit(
+                      text: 'Apple news',textColor: Colors.black, onPressed: () {}),
+                  CupertinoButtonEdit(
+                      text: 'Business',textColor: Colors.black, onPressed: () {}),
+                  CupertinoButtonEdit(
+                      text: 'Wall Street Journal',textColor: Colors.black, onPressed: () {}),
                 ],
               ),
-                ],
-              ),
-            )
+            ),
+            const SizedBox(child: NewsBody()).expand()
           ],
         ),
       ),
     );
-
-
-
-
   }
 }
