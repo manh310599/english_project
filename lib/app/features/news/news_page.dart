@@ -32,7 +32,7 @@ class NewsPage extends StatelessWidget {
                     )),
                 IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.notifications,
                       size: Dimens.ic_XL2,
                     ))
