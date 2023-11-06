@@ -12,9 +12,10 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
   CheckauthBloc() : super(const CheckauthState()) {
     on<_Stated>(checkLogin);
     on<_Logged>(Login);
+    on<_Logout>(LogOut);
   }
 
-  Future<void> checkLogin(event, Emitter<CheckauthState> emit) async {
+  Stream<void> checkLogin(event, Emitter<CheckauthState> emit) async* {
      final check = FirebaseAuth.instance.currentUser;
      if(check != null ){
        emit(state.copyWith(checkAuth: CheckAuth.logged));
@@ -22,9 +23,14 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
      else {
        emit(state.copyWith(checkAuth: CheckAuth.loggedOut));
      }
+
   }
 
   Future<void> Login (event,Emitter<CheckauthState> emit) async {
     emit(state.copyWith(checkAuth: CheckAuth.logged));
+  }
+
+  Future<void> LogOut (event,Emitter<CheckauthState> emit) async {
+    emit(state.copyWith(checkAuth: CheckAuth.loggedOut));
   }
 }

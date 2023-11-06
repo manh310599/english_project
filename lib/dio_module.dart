@@ -3,13 +3,13 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+const String newsApiOld = 'https://saurav.tech/NewsAPI/';
+const String newsApi = '';
+
 class DioModule {
   DioModule();
 
-  String apiKey = 'c83904943ebd41d2b983ffa2581197eb';
-
   Dio? _dio;
-
 
   Dio get dio {
     if (_dio != null) {
@@ -18,13 +18,11 @@ class DioModule {
 
     log('*** Dio Create');
     final options = BaseOptions(
-        baseUrl: 'https://newsapi.org/v2/',
-        connectTimeout: const Duration(seconds: 12),
-        receiveTimeout: const Duration(seconds: 12),
-        sendTimeout: const Duration(seconds: 12),
-        queryParameters: <String, String>{
-          'apiKey': apiKey
-        });
+      baseUrl: newsApiOld,
+      connectTimeout: const Duration(seconds: 12),
+      receiveTimeout: const Duration(seconds: 12),
+      sendTimeout: const Duration(seconds: 12),
+    );
 
     _dio = Dio(options);
 
@@ -41,9 +39,8 @@ class DioModule {
 
     return _dio!;
   }
-
-
 }
+
 class DioModuleImage {
   DioModuleImage();
 
@@ -62,9 +59,7 @@ class DioModuleImage {
         connectTimeout: const Duration(seconds: 12),
         receiveTimeout: const Duration(seconds: 12),
         sendTimeout: const Duration(seconds: 12),
-        queryParameters: <String, String>{
-          'client_id': apiKey
-        });
+        queryParameters: <String, String>{'client_id': apiKey});
 
     _dioImage = Dio(options);
 

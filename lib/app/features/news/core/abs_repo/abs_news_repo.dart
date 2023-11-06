@@ -1,6 +1,15 @@
 
-import '../../presentation/bbc_news/model/bbc_news_model.dart';
+
+import 'package:english_project/app/features/news/model/news_model.dart';
 
 abstract class NewsRepo {
-  Future<BBCNewModel?> getHeadLinesBBCNew();
+  Future<NewModel?> getHeadLinesBBCNew();
+
+  Future<NewModel?> getHeadLinesCNNNews();
+
+  Future<NewModel?> getHeadLinesFoxNews();
+
+  Future<NewModel?> getHeadLinesGoogleNews();
+
+  Future<NewModel?> getNewsUpdate();
 }

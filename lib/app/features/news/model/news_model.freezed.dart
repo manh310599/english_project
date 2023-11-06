@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'bbc_news_model.dart';
+part of 'news_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,35 +14,34 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-BBCNewModel _$BBCNewModelFromJson(Map<String, dynamic> json) {
-  return _BBCNewModel.fromJson(json);
+NewModel _$NewModelFromJson(Map<String, dynamic> json) {
+  return _NewModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$BBCNewModel {
+mixin _$NewModel {
   String? get status => throw _privateConstructorUsedError;
   int? get totalResults => throw _privateConstructorUsedError;
   List<Articles>? get articles => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BBCNewModelCopyWith<BBCNewModel> get copyWith =>
+  $NewModelCopyWith<NewModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BBCNewModelCopyWith<$Res> {
-  factory $BBCNewModelCopyWith(
-          BBCNewModel value, $Res Function(BBCNewModel) then) =
-      _$BBCNewModelCopyWithImpl<$Res, BBCNewModel>;
+abstract class $NewModelCopyWith<$Res> {
+  factory $NewModelCopyWith(NewModel value, $Res Function(NewModel) then) =
+      _$NewModelCopyWithImpl<$Res, NewModel>;
   @useResult
   $Res call({String? status, int? totalResults, List<Articles>? articles});
 }
 
 /// @nodoc
-class _$BBCNewModelCopyWithImpl<$Res, $Val extends BBCNewModel>
-    implements $BBCNewModelCopyWith<$Res> {
-  _$BBCNewModelCopyWithImpl(this._value, this._then);
+class _$NewModelCopyWithImpl<$Res, $Val extends NewModel>
+    implements $NewModelCopyWith<$Res> {
+  _$NewModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -74,22 +73,22 @@ class _$BBCNewModelCopyWithImpl<$Res, $Val extends BBCNewModel>
 }
 
 /// @nodoc
-abstract class _$$BBCNewModelImplCopyWith<$Res>
-    implements $BBCNewModelCopyWith<$Res> {
-  factory _$$BBCNewModelImplCopyWith(
-          _$BBCNewModelImpl value, $Res Function(_$BBCNewModelImpl) then) =
-      __$$BBCNewModelImplCopyWithImpl<$Res>;
+abstract class _$$NewModelImplCopyWith<$Res>
+    implements $NewModelCopyWith<$Res> {
+  factory _$$NewModelImplCopyWith(
+          _$NewModelImpl value, $Res Function(_$NewModelImpl) then) =
+      __$$NewModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? status, int? totalResults, List<Articles>? articles});
 }
 
 /// @nodoc
-class __$$BBCNewModelImplCopyWithImpl<$Res>
-    extends _$BBCNewModelCopyWithImpl<$Res, _$BBCNewModelImpl>
-    implements _$$BBCNewModelImplCopyWith<$Res> {
-  __$$BBCNewModelImplCopyWithImpl(
-      _$BBCNewModelImpl _value, $Res Function(_$BBCNewModelImpl) _then)
+class __$$NewModelImplCopyWithImpl<$Res>
+    extends _$NewModelCopyWithImpl<$Res, _$NewModelImpl>
+    implements _$$NewModelImplCopyWith<$Res> {
+  __$$NewModelImplCopyWithImpl(
+      _$NewModelImpl _value, $Res Function(_$NewModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +98,7 @@ class __$$BBCNewModelImplCopyWithImpl<$Res>
     Object? totalResults = freezed,
     Object? articles = freezed,
   }) {
-    return _then(_$BBCNewModelImpl(
+    return _then(_$NewModelImpl(
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -118,13 +117,13 @@ class __$$BBCNewModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$BBCNewModelImpl implements _BBCNewModel {
-  const _$BBCNewModelImpl(
+class _$NewModelImpl implements _NewModel {
+  const _$NewModelImpl(
       {this.status, this.totalResults, final List<Articles>? articles})
       : _articles = articles;
 
-  factory _$BBCNewModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BBCNewModelImplFromJson(json);
+  factory _$NewModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NewModelImplFromJson(json);
 
   @override
   final String? status;
@@ -142,14 +141,14 @@ class _$BBCNewModelImpl implements _BBCNewModel {
 
   @override
   String toString() {
-    return 'BBCNewModel(status: $status, totalResults: $totalResults, articles: $articles)';
+    return 'NewModel(status: $status, totalResults: $totalResults, articles: $articles)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BBCNewModelImpl &&
+            other is _$NewModelImpl &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.totalResults, totalResults) ||
                 other.totalResults == totalResults) &&
@@ -164,25 +163,25 @@ class _$BBCNewModelImpl implements _BBCNewModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BBCNewModelImplCopyWith<_$BBCNewModelImpl> get copyWith =>
-      __$$BBCNewModelImplCopyWithImpl<_$BBCNewModelImpl>(this, _$identity);
+  _$$NewModelImplCopyWith<_$NewModelImpl> get copyWith =>
+      __$$NewModelImplCopyWithImpl<_$NewModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BBCNewModelImplToJson(
+    return _$$NewModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _BBCNewModel implements BBCNewModel {
-  const factory _BBCNewModel(
+abstract class _NewModel implements NewModel {
+  const factory _NewModel(
       {final String? status,
       final int? totalResults,
-      final List<Articles>? articles}) = _$BBCNewModelImpl;
+      final List<Articles>? articles}) = _$NewModelImpl;
 
-  factory _BBCNewModel.fromJson(Map<String, dynamic> json) =
-      _$BBCNewModelImpl.fromJson;
+  factory _NewModel.fromJson(Map<String, dynamic> json) =
+      _$NewModelImpl.fromJson;
 
   @override
   String? get status;
@@ -192,7 +191,7 @@ abstract class _BBCNewModel implements BBCNewModel {
   List<Articles>? get articles;
   @override
   @JsonKey(ignore: true)
-  _$$BBCNewModelImplCopyWith<_$BBCNewModelImpl> get copyWith =>
+  _$$NewModelImplCopyWith<_$NewModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'bbc_news_model.dart';
+part of 'news_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BBCNewModelImpl _$$BBCNewModelImplFromJson(Map<String, dynamic> json) =>
-    _$BBCNewModelImpl(
+_$NewModelImpl _$$NewModelImplFromJson(Map<String, dynamic> json) =>
+    _$NewModelImpl(
       status: json['status'] as String?,
       totalResults: json['totalResults'] as int?,
       articles: (json['articles'] as List<dynamic>?)
@@ -15,7 +15,7 @@ _$BBCNewModelImpl _$$BBCNewModelImplFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$BBCNewModelImplToJson(_$BBCNewModelImpl instance) =>
+Map<String, dynamic> _$$NewModelImplToJson(_$NewModelImpl instance) =>
     <String, dynamic>{
       'status': instance.status,
       'totalResults': instance.totalResults,

@@ -19,26 +19,98 @@ class _NewApi implements NewApi {
   String? baseUrl;
 
   @override
-  Future<BBCNewModel?> getHeadLinesBBCNews() async {
+  Future<NewModel?> getHeadLinesBBCNews() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
-        .fetch<Map<String, dynamic>?>(_setStreamType<BBCNewModel>(Options(
+        .fetch<Map<String, dynamic>?>(_setStreamType<NewModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/top-headlines?sources=bbc-news',
+              '/everything/bbc-news.json',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value =
-        _result.data == null ? null : BBCNewModel.fromJson(_result.data!);
+        _result.data == null ? null : NewModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<NewModel?> getHeadLinesCNNNews() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<NewModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/everything/cnn.json',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value =
+        _result.data == null ? null : NewModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<NewModel?> getHeadLinesFoxNews() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<NewModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/everything/fox-news.json',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value =
+        _result.data == null ? null : NewModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<NewModel?> getHeadLinesGoogleNews() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<NewModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/everything/google-news.json',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value =
+        _result.data == null ? null : NewModel.fromJson(_result.data!);
     return value;
   }
 
