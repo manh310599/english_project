@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+
 @RoutePage()
 class FavoriteNewsPage extends StatelessWidget {
   const FavoriteNewsPage({super.key});
@@ -28,6 +29,7 @@ class FavoriteNewsPage extends StatelessWidget {
                     icon: const Icon(
                       Icons.favorite,
                       size: Dimens.ic_XL2,
+                      color: Colors.redAccent,
                     )),
               ],
             ),
