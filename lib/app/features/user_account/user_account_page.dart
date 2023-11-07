@@ -3,6 +3,8 @@ import 'package:english_project/app/features/user_account/presentation/view/card
 import 'package:english_project/font_size.dart';
 import 'package:english_project/gaps.dart';
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/sqlite_api.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../dimens.dart';
@@ -40,15 +42,26 @@ class UserAccountPage extends StatelessWidget {
               ],
             ),
             Gaps.vGap10,
-            const CardTitle(title: 'Chỉnh sửa thông tin cá nhân',),
+            const CardTitle(
+              title: 'Chỉnh sửa thông tin cá nhân',
+            ),
             Gaps.vGap10,
-            const CardTitle(title: 'Mở khóa bản pro không quảng cáo',),
+            const CardTitle(
+              title: 'Mở khóa bản pro không quảng cáo',
+            ),
             Gaps.vGap10,
-            const CardTitle(title: 'Hãy tham gia cùng bọn mình',),
+            const CardTitle(
+              title: 'Hãy tham gia cùng bọn mình',
+            ),
             Gaps.vGap10,
-             CardTitle(title: 'Đăng xuất',callback: () {
+            CardTitle(
+              title: 'Đăng xuất',
+              callback: () async {
+                var db = await openDatabase('assets/database/storage.db');
+                print(db.path);
 
-            },),
+              },
+            ),
           ],
         ),
       ),

@@ -94,10 +94,9 @@ class NewsSearchBottomSheet extends StatelessWidget {
                     } else {
                       return state.itemSelect == index
                           ? Image.network(
-                              state.imageFromText?.results![index].urls
+                              state.imageFromText?.results?[index].urls
                                       ?.small ??
-                                  'https://media.sproutsocial.com/uploads/2017/02/10'
-                                      'x-featured-social-media-image-size.png',
+                                  'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
                               fit: BoxFit.cover,
                             ).opacity25()
                           : InkWell(
@@ -109,7 +108,7 @@ class NewsSearchBottomSheet extends StatelessWidget {
                               child: Image.network(
                                 state.imageFromText?.results![index].urls
                                         ?.small ??
-                                    '',
+                                    'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
                                 fit: BoxFit.cover,
                               ),
                             );

@@ -6,7 +6,7 @@ part 'articles_model.g.dart';
 part 'articles_model.freezed.dart';
 
 @freezed
-class Articles with _$Articles {
+class   Articles with _$Articles {
   const factory Articles({
     Source? source,
     String? author,

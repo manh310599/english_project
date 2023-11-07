@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 part 'news_read_cubit.freezed.dart';
 
@@ -14,7 +13,6 @@ class NewsReadCubit extends Cubit<NewsReadState> {
       trigger: ContentBlockerTrigger(
           urlFilter: 'https://easylist.to/easylist/easylist.txt'),
       action: ContentBlockerAction(type: ContentBlockerActionType.BLOCK));
-
 
   Future<void> setPageNews(String url, context) async {
     emit(state.copyWith(contentBlocker: contentBlocker));

@@ -4,8 +4,10 @@ import 'package:english_project/app/features/auth/presentation/check_user/viewmo
 import 'package:english_project/check_internet.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 import 'app/app_route/app_route.dart';
 import 'depedence.dart';
@@ -18,12 +20,22 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 // Not supported on web
+ // FirebaseCrashlytics.instance.crash();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
 
   runApp(const App());
+
+  FlutterError.onError = (error) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(error);
+  };
+
+  PlatformDispatcher.instance.onError = (error,stack){
+    FirebaseCrashlytics.instance.recordError(error, stack,fatal: true);
+    return true;
+  };
 }
 
 class App extends StatefulWidget {
