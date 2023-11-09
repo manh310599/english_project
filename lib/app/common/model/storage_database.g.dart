@@ -38,6 +38,9 @@ _$NewsImpl _$$NewsImplFromJson(Map<String, dynamic> json) => _$NewsImpl(
       description: json['description'] as String?,
       url: json['url'] as String?,
       imageUrl: json['imageUrl'] as String?,
+      imageAssets: fromJsonImageAssets(json['imageAssets'] as List<int>?),
+      startTime: json['startTime'] as String?,
+      finalTime: json['finalTime'] as String?,
     );
 
 Map<String, dynamic> _$$NewsImplToJson(_$NewsImpl instance) =>
@@ -47,6 +50,9 @@ Map<String, dynamic> _$$NewsImplToJson(_$NewsImpl instance) =>
       'description': instance.description,
       'url': instance.url,
       'imageUrl': instance.imageUrl,
+      'imageAssets': toJsonImageAssets(instance.imageAssets),
+      'startTime': instance.startTime,
+      'finalTime': instance.finalTime,
     };
 
 _$StorageWordsImpl _$$StorageWordsImplFromJson(Map<String, dynamic> json) =>

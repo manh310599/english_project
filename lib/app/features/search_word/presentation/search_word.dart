@@ -28,12 +28,14 @@ class SearchWordPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Gaps.hGap8,
+
                     Image.asset(
                       'assets/images/logo.png',
                       height: Dimens.ic_XL,
                     ),
                     Gaps.hGap8,
                     EditText(
+                      preIcon: Icon(Icons.cleaning_services_rounded),
                       icon: const Icon(
                         Icons.search,
                       ),

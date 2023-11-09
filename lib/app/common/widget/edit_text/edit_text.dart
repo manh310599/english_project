@@ -1,5 +1,6 @@
 import 'package:english_project/dimens.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class EditText extends StatefulWidget {
   EditText({
@@ -21,7 +22,7 @@ class EditText extends StatefulWidget {
   final Function(String? data)? callback;
   final Icon? preIcon;
   final Function(String? data)? search;
-
+  
   @override
   State<EditText> createState() => _EditTextState();
 }
@@ -31,7 +32,7 @@ class _EditTextState extends State<EditText> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
 
       child: TextFormField(
         controller: _textEditingController,
@@ -49,7 +50,12 @@ class _EditTextState extends State<EditText> {
               )),
           hintText: widget.hinText,
           border: const OutlineInputBorder(),
-          prefixIcon: widget.preIcon,
+          // prefixIcon: InkWell(onTap: () {
+          //   _textEditingController.clear();
+          // },child: widget.preIcon),
+          prefixIcon: InkWell(onTap: () {
+            _textEditingController.clear();
+          },child: widget.preIcon,).h0(context),
           suffixIcon: InkWell(
               onTap: () {
                 widget.click == true
@@ -59,6 +65,7 @@ class _EditTextState extends State<EditText> {
                             : widget.stylePassWord = false;
                       })
                     : widget.search!(_textEditingController.text);
+                _textEditingController.clear();
               },
               child: widget.icon),
         ),
