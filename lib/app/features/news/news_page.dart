@@ -1,12 +1,18 @@
 import 'package:auto_route/annotations.dart';
+import 'package:english_project/all_file/all_file.dart';
+import 'package:english_project/app/common/rounding_number.dart';
 import 'package:english_project/app/common/widget/button/cupertino_button.dart';
-import 'package:english_project/app/common/widget/button/image_button.dart';
+import 'package:english_project/app/common/widget/button/cupertion_button_custom.dart';
 import 'package:english_project/app/common/widget/edit_text/edit_text.dart';
+import 'package:english_project/app/features/news/data/api/news_update_api.dart';
 import 'package:english_project/app/features/news/presentation/view/news_body.dart';
+import 'package:english_project/app/features/news/presentation/view/news_catelogy.dart';
+import 'package:english_project/app/features/news/presentation/view/news_header.dart';
+import 'package:english_project/app/features/news/presentation/view/news_index_page.dart';
+import 'package:english_project/app/features/news/presentation/viewmodel/news_cubit.dart';
 import 'package:english_project/dimens.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:english_project/gaps.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage()
@@ -15,48 +21,28 @@ class NewsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NewsUpdateApi newsUpdateApi = NewsUpdateApi();
+    newsUpdateApi.getNewsUpdate();
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-
-          children: [
-            Row(
-              children: [
-                EditText(icon: Icon(Icons.search),hinText: 'tìm kiếm',).flexible(),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.local_fire_department,
-                      size: Dimens.ic_XL2,
-                    )),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.notifications,
-                      size: Dimens.ic_XL2,
-                    ))
-              ],
-            ),
-            SingleChildScrollView(
-              scrollDirection: axisDirectionToAxis(AxisDirection.left),
-              child: Row(
+        child: BlocProvider(
+          create: (context) => NewsCubit()..getNewsUpdate(),
+          child: BlocBuilder<NewsCubit, NewsState>(
+            builder: (context, state) {
+              return Column(
                 children: [
-                  CupertinoButtonEdit(
-                      text: 'TechCrunch',textColor: Colors.black, onPressed: () {}),
-                  CupertinoButtonEdit(
-                      text: 'Tesla',textColor: Colors.black, onPressed: () {}),
-                  CupertinoButtonEdit(
-                      text: 'Apple news',textColor: Colors.black, onPressed: () {}),
-                  CupertinoButtonEdit(
-                      text: 'Business',textColor: Colors.black, onPressed: () {}),
-                  CupertinoButtonEdit(
-                      text: 'Wall Street Journal',textColor: Colors.black, onPressed: () {}),
+                  NewsHeader(state: state),
+                  NewsType(state: state),
+                  SizedBox(
+                      child: NewsBody(
+                    state: state,
+                  )).expand(),
+                  NewsIndexPage(state: state),
                 ],
-              ),
-            ),
-            const SizedBox(child: NewsBody()).expand()
-          ],
+              );
+            },
+          ),
         ),
       ),
     );

@@ -1,4 +1,4 @@
-package com.example.english_project
+package com.mqenglish.vn
 
 import io.flutter.embedding.android.FlutterActivity
 

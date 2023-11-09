@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string name="app_name">SmartEnglish</string>
+    <string name="facebook_app_id">1002720037499361</string>
+    <string name="fb_login_protocol_scheme">fb1002720037499361</string>
+    <string name="facebook_client_token">7a5b0a2764b3715a53a0b56d053ce8e7</string>
+</resources>

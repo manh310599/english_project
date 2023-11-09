@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class FlashCard extends StatefulWidget {
   const FlashCard({super.key, required this.child});
 
-  final Widget child;
+  final Widget child;//flip card widget
 
   @override
   State<FlashCard> createState() => _FlashCardState();

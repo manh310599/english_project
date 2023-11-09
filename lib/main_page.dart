@@ -1,7 +1,5 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:english_project/app/app_route/app_route.gr.dart';
-import 'package:english_project/app/features/learn_vocabulary/learn_vocabulary_page.dart';
 import 'package:flutter/material.dart';
 
 import 'check_internet.dart';
@@ -15,11 +13,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-
-  @override
   void initState() {
     // TODO: implement initState
+
     getConnect(context);
+
     super.initState();
   }
 
@@ -28,17 +26,18 @@ class _MainPageState extends State<MainPage> {
     return AutoTabsRouter(
       routes: const [
         NewsRoute(),
+        SearchWordRoute(),
         LearnVocabularyRoute(),
         FavoriteNewsRoute(),
         UserAccountRoute(),
       ],
       builder: (context, child) {
-
         final tabsRouter = AutoTabsRouter.of(context);
 
         return Scaffold(
           body: child,
           bottomNavigationBar: BottomNavigationBar(
+            fixedColor: Colors.yellowAccent,
             currentIndex: tabsRouter.activeIndex,
             onTap: (value) {
               tabsRouter.setActiveIndex(value);
@@ -46,21 +45,36 @@ class _MainPageState extends State<MainPage> {
             items: const [
               BottomNavigationBarItem(
                 backgroundColor: Colors.black,
-                icon: Icon(Icons.newspaper),
-                label: 'Báo Mới',
+                icon: Icon(
+                  Icons.newspaper,
+                  color: Colors.white,
+                ),
+                label: 'Đọc báo',
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.book),
-                  label: 'Học từ'
-              ),
+                  icon: Icon(
+                    Icons.content_paste_search,
+                    color: Colors.white,
+                  ),
+                  label: 'Tra từ'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite,),
-                  label: 'Yêu thich'
-              ),
+                  icon: Icon(
+                    Icons.book,
+                    color: Colors.white,
+                  ),
+                  label: 'Học từ'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle_rounded),
-                  label: 'Tài khoản'
-              ),
+                  icon: Icon(
+                    Icons.favorite,
+                    color: Colors.white,
+                  ),
+                  label: 'Yêu thich'),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.account_circle_rounded,
+                    color: Colors.white,
+                  ),
+                  label: 'Tài khoản'),
             ],
           ),
         );
@@ -68,4 +82,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-

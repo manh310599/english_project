@@ -21,7 +21,7 @@ class CupertinoButtonEdit extends StatelessWidget {
     return CupertinoButton(
       onPressed: onPressed,
       child: Container(
-        padding: Dimens.edge_default,
+        padding: Dimens.edge_button,
         decoration: BoxDecoration(
           borderRadius: Dimens.rad_border_circular,
           color: color ?? Vx.blue50,

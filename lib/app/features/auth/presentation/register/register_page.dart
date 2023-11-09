@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:english_project/all_file/all_file.dart';
+import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/widget/edit_text/edit_text.dart';
+import 'package:english_project/app/features/auth/presentation/check_user/viewmodel/checkauth_bloc.dart';
 import 'package:english_project/app/features/auth/presentation/register/viewmodel/register_cubit.dart';
 import 'package:flutter/material.dart';
 
@@ -50,13 +52,19 @@ class RegisterPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CupertinoButtonEdit(
-                        text: 'Đăng ký',
-                        onPressed: () {
-                          context
-                              .read<RegisterCubit>()
-                              .registerByEmail(context);
-
+                      BlocBuilder<CheckauthBloc, CheckauthState>(
+                        builder: (context, state) {
+                          final register = context.read<RegisterCubit>();
+                          final checkAuth = context.read<CheckauthBloc>();
+                          return CupertinoButtonEdit(
+                            text: 'Đăng ký',
+                            onPressed: () async {
+                              await register.registerByEmail(context);
+                              register.state.apiStatus == ApiStatus.success
+                                  ? checkAuth.add(CheckauthEvent.logged())
+                                  : null;
+                            },
+                          );
                         },
                       ),
                       CupertinoButtonEdit(

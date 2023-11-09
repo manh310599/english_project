@@ -1,11 +1,12 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:english_project/all_file/all_file.dart';
 import 'package:english_project/app/app_route/app_route.gr.dart';
+import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/widget/button/cupertino_button.dart';
 import 'package:english_project/app/common/widget/button/image_button.dart';
 import 'package:english_project/app/common/widget/button/text_button.dart';
 import 'package:english_project/app/common/widget/edit_text/edit_text.dart';
+import 'package:english_project/app/features/auth/presentation/check_user/viewmodel/checkauth_bloc.dart';
 import 'package:english_project/app/features/auth/presentation/login/viewmodel/login_cubit.dart';
 import 'package:english_project/gaps.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: BlocProvider(
         create: (context) => LoginCubit(),
         child: BlocBuilder<LoginCubit, LoginState>(
@@ -43,33 +43,51 @@ class LoginPage extends StatelessWidget {
                     stylePassWord: true,
                     click: true,
                   ),
-                  CupertinoButtonEdit(
-                    text: 'Đăng nhập',
-                    onPressed: () {
-                      context.read<LoginCubit>().loginWithEmail(context);
+                  BlocBuilder<CheckauthBloc, CheckauthState>(
+                    builder: (context, state) {
+                      final login = context.read<LoginCubit>();
+                      final checkAuth = context.read<CheckauthBloc>();
+                      return CupertinoButtonEdit(
+                        text: 'Đăng nhập',
+                        onPressed: () async {
+                          await context
+                              .read<LoginCubit>()
+                              .loginWithEmail(context);
+                          login.state.apiStatus == ApiStatus.success
+                              ? checkAuth.add(const CheckauthEvent.logged())
+                              : null;
+                        },
+                      );
                     },
                   ),
-                  const TextButtonCustom(text: 'Bạn quên mật khẩu click vào đây',textColor: Colors.amberAccent),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ImageButton(
+                  TextButtonCustom(
+                    text: 'Bạn quên mật khẩu click vào đây',
+                    textColor: Colors.amberAccent,
+                    action: () {
+                      context.pushRoute(const ForgotPasswordRoute());
+                    },
+                  ),
+                  BlocBuilder<CheckauthBloc, CheckauthState>(
+                    builder: (context, state) {
+                      final login = context.read<LoginCubit>();
+                      final checkAuth = context.read<CheckauthBloc>();
+                      return ImageButton(
                         src: 'assets/images/google.png',
-                      ),
-                      Gaps.hGap8,
-                      ImageButton(
-                        src: 'assets/images/facebook.webp',
-                      ),
-                    ],
+                        action: () async {
+                          await login.loginWithGoogle(context);
+                          login.state.apiStatus == ApiStatus.success
+                              ? checkAuth.add(const CheckauthEvent.logged())
+                              : null;
+                        },
+                      );
+                    },
                   ),
                   Gaps.vGap8,
                   TextButtonCustom(
                     text: 'bạn chưa có tài khoản hãy click vào đây nhé',
                     textColor: context.themeColor.textLink,
                     action: () {
-                      context.pushRoute(
-                          const RegisterRoute()
-                      );
+                      context.pushRoute(const RegisterRoute());
                     },
                   )
                 ],

@@ -17,8 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$InformationCardState {
   ApiStatus? get apiStatus => throw _privateConstructorUsedError;
-  String? get meaning => throw _privateConstructorUsedError;
+  Translate? get translate => throw _privateConstructorUsedError;
   ImageFromText? get imageFromText => throw _privateConstructorUsedError;
+  int? get itemSelect => throw _privateConstructorUsedError;
+  String? get filePath => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $InformationCardStateCopyWith<InformationCardState> get copyWith =>
@@ -32,8 +34,13 @@ abstract class $InformationCardStateCopyWith<$Res> {
       _$InformationCardStateCopyWithImpl<$Res, InformationCardState>;
   @useResult
   $Res call(
-      {ApiStatus? apiStatus, String? meaning, ImageFromText? imageFromText});
+      {ApiStatus? apiStatus,
+      Translate? translate,
+      ImageFromText? imageFromText,
+      int? itemSelect,
+      String? filePath});
 
+  $TranslateCopyWith<$Res>? get translate;
   $ImageFromTextCopyWith<$Res>? get imageFromText;
 }
 
@@ -52,23 +59,45 @@ class _$InformationCardStateCopyWithImpl<$Res,
   @override
   $Res call({
     Object? apiStatus = freezed,
-    Object? meaning = freezed,
+    Object? translate = freezed,
     Object? imageFromText = freezed,
+    Object? itemSelect = freezed,
+    Object? filePath = freezed,
   }) {
     return _then(_value.copyWith(
       apiStatus: freezed == apiStatus
           ? _value.apiStatus
           : apiStatus // ignore: cast_nullable_to_non_nullable
               as ApiStatus?,
-      meaning: freezed == meaning
-          ? _value.meaning
-          : meaning // ignore: cast_nullable_to_non_nullable
-              as String?,
+      translate: freezed == translate
+          ? _value.translate
+          : translate // ignore: cast_nullable_to_non_nullable
+              as Translate?,
       imageFromText: freezed == imageFromText
           ? _value.imageFromText
           : imageFromText // ignore: cast_nullable_to_non_nullable
               as ImageFromText?,
+      itemSelect: freezed == itemSelect
+          ? _value.itemSelect
+          : itemSelect // ignore: cast_nullable_to_non_nullable
+              as int?,
+      filePath: freezed == filePath
+          ? _value.filePath
+          : filePath // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TranslateCopyWith<$Res>? get translate {
+    if (_value.translate == null) {
+      return null;
+    }
+
+    return $TranslateCopyWith<$Res>(_value.translate!, (value) {
+      return _then(_value.copyWith(translate: value) as $Val);
+    });
   }
 
   @override
@@ -93,8 +122,14 @@ abstract class _$$InformationCardStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {ApiStatus? apiStatus, String? meaning, ImageFromText? imageFromText});
+      {ApiStatus? apiStatus,
+      Translate? translate,
+      ImageFromText? imageFromText,
+      int? itemSelect,
+      String? filePath});
 
+  @override
+  $TranslateCopyWith<$Res>? get translate;
   @override
   $ImageFromTextCopyWith<$Res>? get imageFromText;
 }
@@ -111,22 +146,32 @@ class __$$InformationCardStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? apiStatus = freezed,
-    Object? meaning = freezed,
+    Object? translate = freezed,
     Object? imageFromText = freezed,
+    Object? itemSelect = freezed,
+    Object? filePath = freezed,
   }) {
     return _then(_$InformationCardStateImpl(
       apiStatus: freezed == apiStatus
           ? _value.apiStatus
           : apiStatus // ignore: cast_nullable_to_non_nullable
               as ApiStatus?,
-      meaning: freezed == meaning
-          ? _value.meaning
-          : meaning // ignore: cast_nullable_to_non_nullable
-              as String?,
+      translate: freezed == translate
+          ? _value.translate
+          : translate // ignore: cast_nullable_to_non_nullable
+              as Translate?,
       imageFromText: freezed == imageFromText
           ? _value.imageFromText
           : imageFromText // ignore: cast_nullable_to_non_nullable
               as ImageFromText?,
+      itemSelect: freezed == itemSelect
+          ? _value.itemSelect
+          : itemSelect // ignore: cast_nullable_to_non_nullable
+              as int?,
+      filePath: freezed == filePath
+          ? _value.filePath
+          : filePath // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -136,8 +181,10 @@ class __$$InformationCardStateImplCopyWithImpl<$Res>
 class _$InformationCardStateImpl extends _InformationCardState {
   const _$InformationCardStateImpl(
       {this.apiStatus = ApiStatus.init,
-      this.meaning = null,
-      this.imageFromText = null})
+      this.translate = null,
+      this.imageFromText = null,
+      this.itemSelect = 0,
+      this.filePath = null})
       : super._();
 
   @override
@@ -145,14 +192,20 @@ class _$InformationCardStateImpl extends _InformationCardState {
   final ApiStatus? apiStatus;
   @override
   @JsonKey()
-  final String? meaning;
+  final Translate? translate;
   @override
   @JsonKey()
   final ImageFromText? imageFromText;
+  @override
+  @JsonKey()
+  final int? itemSelect;
+  @override
+  @JsonKey()
+  final String? filePath;
 
   @override
   String toString() {
-    return 'InformationCardState(apiStatus: $apiStatus, meaning: $meaning, imageFromText: $imageFromText)';
+    return 'InformationCardState(apiStatus: $apiStatus, translate: $translate, imageFromText: $imageFromText, itemSelect: $itemSelect, filePath: $filePath)';
   }
 
   @override
@@ -162,14 +215,19 @@ class _$InformationCardStateImpl extends _InformationCardState {
             other is _$InformationCardStateImpl &&
             (identical(other.apiStatus, apiStatus) ||
                 other.apiStatus == apiStatus) &&
-            (identical(other.meaning, meaning) || other.meaning == meaning) &&
+            (identical(other.translate, translate) ||
+                other.translate == translate) &&
             (identical(other.imageFromText, imageFromText) ||
-                other.imageFromText == imageFromText));
+                other.imageFromText == imageFromText) &&
+            (identical(other.itemSelect, itemSelect) ||
+                other.itemSelect == itemSelect) &&
+            (identical(other.filePath, filePath) ||
+                other.filePath == filePath));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, apiStatus, meaning, imageFromText);
+  int get hashCode => Object.hash(
+      runtimeType, apiStatus, translate, imageFromText, itemSelect, filePath);
 
   @JsonKey(ignore: true)
   @override
@@ -183,16 +241,22 @@ class _$InformationCardStateImpl extends _InformationCardState {
 abstract class _InformationCardState extends InformationCardState {
   const factory _InformationCardState(
       {final ApiStatus? apiStatus,
-      final String? meaning,
-      final ImageFromText? imageFromText}) = _$InformationCardStateImpl;
+      final Translate? translate,
+      final ImageFromText? imageFromText,
+      final int? itemSelect,
+      final String? filePath}) = _$InformationCardStateImpl;
   const _InformationCardState._() : super._();
 
   @override
   ApiStatus? get apiStatus;
   @override
-  String? get meaning;
+  Translate? get translate;
   @override
   ImageFromText? get imageFromText;
+  @override
+  int? get itemSelect;
+  @override
+  String? get filePath;
   @override
   @JsonKey(ignore: true)
   _$$InformationCardStateImplCopyWith<_$InformationCardStateImpl>

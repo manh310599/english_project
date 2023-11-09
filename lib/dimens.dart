@@ -40,6 +40,7 @@ class Dimens {
   static const double pad_XL4 = 34.0;
 
   static const EdgeInsets edge_default = EdgeInsets.all(pad_default);
+  static const EdgeInsets edge_button = EdgeInsets.all(pad_XS);
 
   static EdgeInsets edgePage(BuildContext context) =>
       EdgeInsets.symmetric(horizontal: pad_default).copyWith(

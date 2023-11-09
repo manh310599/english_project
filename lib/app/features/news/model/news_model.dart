@@ -2,20 +2,20 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'articles_model.dart';
 
-part 'bbc_news_model.freezed.dart';
+part 'news_model.freezed.dart';
 
-part 'bbc_news_model.g.dart';
+part 'news_model.g.dart';
 
 @freezed
-class BBCNewModel with _$BBCNewModel {
-  const factory BBCNewModel({
+class NewModel with _$NewModel {
+  const factory NewModel({
     String? status,
     int? totalResults,
     List<Articles>? articles,
-  }) = _BBCNewModel;
+  }) = _NewModel;
 
-  factory BBCNewModel.fromJson(Map<String, Object?> json) =>
-      _$BBCNewModelFromJson(json);
+  factory NewModel.fromJson(Map<String, dynamic> json) =>
+      _$NewModelFromJson(json);
 }
 
 

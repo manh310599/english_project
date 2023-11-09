@@ -6,7 +6,9 @@ class InformationCardState with _$InformationCardState {
 
   const factory InformationCardState({
     @Default(ApiStatus.init) ApiStatus? apiStatus,
-    @Default(null) String? meaning,
+    @Default(null) Translate? translate,
     @Default(null) ImageFromText? imageFromText,
+    @Default(0) int? itemSelect,
+    @Default(null) String? filePath,
   }) = _InformationCardState;
 }
