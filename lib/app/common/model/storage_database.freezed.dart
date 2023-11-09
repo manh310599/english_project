@@ -344,6 +344,10 @@ mixin _$News {
   String? get description => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: fromJsonImageAssets, toJson: toJsonImageAssets)
+  Uint8List? get imageAssets => throw _privateConstructorUsedError;
+  String? get startTime => throw _privateConstructorUsedError;
+  String? get finalTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -360,7 +364,11 @@ abstract class $NewsCopyWith<$Res> {
       String? title,
       String? description,
       String? url,
-      String? imageUrl});
+      String? imageUrl,
+      @JsonKey(fromJson: fromJsonImageAssets, toJson: toJsonImageAssets)
+      Uint8List? imageAssets,
+      String? startTime,
+      String? finalTime});
 }
 
 /// @nodoc
@@ -381,6 +389,9 @@ class _$NewsCopyWithImpl<$Res, $Val extends News>
     Object? description = freezed,
     Object? url = freezed,
     Object? imageUrl = freezed,
+    Object? imageAssets = freezed,
+    Object? startTime = freezed,
+    Object? finalTime = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -403,6 +414,18 @@ class _$NewsCopyWithImpl<$Res, $Val extends News>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      imageAssets: freezed == imageAssets
+          ? _value.imageAssets
+          : imageAssets // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      finalTime: freezed == finalTime
+          ? _value.finalTime
+          : finalTime // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -419,7 +442,11 @@ abstract class _$$NewsImplCopyWith<$Res> implements $NewsCopyWith<$Res> {
       String? title,
       String? description,
       String? url,
-      String? imageUrl});
+      String? imageUrl,
+      @JsonKey(fromJson: fromJsonImageAssets, toJson: toJsonImageAssets)
+      Uint8List? imageAssets,
+      String? startTime,
+      String? finalTime});
 }
 
 /// @nodoc
@@ -437,6 +464,9 @@ class __$$NewsImplCopyWithImpl<$Res>
     Object? description = freezed,
     Object? url = freezed,
     Object? imageUrl = freezed,
+    Object? imageAssets = freezed,
+    Object? startTime = freezed,
+    Object? finalTime = freezed,
   }) {
     return _then(_$NewsImpl(
       id: freezed == id
@@ -459,6 +489,18 @@ class __$$NewsImplCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      imageAssets: freezed == imageAssets
+          ? _value.imageAssets
+          : imageAssets // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      finalTime: freezed == finalTime
+          ? _value.finalTime
+          : finalTime // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -466,8 +508,16 @@ class __$$NewsImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$NewsImpl implements _News {
-  const _$NewsImpl(
-      {this.id, this.title, this.description, this.url, this.imageUrl});
+  _$NewsImpl(
+      {this.id,
+      this.title,
+      this.description,
+      this.url,
+      this.imageUrl,
+      @JsonKey(fromJson: fromJsonImageAssets, toJson: toJsonImageAssets)
+      this.imageAssets,
+      this.startTime,
+      this.finalTime});
 
   factory _$NewsImpl.fromJson(Map<String, dynamic> json) =>
       _$$NewsImplFromJson(json);
@@ -482,10 +532,17 @@ class _$NewsImpl implements _News {
   final String? url;
   @override
   final String? imageUrl;
+  @override
+  @JsonKey(fromJson: fromJsonImageAssets, toJson: toJsonImageAssets)
+  final Uint8List? imageAssets;
+  @override
+  final String? startTime;
+  @override
+  final String? finalTime;
 
   @override
   String toString() {
-    return 'News(id: $id, title: $title, description: $description, url: $url, imageUrl: $imageUrl)';
+    return 'News(id: $id, title: $title, description: $description, url: $url, imageUrl: $imageUrl, imageAssets: $imageAssets, startTime: $startTime, finalTime: $finalTime)';
   }
 
   @override
@@ -499,13 +556,27 @@ class _$NewsImpl implements _News {
                 other.description == description) &&
             (identical(other.url, url) || other.url == url) &&
             (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+                other.imageUrl == imageUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.imageAssets, imageAssets) &&
+            (identical(other.startTime, startTime) ||
+                other.startTime == startTime) &&
+            (identical(other.finalTime, finalTime) ||
+                other.finalTime == finalTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, title, description, url, imageUrl);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      title,
+      description,
+      url,
+      imageUrl,
+      const DeepCollectionEquality().hash(imageAssets),
+      startTime,
+      finalTime);
 
   @JsonKey(ignore: true)
   @override
@@ -522,12 +593,16 @@ class _$NewsImpl implements _News {
 }
 
 abstract class _News implements News {
-  const factory _News(
+  factory _News(
       {final int? id,
       final String? title,
       final String? description,
       final String? url,
-      final String? imageUrl}) = _$NewsImpl;
+      final String? imageUrl,
+      @JsonKey(fromJson: fromJsonImageAssets, toJson: toJsonImageAssets)
+      final Uint8List? imageAssets,
+      final String? startTime,
+      final String? finalTime}) = _$NewsImpl;
 
   factory _News.fromJson(Map<String, dynamic> json) = _$NewsImpl.fromJson;
 
@@ -541,6 +616,13 @@ abstract class _News implements News {
   String? get url;
   @override
   String? get imageUrl;
+  @override
+  @JsonKey(fromJson: fromJsonImageAssets, toJson: toJsonImageAssets)
+  Uint8List? get imageAssets;
+  @override
+  String? get startTime;
+  @override
+  String? get finalTime;
   @override
   @JsonKey(ignore: true)
   _$$NewsImplCopyWith<_$NewsImpl> get copyWith =>

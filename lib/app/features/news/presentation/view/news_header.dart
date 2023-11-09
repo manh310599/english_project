@@ -16,7 +16,7 @@ class NewsHeader extends StatelessWidget {
         EditText(
           icon: const Icon(Icons.search),
           hinText: 'tìm kiếm',
-        ).flexible(),
+        ).expand(),
         IconButton(
             onPressed: () {},
             icon: const Icon(

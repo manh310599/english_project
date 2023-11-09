@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'storage_database.freezed.dart';
@@ -28,13 +30,18 @@ class NewsFavorite with _$NewsFavorite {
 }
 
 @freezed
+@JsonConverter()
 class News with _$News {
-  const factory News({
+  factory News({
     final int? id,
     final String? title,
     final String? description,
     final String? url,
     final String? imageUrl,
+    @JsonKey(fromJson: fromJsonImageAssets, toJson: toJsonImageAssets)
+    final Uint8List? imageAssets,
+    final String? startTime,
+    final String? finalTime,
   }) = _News;
 
   factory News.fromJson(Map<String, dynamic> json) => _$NewsFromJson(json);
@@ -62,4 +69,12 @@ class Words with _$Words {
   }) = _Words;
 
   factory Words.fromJson(Map<String, dynamic> json) => _$WordsFromJson(json);
+}
+
+Uint8List? fromJsonImageAssets(List<int>? json) {
+  return json == null ? null : Uint8List.fromList(json);
+}
+
+List<int>? toJsonImageAssets(Uint8List? object) {
+  return object?.toList();
 }

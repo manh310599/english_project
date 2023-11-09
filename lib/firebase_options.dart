@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCfcVX6SI7EhOHv6cuAuCzV4xR0cVmngg4',
-    appId: '1:199804307385:android:1001dc9008dc6fe38f1868',
+    appId: '1:199804307385:android:d069aa93e39891f28f1868',
     messagingSenderId: '199804307385',
     projectId: 'smartenglish-dd78e',
     storageBucket: 'smartenglish-dd78e.appspot.com',
@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '199804307385',
     projectId: 'smartenglish-dd78e',
     storageBucket: 'smartenglish-dd78e.appspot.com',
+    androidClientId: '199804307385-024r3v5p2qu2konjb6j8daqteig8eanm.apps.googleusercontent.com',
+    iosClientId: '199804307385-g9jph4qnobg56o2i6mt182o177u70c4e.apps.googleusercontent.com',
     iosBundleId: 'com.example.englishProject',
   );
 }
