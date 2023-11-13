@@ -22,6 +22,20 @@ class SearchWordBody extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              DropdownButton<int?>(
+                value: state.idStorageWord,
+                items: state.data?.map<DropdownMenuItem<int?>>(
+                  (e) {
+                    return DropdownMenuItem<int?>(
+                      value: e?.id,
+                      child: e?.name?.text.make() ?? ''.text.make(),
+                    );
+                  },
+                ).toList(),
+                onChanged: (value) {
+                  context.read<InformationCardCubit>().changeId(value!);
+                },
+              ),
               state.translate?.sentences?[0].orig?.text.orange500
                       .size(big)
                       .make() ??
@@ -114,6 +128,6 @@ class SearchWordBody extends StatelessWidget {
                   : const SizedBox(),
             ],
           ).px16()
-        : SizedBox();
+        : const SizedBox();
   }
 }

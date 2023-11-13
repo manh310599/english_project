@@ -21,6 +21,8 @@ mixin _$InformationCardState {
   ImageFromText? get imageFromText => throw _privateConstructorUsedError;
   int? get itemSelect => throw _privateConstructorUsedError;
   String? get filePath => throw _privateConstructorUsedError;
+  List<StorageWord?>? get data => throw _privateConstructorUsedError;
+  int? get idStorageWord => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $InformationCardStateCopyWith<InformationCardState> get copyWith =>
@@ -38,7 +40,9 @@ abstract class $InformationCardStateCopyWith<$Res> {
       Translate? translate,
       ImageFromText? imageFromText,
       int? itemSelect,
-      String? filePath});
+      String? filePath,
+      List<StorageWord?>? data,
+      int? idStorageWord});
 
   $TranslateCopyWith<$Res>? get translate;
   $ImageFromTextCopyWith<$Res>? get imageFromText;
@@ -63,6 +67,8 @@ class _$InformationCardStateCopyWithImpl<$Res,
     Object? imageFromText = freezed,
     Object? itemSelect = freezed,
     Object? filePath = freezed,
+    Object? data = freezed,
+    Object? idStorageWord = freezed,
   }) {
     return _then(_value.copyWith(
       apiStatus: freezed == apiStatus
@@ -85,6 +91,14 @@ class _$InformationCardStateCopyWithImpl<$Res,
           ? _value.filePath
           : filePath // ignore: cast_nullable_to_non_nullable
               as String?,
+      data: freezed == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<StorageWord?>?,
+      idStorageWord: freezed == idStorageWord
+          ? _value.idStorageWord
+          : idStorageWord // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -126,7 +140,9 @@ abstract class _$$InformationCardStateImplCopyWith<$Res>
       Translate? translate,
       ImageFromText? imageFromText,
       int? itemSelect,
-      String? filePath});
+      String? filePath,
+      List<StorageWord?>? data,
+      int? idStorageWord});
 
   @override
   $TranslateCopyWith<$Res>? get translate;
@@ -150,6 +166,8 @@ class __$$InformationCardStateImplCopyWithImpl<$Res>
     Object? imageFromText = freezed,
     Object? itemSelect = freezed,
     Object? filePath = freezed,
+    Object? data = freezed,
+    Object? idStorageWord = freezed,
   }) {
     return _then(_$InformationCardStateImpl(
       apiStatus: freezed == apiStatus
@@ -172,6 +190,14 @@ class __$$InformationCardStateImplCopyWithImpl<$Res>
           ? _value.filePath
           : filePath // ignore: cast_nullable_to_non_nullable
               as String?,
+      data: freezed == data
+          ? _value._data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<StorageWord?>?,
+      idStorageWord: freezed == idStorageWord
+          ? _value.idStorageWord
+          : idStorageWord // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -184,8 +210,11 @@ class _$InformationCardStateImpl extends _InformationCardState {
       this.translate = null,
       this.imageFromText = null,
       this.itemSelect = 0,
-      this.filePath = null})
-      : super._();
+      this.filePath = null,
+      final List<StorageWord?>? data = null,
+      this.idStorageWord = null})
+      : _data = data,
+        super._();
 
   @override
   @JsonKey()
@@ -202,10 +231,24 @@ class _$InformationCardStateImpl extends _InformationCardState {
   @override
   @JsonKey()
   final String? filePath;
+  final List<StorageWord?>? _data;
+  @override
+  @JsonKey()
+  List<StorageWord?>? get data {
+    final value = _data;
+    if (value == null) return null;
+    if (_data is EqualUnmodifiableListView) return _data;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey()
+  final int? idStorageWord;
 
   @override
   String toString() {
-    return 'InformationCardState(apiStatus: $apiStatus, translate: $translate, imageFromText: $imageFromText, itemSelect: $itemSelect, filePath: $filePath)';
+    return 'InformationCardState(apiStatus: $apiStatus, translate: $translate, imageFromText: $imageFromText, itemSelect: $itemSelect, filePath: $filePath, data: $data, idStorageWord: $idStorageWord)';
   }
 
   @override
@@ -222,12 +265,22 @@ class _$InformationCardStateImpl extends _InformationCardState {
             (identical(other.itemSelect, itemSelect) ||
                 other.itemSelect == itemSelect) &&
             (identical(other.filePath, filePath) ||
-                other.filePath == filePath));
+                other.filePath == filePath) &&
+            const DeepCollectionEquality().equals(other._data, _data) &&
+            (identical(other.idStorageWord, idStorageWord) ||
+                other.idStorageWord == idStorageWord));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, apiStatus, translate, imageFromText, itemSelect, filePath);
+      runtimeType,
+      apiStatus,
+      translate,
+      imageFromText,
+      itemSelect,
+      filePath,
+      const DeepCollectionEquality().hash(_data),
+      idStorageWord);
 
   @JsonKey(ignore: true)
   @override
@@ -244,7 +297,9 @@ abstract class _InformationCardState extends InformationCardState {
       final Translate? translate,
       final ImageFromText? imageFromText,
       final int? itemSelect,
-      final String? filePath}) = _$InformationCardStateImpl;
+      final String? filePath,
+      final List<StorageWord?>? data,
+      final int? idStorageWord}) = _$InformationCardStateImpl;
   const _InformationCardState._() : super._();
 
   @override
@@ -257,6 +312,10 @@ abstract class _InformationCardState extends InformationCardState {
   int? get itemSelect;
   @override
   String? get filePath;
+  @override
+  List<StorageWord?>? get data;
+  @override
+  int? get idStorageWord;
   @override
   @JsonKey(ignore: true)
   _$$InformationCardStateImplCopyWith<_$InformationCardStateImpl>

@@ -59,7 +59,7 @@ class DioModuleImage {
         connectTimeout: const Duration(seconds: 12),
         receiveTimeout: const Duration(seconds: 12),
         sendTimeout: const Duration(seconds: 12),
-        queryParameters: <String, String>{'client_id': apiKey});
+        queryParameters: <String, String>{'client_id': apiKey,'per_page':'30'});
 
     _dioImage = Dio(options);
 

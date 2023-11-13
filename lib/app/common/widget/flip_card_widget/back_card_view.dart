@@ -1,4 +1,6 @@
 import 'package:english_project/app/common/widget/voice/set_voice.dart';
+import 'package:english_project/font_size.dart';
+import 'package:english_project/gaps.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -20,11 +22,14 @@ class BackCardView extends StatefulWidget {
 class _BackCardViewState extends State<BackCardView> {
   @override
   Widget build(BuildContext context) {
+    final result = widget.meaning.substring(1, widget.meaning.length - 1);
+    final List<String?> listMean = result.split(',');
     final height = MediaQuery.of(context).size.height / 2;
     final width = MediaQuery.of(context).size.width * 0.85;
     return SingleChildScrollView(
       child: Column(
         children: [
+          Gaps.vGap8,
           widget.vocabulary.text.bold.size(30).make(),
           IconButton(
             onPressed: () async {
@@ -41,7 +46,22 @@ class _BackCardViewState extends State<BackCardView> {
               fit: BoxFit.cover,
             ),
           ),
-          widget.meaning.text.bold.green900.size(30).make()
+          ListView.separated(
+            itemBuilder: (context, index) {
+              return Row(
+                children: [
+                  '👉🏻'.text.make(),
+                  Gaps.hGap8,
+                  listMean[index]?.text.size(medium).make() ?? ''.text.make(),
+                ],
+              );
+            },
+            itemCount: listMean.length,
+            shrinkWrap: true,
+            separatorBuilder: (BuildContext context, int index) {
+              return Gaps.vGap8;
+            },
+          ),
         ],
       ),
     );

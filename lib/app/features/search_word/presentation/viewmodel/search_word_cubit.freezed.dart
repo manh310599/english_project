@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SearchWordState {
   ApiStatus? get apiStatus => throw _privateConstructorUsedError;
   Translate? get translate => throw _privateConstructorUsedError;
+  List<StorageWord?>? get data => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SearchWordStateCopyWith<SearchWordState> get copyWith =>
@@ -30,7 +31,8 @@ abstract class $SearchWordStateCopyWith<$Res> {
           SearchWordState value, $Res Function(SearchWordState) then) =
       _$SearchWordStateCopyWithImpl<$Res, SearchWordState>;
   @useResult
-  $Res call({ApiStatus? apiStatus, Translate? translate});
+  $Res call(
+      {ApiStatus? apiStatus, Translate? translate, List<StorageWord?>? data});
 
   $TranslateCopyWith<$Res>? get translate;
 }
@@ -50,6 +52,7 @@ class _$SearchWordStateCopyWithImpl<$Res, $Val extends SearchWordState>
   $Res call({
     Object? apiStatus = freezed,
     Object? translate = freezed,
+    Object? data = freezed,
   }) {
     return _then(_value.copyWith(
       apiStatus: freezed == apiStatus
@@ -60,6 +63,10 @@ class _$SearchWordStateCopyWithImpl<$Res, $Val extends SearchWordState>
           ? _value.translate
           : translate // ignore: cast_nullable_to_non_nullable
               as Translate?,
+      data: freezed == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<StorageWord?>?,
     ) as $Val);
   }
 
@@ -84,7 +91,8 @@ abstract class _$$SearchWordStateImplCopyWith<$Res>
       __$$SearchWordStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ApiStatus? apiStatus, Translate? translate});
+  $Res call(
+      {ApiStatus? apiStatus, Translate? translate, List<StorageWord?>? data});
 
   @override
   $TranslateCopyWith<$Res>? get translate;
@@ -103,6 +111,7 @@ class __$$SearchWordStateImplCopyWithImpl<$Res>
   $Res call({
     Object? apiStatus = freezed,
     Object? translate = freezed,
+    Object? data = freezed,
   }) {
     return _then(_$SearchWordStateImpl(
       apiStatus: freezed == apiStatus
@@ -113,6 +122,10 @@ class __$$SearchWordStateImplCopyWithImpl<$Res>
           ? _value.translate
           : translate // ignore: cast_nullable_to_non_nullable
               as Translate?,
+      data: freezed == data
+          ? _value._data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<StorageWord?>?,
     ));
   }
 }
@@ -120,8 +133,12 @@ class __$$SearchWordStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SearchWordStateImpl extends _SearchWordState {
-  const _$SearchWordStateImpl({this.apiStatus = null, this.translate = null})
-      : super._();
+  const _$SearchWordStateImpl(
+      {this.apiStatus = null,
+      this.translate = null,
+      final List<StorageWord?>? data = null})
+      : _data = data,
+        super._();
 
   @override
   @JsonKey()
@@ -129,10 +146,20 @@ class _$SearchWordStateImpl extends _SearchWordState {
   @override
   @JsonKey()
   final Translate? translate;
+  final List<StorageWord?>? _data;
+  @override
+  @JsonKey()
+  List<StorageWord?>? get data {
+    final value = _data;
+    if (value == null) return null;
+    if (_data is EqualUnmodifiableListView) return _data;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'SearchWordState(apiStatus: $apiStatus, translate: $translate)';
+    return 'SearchWordState(apiStatus: $apiStatus, translate: $translate, data: $data)';
   }
 
   @override
@@ -143,11 +170,13 @@ class _$SearchWordStateImpl extends _SearchWordState {
             (identical(other.apiStatus, apiStatus) ||
                 other.apiStatus == apiStatus) &&
             (identical(other.translate, translate) ||
-                other.translate == translate));
+                other.translate == translate) &&
+            const DeepCollectionEquality().equals(other._data, _data));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, apiStatus, translate);
+  int get hashCode => Object.hash(runtimeType, apiStatus, translate,
+      const DeepCollectionEquality().hash(_data));
 
   @JsonKey(ignore: true)
   @override
@@ -160,13 +189,16 @@ class _$SearchWordStateImpl extends _SearchWordState {
 abstract class _SearchWordState extends SearchWordState {
   const factory _SearchWordState(
       {final ApiStatus? apiStatus,
-      final Translate? translate}) = _$SearchWordStateImpl;
+      final Translate? translate,
+      final List<StorageWord?>? data}) = _$SearchWordStateImpl;
   const _SearchWordState._() : super._();
 
   @override
   ApiStatus? get apiStatus;
   @override
   Translate? get translate;
+  @override
+  List<StorageWord?>? get data;
   @override
   @JsonKey(ignore: true)
   _$$SearchWordStateImplCopyWith<_$SearchWordStateImpl> get copyWith =>

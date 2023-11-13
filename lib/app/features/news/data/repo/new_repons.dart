@@ -11,7 +11,7 @@ class NewReponsitory implements NewsRepo {
     _newApi = newApi ?? getIt<NewApi>();
   }
 
-  late final NewApi _newApi;
+  late final  _newApi;
 
   @override
   Future<NewModel?> getHeadLinesBBCNew() async {

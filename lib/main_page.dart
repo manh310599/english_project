@@ -24,12 +24,12 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-      routes: const [
-        NewsRoute(),
+      routes:  [
+        const NewsRoute(),
         SearchWordRoute(),
-        LearnVocabularyRoute(),
-        FavoriteNewsRoute(),
-        UserAccountRoute(),
+        const LearnVocabularyRoute(),
+        const FavoriteNewsRoute(),
+        const UserAccountRoute(),
       ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);

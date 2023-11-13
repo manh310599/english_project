@@ -18,9 +18,7 @@ class NewsSearchBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => InformationCardCubit()
-        ..searchWord(query)
-        ..getImage(query),
+      create: (context) => InformationCardCubit()..searchWord(query),
       child: BlocBuilder<InformationCardCubit, InformationCardState>(
         builder: (context, state) {
           final cubit = context.read<InformationCardCubit>();
@@ -39,6 +37,20 @@ class NewsSearchBottomSheet extends StatelessWidget {
                           icon: const Icon(Icons.close),
                           color: Colors.red,
                         ),
+                        DropdownButton<int?>(
+                          value: state.idStorageWord ?? state.data?[0]?.id,
+                          items: state.data?.map<DropdownMenuItem<int?>>(
+                                (e) {
+                              return DropdownMenuItem<int?>(
+                                value: e?.id,
+                                child: e?.name?.text.make() ?? ''.text.make(),
+                              );
+                            },
+                          ).toList(),
+                          onChanged: (value) {
+                            context.read<InformationCardCubit>().changeId(value!);
+                          },
+                        ),
                         IconButton(
                           onPressed: () {},
                           icon: const Icon(Icons.save),
@@ -47,21 +59,32 @@ class NewsSearchBottomSheet extends StatelessWidget {
                       ],
                     ),
                     state.translate?.sentences?[0].orig?.text.orange500
-                            .size(big)
+                            .size(big).softWrap(true)
                             .make() ??
                         'Vocabulary'.text.make(),
                     Gaps.vGap10,
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        '👉🏻'.text.make(),
+                        Gaps.hGap4,
+                        state.translate?.sentences?[0].trans?.text.softWrap(true).make().flexible() ??
+                            ''.text.make().flexible(),
+                      ],
+                    ),
+                    Gaps.vGap4,
                     ListView.separated(
                       itemBuilder: (context, index) {
                         return Row(
+                          mainAxisSize: MainAxisSize.max,
                           children: [
                             '👉🏻'.text.make(),
                             Gaps.hGap4,
-                            state.translate?.dict?[0].terms?[index]?.text
-                                    .make() ??
+                            state.translate?.dict?[0].terms?[index]?.text.softWrap(true)
+                                    .make().flexible()  ??
                                 '${state.translate?.sentences?[0].trans}'
                                     .text
-                                    .make(),
+                                    .make().flexible() ,
                           ],
                         );
                       },
@@ -125,13 +148,13 @@ class NewsSearchBottomSheet extends StatelessWidget {
                                           ),
                                         );
                             },
-                            itemCount:
-                                state.imageFromText?.results?.isNotEmpty == true
-                                    ? (state.imageFromText!.results!.length >=
-                                            21
-                                        ? 20
-                                        : state.imageFromText!.results!.length+1)
-                                    : 0,
+                            itemCount: state
+                                        .imageFromText?.results?.isNotEmpty ==
+                                    true
+                                ? (state.imageFromText!.results!.length >= 21
+                                    ? 20
+                                    : state.imageFromText!.results!.length + 1)
+                                : 0,
                             shrinkWrap: true,
                           ).flexible()
                         : const SizedBox(
@@ -139,9 +162,18 @@ class NewsSearchBottomSheet extends StatelessWidget {
                           ),
                   ],
                 ).px16()
-              : const SizedBox(
-                  height: 0,
-                );
+              : Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const LinearProgressIndicator(
+                        color: Vx.white,
+                      ),
+                      Gaps.vGap16,
+                      'đang tải dữ liệu xin vui lòng chờ'.text.make()
+                    ],
+                  ),
+                ).px16();
         },
       ),
     );

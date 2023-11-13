@@ -13,6 +13,8 @@ import 'package:velocity_x/velocity_x.dart';
 class SearchWordPage extends StatelessWidget {
   const SearchWordPage({super.key});
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +23,7 @@ class SearchWordPage extends StatelessWidget {
         create: (context) => InformationCardCubit(),
         child: BlocBuilder<InformationCardCubit, InformationCardState>(
           builder: (context, state) {
+            final cubit = context.read<InformationCardCubit>();
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -28,29 +31,28 @@ class SearchWordPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Gaps.hGap8,
-
                     Image.asset(
                       'assets/images/logo.png',
                       height: Dimens.ic_XL,
                     ),
                     Gaps.hGap8,
                     EditText(
-                      preIcon: Icon(Icons.cleaning_services_rounded),
+                      preIcon: const Icon(Icons.cleaning_services_rounded),
                       icon: const Icon(
                         Icons.search,
                       ),
                       hinText: 'Tìm kiếm từ vựng',
                       search: (data) {
                         context.read<InformationCardCubit>().searchWord(data);
-                        context.read<InformationCardCubit>().getImage(data);
                       },
                     ).flexible(),
                     Gaps.hGap8,
-                     CupertinoButtonCustom(
+                    CupertinoButtonCustom(
                       click: () {
-
+                        cubit.saveWord(
+                            state.idStorageWord ?? state.data?[0]?.id, context);
                       },
-                       color: Vx.white,
+                      color: Vx.white,
                       child: const Icon(
                         Icons.save_as,
                         color: Colors.black,

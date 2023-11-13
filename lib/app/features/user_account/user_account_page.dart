@@ -1,4 +1,6 @@
 import 'package:auto_route/annotations.dart';
+import 'package:english_project/app/common/database/query_database.dart';
+import 'package:english_project/app/common/database/storage_database.dart';
 import 'package:english_project/app/features/user_account/presentation/view/card_title.dart';
 import 'package:english_project/font_size.dart';
 import 'package:english_project/gaps.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../dimens.dart';
 
@@ -57,9 +60,7 @@ class UserAccountPage extends StatelessWidget {
             CardTitle(
               title: 'Đăng xuất',
               callback: () async {
-                var db = await openDatabase('assets/database/storage.db');
-                print(db.path);
-
+               await deleteDatabase(await getDatabasesPath());
               },
             ),
           ],

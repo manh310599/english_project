@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -7,14 +8,14 @@ part 'storage_database.freezed.dart';
 part 'storage_database.g.dart';
 
 @freezed
-class Storage with _$Storage {
-  const factory Storage({
-    final int? idNF,
-    final int? idSW,
-  }) = _Storage;
+class StorageWord with _$StorageWord {
+  const factory StorageWord({
+    final int? id,
+    final String? name,
+  }) = _StorageWord;
 
-  factory Storage.fromJson(Map<String, dynamic> json) =>
-      _$StorageFromJson(json);
+  factory StorageWord.fromJson(Map<String, dynamic> json) =>
+      _$StorageWordFromJson(json);
 }
 
 @freezed
@@ -22,59 +23,82 @@ class NewsFavorite with _$NewsFavorite {
   const factory NewsFavorite({
     final int? id,
     final String? name,
-    final int? idNew,
   }) = _NewsFavorite;
+
+  // factory NewsFavorite.fromJson(List<Map<String, Object?>>? json) =>
+  //     _$NewsFavoriteFromJson(json);
 
   factory NewsFavorite.fromJson(Map<String, dynamic> json) =>
       _$NewsFavoriteFromJson(json);
 }
 
 @freezed
-@JsonConverter()
 class News with _$News {
-  factory News({
+  const factory News({
     final int? id,
     final String? title,
     final String? description,
     final String? url,
-    final String? imageUrl,
-    @JsonKey(fromJson: fromJsonImageAssets, toJson: toJsonImageAssets)
-    final Uint8List? imageAssets,
-    final String? startTime,
-    final String? finalTime,
+    final String? image,
+    final int? NF,
   }) = _News;
 
   factory News.fromJson(Map<String, dynamic> json) => _$NewsFromJson(json);
 }
 
 @freezed
-class StorageWords with _$StorageWords {
-  const factory StorageWords({
-    final int? id,
-    final String? name,
-    final int? idWord,
-  }) = _StorageWords;
-
-  factory StorageWords.fromJson(Map<String, dynamic> json) =>
-      _$StorageWordsFromJson(json);
-}
-
-@freezed
 class Words with _$Words {
   const factory Words({
-    final int? id,
     final String? word,
     final String? image,
-    final String? meaning,
+    @Uint8ListConverter() Uint8List? assets_image,
+    final String? mean,
+    final int? start_time,
+    final int? end_time,
+    final double? EF,
+    final int? id,
   }) = _Words;
 
   factory Words.fromJson(Map<String, dynamic> json) => _$WordsFromJson(json);
 }
 
-Uint8List? fromJsonImageAssets(List<int>? json) {
-  return json == null ? null : Uint8List.fromList(json);
-}
 
-List<int>? toJsonImageAssets(Uint8List? object) {
-  return object?.toList();
+class Uint8ListConverter implements JsonConverter<Uint8List?, dynamic> {
+  const Uint8ListConverter();
+
+  @override
+  Uint8List? fromJson(dynamic json) {
+    if (json == null) return null;
+
+    try {
+      // Kiểm tra xem json có phải là List<int> không
+      if (json is List<int>) {
+        return Uint8List.fromList(json);
+      } else if (json is String) {
+        // Decode từ Base64 nếu là một chuỗi
+        List<int> decoded = base64.decode(json);
+        return Uint8List.fromList(decoded);
+      } else {
+        print('Kiểu dữ liệu không được hỗ trợ: ${json.runtimeType}');
+        return null;
+      }
+    } catch (e) {
+      print('Lỗi khi giải mã Uint8List từ JSON: $e');
+      return null;
+    }
+  }
+
+  @override
+  dynamic toJson(Uint8List? object) {
+    if (object == null) return null;
+
+    try {
+      // Encode sang Base64
+      String base64String = base64.encode(object);
+      return base64String;
+    } catch (e) {
+      print('Lỗi khi mã hóa Uint8List sang JSON: $e');
+      return null;
+    }
+  }
 }
