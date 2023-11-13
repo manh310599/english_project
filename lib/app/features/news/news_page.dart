@@ -10,8 +10,8 @@ import 'package:english_project/app/features/news/presentation/view/news_catelog
 import 'package:english_project/app/features/news/presentation/view/news_header.dart';
 import 'package:english_project/app/features/news/presentation/view/news_index_page.dart';
 import 'package:english_project/app/features/news/presentation/viewmodel/news_cubit.dart';
-import 'package:english_project/dimens.dart';
-import 'package:english_project/gaps.dart';
+// import 'package:english_project/dimens.dart';
+// import 'package:english_project/gaps.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
