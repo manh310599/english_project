@@ -7,50 +7,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:199804307385:android:1001dc9008dc6fe38f1868",
-        "android_client_info": {
-          "package_name": "com.example.english_project"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "199804307385-024r3v5p2qu2konjb6j8daqteig8eanm.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.english_project",
-            "certificate_hash": "924d64285aac973bb675e3c24a3517a735062d38"
-          }
-        },
-        {
-          "client_id": "199804307385-3fp6dpm675ormmd0v7fe90fttte2gpgn.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCfcVX6SI7EhOHv6cuAuCzV4xR0cVmngg4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "199804307385-3fp6dpm675ormmd0v7fe90fttte2gpgn.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "199804307385-g9jph4qnobg56o2i6mt182o177u70c4e.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.englishProject"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:199804307385:android:d069aa93e39891f28f1868",
         "android_client_info": {
           "package_name": "com.mqenglish.vn"
@@ -63,6 +19,14 @@
           "android_info": {
             "package_name": "com.mqenglish.vn",
             "certificate_hash": "924d64285aac973bb675e3c24a3517a735062d38"
+          }
+        },
+        {
+          "client_id": "199804307385-en6nncfbsnt1eftp4hiil5ga54jbntif.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mqenglish.vn",
+            "certificate_hash": "095dc4d28e45866b68a0a014f278d64648d036c9"
           }
         },
         {

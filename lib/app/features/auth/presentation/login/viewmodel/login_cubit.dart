@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/check_isvaid.dart';
+import 'package:english_project/app/features/auth/presentation/check_user/viewmodel/checkauth_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,6 +15,8 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(const LoginState());
+
+  CheckauthBloc checkauthBloc = CheckauthBloc();
 
   void setEmail(email) {
     emit(state.copyWith(email: email));

@@ -14,7 +14,17 @@ class CourseCubit extends Cubit<CourseState> {
 
   QueryDatabase queryDatabase = QueryDatabase();
 
-  Future<void> getListWord(words) async {
-    emit(state.copyWith(data: words));
+  Future<void> getListWordsById(int id,) async {
+    final data = await queryDatabase.getAllFromWordByStorage(id);
+    List<Words?>? list = [];
+    data?.forEach((element) {
+      list.add(Words.fromJson(element));
+    });
+
+    emit(state.copyWith(data: list));
+  }
+
+  void setPage(int index) {
+    emit(state.copyWith(min: index * 20));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:english_project/app/app_route/app_route.gr.dart';
+import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/widget/button/cupertion_button_custom.dart';
 import 'package:english_project/app/features/learn_vocabulary/presentation/viewmodel/learn_vocabulary_cubit.dart';
 import 'package:english_project/gaps.dart';
@@ -20,14 +21,17 @@ class LearnVocabularyPage extends StatelessWidget {
       create: (context) => LearnVocabularyCubit()..getStoreWord(),
       child: BlocConsumer<LearnVocabularyCubit, LearnVocabularyState>(
         listener: (context, state) {
-          if (state.words?.isEmpty == true) {
-            AwesomeDialog(
-              context: context,
-              dialogType: DialogType.success,
-              animType: AnimType.rightSlide,
-              title: 'Hiện không có từ vựng cần học trong này hôm nay',
-              btnOkOnPress: () {},
-            ).show();
+          if(state.apiStatus == ApiStatus.loaded) {
+            state.words!.isEmpty
+              ? AwesomeDialog(
+            context: context,
+            dialogType: DialogType.warning,
+            animType: AnimType.rightSlide,
+            title: 'Hiện không có từ vựng trong bộ khóa học này',
+            btnOkOnPress: () {},
+          ).show()
+              : context.pushRoute(LessonRoute(words: state.words));
+            context.read<LearnVocabularyCubit>().refreshStatus();
           }
         },
         builder: (context, state) {
@@ -79,7 +83,6 @@ class LearnVocabularyPage extends StatelessWidget {
                     color: Colors.black,
                     click: () async {
                       cubit.getListWordsByDay(state.data![index]!.id!, context);
-                      context.pushRoute(LessonRoute(words: state.words));
                     },
                     press: () {
                       AwesomeDialog(
@@ -105,11 +108,9 @@ class LearnVocabularyPage extends StatelessWidget {
                           ).show();
                         },
                         btnOkOnPress: () {
-                          cubit.getListWordsById(
-                              state.data![index]!.id!, context);
-                          context.pushRoute(
-                              CourseRoute(
-                              words: state.words,
+
+                          context.pushRoute(CourseRoute(
+                              id: state.data?[index]?.id,
                               name: state.data?[index]?.name));
                         },
                       ).show();

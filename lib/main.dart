@@ -4,10 +4,10 @@ import 'package:english_project/app/features/auth/presentation/check_user/viewmo
 import 'package:english_project/check_internet.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 import 'app/app_route/app_route.dart';
 import 'depedence.dart';
@@ -31,8 +31,8 @@ Future<void> main() async {
     FirebaseCrashlytics.instance.recordFlutterFatalError(error);
   };
 
-  PlatformDispatcher.instance.onError = (error,stack){
-    FirebaseCrashlytics.instance.recordError(error, stack,fatal: true);
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
 }
@@ -70,14 +70,18 @@ class _AppState extends State<App> {
             appRouter.navigate(const LoginRoute());
           }
         },
-        child: MaterialApp.router(
-          theme: ThemeData.dark(),
-          darkTheme: ThemeData.dark(),
-          highContrastDarkTheme: ThemeData.dark(),
-          themeMode: ThemeMode.dark,
-          highContrastTheme: ThemeData.dark(),
-          debugShowCheckedModeBanner: false,
-          routerConfig: appRouter.config(),
+        child: BlocBuilder<CheckauthBloc, CheckauthState>(
+          builder: (context, state) {
+            return MaterialApp.router(
+              theme: ThemeData.dark(),
+              darkTheme: ThemeData.dark(),
+              highContrastDarkTheme: ThemeData.dark(),
+              themeMode: ThemeMode.dark,
+              highContrastTheme: ThemeData.dark(),
+              debugShowCheckedModeBanner: false,
+              routerConfig: appRouter.config(),
+            );
+          },
         ),
       ),
     );

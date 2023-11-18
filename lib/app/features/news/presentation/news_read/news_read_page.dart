@@ -10,17 +10,12 @@ import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage()
 class NewsReadPage extends StatelessWidget {
-  const NewsReadPage(
-      {super.key,
-      required this.url,
-      required this.image,
-      required this.auth,
-      required this.title});
+  const NewsReadPage({
+    super.key,
+    required this.url,
+  });
 
   final String url;
-  final String image;
-  final String auth;
-  final String title;
 
   @override
   Widget build(BuildContext context) {

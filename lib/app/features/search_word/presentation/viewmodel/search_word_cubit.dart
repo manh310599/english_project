@@ -19,15 +19,12 @@ class SearchWordCubit extends Cubit<SearchWordState> {
     await Future.delayed(const Duration(seconds: 1));
     final result = await translate(query);
     final resultData = await queryDatabase.getAllFromStorageWord();
-    List<StorageWord?> list = [];
-    resultData?.forEach((element) {
-      list.add(StorageWord.fromJson(element));
-    });
+
     if (result != null) {
       emit(state.copyWith(
         translate: result,
         apiStatus: ApiStatus.success,
-        data: list,
+        data: resultData,
       ));
     } else {
       emit(state.copyWith(apiStatus: ApiStatus.fail));

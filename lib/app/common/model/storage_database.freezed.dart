@@ -167,159 +167,6 @@ abstract class _StorageWord implements StorageWord {
       throw _privateConstructorUsedError;
 }
 
-NewsFavorite _$NewsFavoriteFromJson(Map<String, dynamic> json) {
-  return _NewsFavorite.fromJson(json);
-}
-
-/// @nodoc
-mixin _$NewsFavorite {
-  int? get id => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $NewsFavoriteCopyWith<NewsFavorite> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $NewsFavoriteCopyWith<$Res> {
-  factory $NewsFavoriteCopyWith(
-          NewsFavorite value, $Res Function(NewsFavorite) then) =
-      _$NewsFavoriteCopyWithImpl<$Res, NewsFavorite>;
-  @useResult
-  $Res call({int? id, String? name});
-}
-
-/// @nodoc
-class _$NewsFavoriteCopyWithImpl<$Res, $Val extends NewsFavorite>
-    implements $NewsFavoriteCopyWith<$Res> {
-  _$NewsFavoriteCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$NewsFavoriteImplCopyWith<$Res>
-    implements $NewsFavoriteCopyWith<$Res> {
-  factory _$$NewsFavoriteImplCopyWith(
-          _$NewsFavoriteImpl value, $Res Function(_$NewsFavoriteImpl) then) =
-      __$$NewsFavoriteImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int? id, String? name});
-}
-
-/// @nodoc
-class __$$NewsFavoriteImplCopyWithImpl<$Res>
-    extends _$NewsFavoriteCopyWithImpl<$Res, _$NewsFavoriteImpl>
-    implements _$$NewsFavoriteImplCopyWith<$Res> {
-  __$$NewsFavoriteImplCopyWithImpl(
-      _$NewsFavoriteImpl _value, $Res Function(_$NewsFavoriteImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-  }) {
-    return _then(_$NewsFavoriteImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$NewsFavoriteImpl implements _NewsFavorite {
-  const _$NewsFavoriteImpl({this.id, this.name});
-
-  factory _$NewsFavoriteImpl.fromJson(Map<String, dynamic> json) =>
-      _$$NewsFavoriteImplFromJson(json);
-
-  @override
-  final int? id;
-  @override
-  final String? name;
-
-  @override
-  String toString() {
-    return 'NewsFavorite(id: $id, name: $name)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$NewsFavoriteImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, name);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$NewsFavoriteImplCopyWith<_$NewsFavoriteImpl> get copyWith =>
-      __$$NewsFavoriteImplCopyWithImpl<_$NewsFavoriteImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$NewsFavoriteImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _NewsFavorite implements NewsFavorite {
-  const factory _NewsFavorite({final int? id, final String? name}) =
-      _$NewsFavoriteImpl;
-
-  factory _NewsFavorite.fromJson(Map<String, dynamic> json) =
-      _$NewsFavoriteImpl.fromJson;
-
-  @override
-  int? get id;
-  @override
-  String? get name;
-  @override
-  @JsonKey(ignore: true)
-  _$$NewsFavoriteImplCopyWith<_$NewsFavoriteImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 News _$NewsFromJson(Map<String, dynamic> json) {
   return _News.fromJson(json);
 }
@@ -331,7 +178,6 @@ mixin _$News {
   String? get description => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
   String? get image => throw _privateConstructorUsedError;
-  int? get NF => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -348,8 +194,7 @@ abstract class $NewsCopyWith<$Res> {
       String? title,
       String? description,
       String? url,
-      String? image,
-      int? NF});
+      String? image});
 }
 
 /// @nodoc
@@ -370,7 +215,6 @@ class _$NewsCopyWithImpl<$Res, $Val extends News>
     Object? description = freezed,
     Object? url = freezed,
     Object? image = freezed,
-    Object? NF = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -393,10 +237,6 @@ class _$NewsCopyWithImpl<$Res, $Val extends News>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String?,
-      NF: freezed == NF
-          ? _value.NF
-          : NF // ignore: cast_nullable_to_non_nullable
-              as int?,
     ) as $Val);
   }
 }
@@ -413,8 +253,7 @@ abstract class _$$NewsImplCopyWith<$Res> implements $NewsCopyWith<$Res> {
       String? title,
       String? description,
       String? url,
-      String? image,
-      int? NF});
+      String? image});
 }
 
 /// @nodoc
@@ -432,7 +271,6 @@ class __$$NewsImplCopyWithImpl<$Res>
     Object? description = freezed,
     Object? url = freezed,
     Object? image = freezed,
-    Object? NF = freezed,
   }) {
     return _then(_$NewsImpl(
       id: freezed == id
@@ -455,10 +293,6 @@ class __$$NewsImplCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String?,
-      NF: freezed == NF
-          ? _value.NF
-          : NF // ignore: cast_nullable_to_non_nullable
-              as int?,
     ));
   }
 }
@@ -467,7 +301,7 @@ class __$$NewsImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$NewsImpl implements _News {
   const _$NewsImpl(
-      {this.id, this.title, this.description, this.url, this.image, this.NF});
+      {this.id, this.title, this.description, this.url, this.image});
 
   factory _$NewsImpl.fromJson(Map<String, dynamic> json) =>
       _$$NewsImplFromJson(json);
@@ -482,12 +316,10 @@ class _$NewsImpl implements _News {
   final String? url;
   @override
   final String? image;
-  @override
-  final int? NF;
 
   @override
   String toString() {
-    return 'News(id: $id, title: $title, description: $description, url: $url, image: $image, NF: $NF)';
+    return 'News(id: $id, title: $title, description: $description, url: $url, image: $image)';
   }
 
   @override
@@ -500,14 +332,13 @@ class _$NewsImpl implements _News {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.url, url) || other.url == url) &&
-            (identical(other.image, image) || other.image == image) &&
-            (identical(other.NF, NF) || other.NF == NF));
+            (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, title, description, url, image, NF);
+      Object.hash(runtimeType, id, title, description, url, image);
 
   @JsonKey(ignore: true)
   @override
@@ -529,8 +360,7 @@ abstract class _News implements News {
       final String? title,
       final String? description,
       final String? url,
-      final String? image,
-      final int? NF}) = _$NewsImpl;
+      final String? image}) = _$NewsImpl;
 
   factory _News.fromJson(Map<String, dynamic> json) = _$NewsImpl.fromJson;
 
@@ -545,8 +375,6 @@ abstract class _News implements News {
   @override
   String? get image;
   @override
-  int? get NF;
-  @override
   @JsonKey(ignore: true)
   _$$NewsImplCopyWith<_$NewsImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -560,13 +388,16 @@ Words _$WordsFromJson(Map<String, dynamic> json) {
 mixin _$Words {
   String? get word => throw _privateConstructorUsedError;
   String? get image => throw _privateConstructorUsedError;
-  @Uint8ListConverter()
-  Uint8List? get assets_image => throw _privateConstructorUsedError;
+  String? get assets_image => throw _privateConstructorUsedError;
   String? get mean => throw _privateConstructorUsedError;
   int? get start_time => throw _privateConstructorUsedError;
   int? get end_time => throw _privateConstructorUsedError;
   double? get EF => throw _privateConstructorUsedError;
   int? get id => throw _privateConstructorUsedError;
+  int? get checkNew => throw _privateConstructorUsedError;
+  int? get lastChoice => throw _privateConstructorUsedError;
+  int? get interval => throw _privateConstructorUsedError;
+  double? get ease => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -581,12 +412,16 @@ abstract class $WordsCopyWith<$Res> {
   $Res call(
       {String? word,
       String? image,
-      @Uint8ListConverter() Uint8List? assets_image,
+      String? assets_image,
       String? mean,
       int? start_time,
       int? end_time,
       double? EF,
-      int? id});
+      int? id,
+      int? checkNew,
+      int? lastChoice,
+      int? interval,
+      double? ease});
 }
 
 /// @nodoc
@@ -610,6 +445,10 @@ class _$WordsCopyWithImpl<$Res, $Val extends Words>
     Object? end_time = freezed,
     Object? EF = freezed,
     Object? id = freezed,
+    Object? checkNew = freezed,
+    Object? lastChoice = freezed,
+    Object? interval = freezed,
+    Object? ease = freezed,
   }) {
     return _then(_value.copyWith(
       word: freezed == word
@@ -623,7 +462,7 @@ class _$WordsCopyWithImpl<$Res, $Val extends Words>
       assets_image: freezed == assets_image
           ? _value.assets_image
           : assets_image // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+              as String?,
       mean: freezed == mean
           ? _value.mean
           : mean // ignore: cast_nullable_to_non_nullable
@@ -644,6 +483,22 @@ class _$WordsCopyWithImpl<$Res, $Val extends Words>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      checkNew: freezed == checkNew
+          ? _value.checkNew
+          : checkNew // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastChoice: freezed == lastChoice
+          ? _value.lastChoice
+          : lastChoice // ignore: cast_nullable_to_non_nullable
+              as int?,
+      interval: freezed == interval
+          ? _value.interval
+          : interval // ignore: cast_nullable_to_non_nullable
+              as int?,
+      ease: freezed == ease
+          ? _value.ease
+          : ease // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -658,12 +513,16 @@ abstract class _$$WordsImplCopyWith<$Res> implements $WordsCopyWith<$Res> {
   $Res call(
       {String? word,
       String? image,
-      @Uint8ListConverter() Uint8List? assets_image,
+      String? assets_image,
       String? mean,
       int? start_time,
       int? end_time,
       double? EF,
-      int? id});
+      int? id,
+      int? checkNew,
+      int? lastChoice,
+      int? interval,
+      double? ease});
 }
 
 /// @nodoc
@@ -685,6 +544,10 @@ class __$$WordsImplCopyWithImpl<$Res>
     Object? end_time = freezed,
     Object? EF = freezed,
     Object? id = freezed,
+    Object? checkNew = freezed,
+    Object? lastChoice = freezed,
+    Object? interval = freezed,
+    Object? ease = freezed,
   }) {
     return _then(_$WordsImpl(
       word: freezed == word
@@ -698,7 +561,7 @@ class __$$WordsImplCopyWithImpl<$Res>
       assets_image: freezed == assets_image
           ? _value.assets_image
           : assets_image // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+              as String?,
       mean: freezed == mean
           ? _value.mean
           : mean // ignore: cast_nullable_to_non_nullable
@@ -719,6 +582,22 @@ class __$$WordsImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      checkNew: freezed == checkNew
+          ? _value.checkNew
+          : checkNew // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastChoice: freezed == lastChoice
+          ? _value.lastChoice
+          : lastChoice // ignore: cast_nullable_to_non_nullable
+              as int?,
+      interval: freezed == interval
+          ? _value.interval
+          : interval // ignore: cast_nullable_to_non_nullable
+              as int?,
+      ease: freezed == ease
+          ? _value.ease
+          : ease // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -729,12 +608,16 @@ class _$WordsImpl implements _Words {
   const _$WordsImpl(
       {this.word,
       this.image,
-      @Uint8ListConverter() this.assets_image,
+      this.assets_image,
       this.mean,
       this.start_time,
       this.end_time,
       this.EF,
-      this.id});
+      this.id,
+      this.checkNew,
+      this.lastChoice,
+      this.interval,
+      this.ease});
 
   factory _$WordsImpl.fromJson(Map<String, dynamic> json) =>
       _$$WordsImplFromJson(json);
@@ -744,8 +627,7 @@ class _$WordsImpl implements _Words {
   @override
   final String? image;
   @override
-  @Uint8ListConverter()
-  final Uint8List? assets_image;
+  final String? assets_image;
   @override
   final String? mean;
   @override
@@ -756,10 +638,18 @@ class _$WordsImpl implements _Words {
   final double? EF;
   @override
   final int? id;
+  @override
+  final int? checkNew;
+  @override
+  final int? lastChoice;
+  @override
+  final int? interval;
+  @override
+  final double? ease;
 
   @override
   String toString() {
-    return 'Words(word: $word, image: $image, assets_image: $assets_image, mean: $mean, start_time: $start_time, end_time: $end_time, EF: $EF, id: $id)';
+    return 'Words(word: $word, image: $image, assets_image: $assets_image, mean: $mean, start_time: $start_time, end_time: $end_time, EF: $EF, id: $id, checkNew: $checkNew, lastChoice: $lastChoice, interval: $interval, ease: $ease)';
   }
 
   @override
@@ -769,29 +659,28 @@ class _$WordsImpl implements _Words {
             other is _$WordsImpl &&
             (identical(other.word, word) || other.word == word) &&
             (identical(other.image, image) || other.image == image) &&
-            const DeepCollectionEquality()
-                .equals(other.assets_image, assets_image) &&
+            (identical(other.assets_image, assets_image) ||
+                other.assets_image == assets_image) &&
             (identical(other.mean, mean) || other.mean == mean) &&
             (identical(other.start_time, start_time) ||
                 other.start_time == start_time) &&
             (identical(other.end_time, end_time) ||
                 other.end_time == end_time) &&
             (identical(other.EF, EF) || other.EF == EF) &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.checkNew, checkNew) ||
+                other.checkNew == checkNew) &&
+            (identical(other.lastChoice, lastChoice) ||
+                other.lastChoice == lastChoice) &&
+            (identical(other.interval, interval) ||
+                other.interval == interval) &&
+            (identical(other.ease, ease) || other.ease == ease));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      word,
-      image,
-      const DeepCollectionEquality().hash(assets_image),
-      mean,
-      start_time,
-      end_time,
-      EF,
-      id);
+  int get hashCode => Object.hash(runtimeType, word, image, assets_image, mean,
+      start_time, end_time, EF, id, checkNew, lastChoice, interval, ease);
 
   @JsonKey(ignore: true)
   @override
@@ -811,12 +700,16 @@ abstract class _Words implements Words {
   const factory _Words(
       {final String? word,
       final String? image,
-      @Uint8ListConverter() final Uint8List? assets_image,
+      final String? assets_image,
       final String? mean,
       final int? start_time,
       final int? end_time,
       final double? EF,
-      final int? id}) = _$WordsImpl;
+      final int? id,
+      final int? checkNew,
+      final int? lastChoice,
+      final int? interval,
+      final double? ease}) = _$WordsImpl;
 
   factory _Words.fromJson(Map<String, dynamic> json) = _$WordsImpl.fromJson;
 
@@ -825,8 +718,7 @@ abstract class _Words implements Words {
   @override
   String? get image;
   @override
-  @Uint8ListConverter()
-  Uint8List? get assets_image;
+  String? get assets_image;
   @override
   String? get mean;
   @override
@@ -837,6 +729,14 @@ abstract class _Words implements Words {
   double? get EF;
   @override
   int? get id;
+  @override
+  int? get checkNew;
+  @override
+  int? get lastChoice;
+  @override
+  int? get interval;
+  @override
+  double? get ease;
   @override
   @JsonKey(ignore: true)
   _$$WordsImplCopyWith<_$WordsImpl> get copyWith =>

@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bloc/bloc.dart';
 import 'package:english_project/app/common/api_status.dart';
@@ -48,16 +52,13 @@ class InformationCardCubit extends Cubit<InformationCardState> {
 
   Future<void> searchWord(String? query) async {
     final resultData = await queryDatabase.getAllFromStorageWord();
-    List<StorageWord?> list = [];
-    resultData?.forEach((element) {
-      list.add(StorageWord.fromJson(element));
-    });
+
     if (query!.isNotEmpty) {
       await Future.delayed(const Duration(seconds: 1));
       final result = await translate(query);
       if (result != null) {
         emit(state.copyWith(
-            translate: result, data: list, apiStatus: ApiStatus.loaded));
+            translate: result, data: resultData, apiStatus: ApiStatus.loaded));
         getImage(query);
       } else {
         emit(state.copyWith(apiStatus: ApiStatus.fail));
@@ -71,9 +72,8 @@ class InformationCardCubit extends Cubit<InformationCardState> {
 
   Future<void> selectImageFromGradle() async {
     final ImagePicker _picker = ImagePicker();
-    final XFile? pickedFile = await _picker.pickImage(
-      source: ImageSource.gallery,
-    );
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 25);
     if (pickedFile!.path.isNotEmptyAndNotNull) {
       emit(state.copyWith(filePath: pickedFile.path, itemSelect: null));
     }
@@ -86,33 +86,72 @@ class InformationCardCubit extends Cubit<InformationCardState> {
   }
 
   Future<void> saveWord(int? i, context) async {
+    final list = await queryDatabase.getAllFromStorageWord();
+
     emit(state.copyWith(apiStatus: ApiStatus.loading));
-    int? result = await queryDatabase.addWords(
-      state.translate?.sentences?[0].orig,
-      state.imageFromText!.results?[state.itemSelect!].urls?.small,
-      null,
-      state.translate?.dict?[0].terms.toString(),
-      DateTime.now().millisecondsSinceEpoch,
-      DateTime.now().millisecondsSinceEpoch,
-      1.3,
-      i,
-    );
-    if (result == -1) {
-      emit(state.copyWith(apiStatus: ApiStatus.fail));
+    int? result;
+
+    if (list.isNotEmpty) {
+      if (state.itemSelect != null) {
+        result = await queryDatabase.addWords(
+          state.translate?.sentences?[0].orig,
+          state.imageFromText!.results?[state.itemSelect!].urls?.small,
+          null,
+          state.translate?.dict?[0].terms.toString(),
+          0,
+          DateTime.now().millisecondsSinceEpoch,
+          1.3,
+          i,
+        );
+      } else {
+        File imageFile = File(state.filePath!);
+        Uint8List imageBytes = await imageFile.readAsBytes();
+
+        final base64String = base64Encode(imageBytes);
+        result = await queryDatabase.addWords(
+          state.translate?.sentences?[0].orig,
+          null,
+          base64String,
+          state.translate?.dict?[0].terms.toString(),
+          0,
+          DateTime.now().millisecondsSinceEpoch,
+          1.3,
+          i,
+        );
+      }
+
+      if (result == -1) {
+        emit(state.copyWith(apiStatus: ApiStatus.fail));
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          title: 'thêm dữ liệu thất bại hãy đảm bảo bạn không'
+              ' thêm lại từ vựng đã có hoặc có ít nhất 1 bộ bài học',
+          btnOkOnPress: () {},
+        ).show();
+        emit(state.copyWith(apiStatus: ApiStatus.success));
+      } else {
+        emit(state.copyWith(apiStatus: ApiStatus.success));
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.success,
+          title: 'thêm dữ liệu thành công',
+          btnOkOnPress: () {},
+        ).show();
+      }
+    } else {
       AwesomeDialog(
         context: context,
         dialogType: DialogType.error,
-        title: 'thêm dữ liệu thất bại',
-        btnOkOnPress: () {},
-      ).show();
-    } else {
-      emit(state.copyWith(apiStatus: ApiStatus.success));
-      AwesomeDialog(
-        context: context,
-        dialogType: DialogType.success,
-        title: 'thêm dữ liệu thành công',
+        title: 'Hãy thêm vào ít nhất 1 khóa học',
         btnOkOnPress: () {},
       ).show();
     }
+  }
+  enableSave(){
+    emit(state.copyWith(check: true));
+  }
+  disibleSave() {
+    emit(state.copyWith(check: false));
   }
 }

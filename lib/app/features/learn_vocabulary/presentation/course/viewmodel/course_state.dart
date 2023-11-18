@@ -7,6 +7,7 @@ class CourseState with _$CourseState {
   const factory CourseState({
     @Default(ApiStatus.init) ApiStatus? apiStatus,
     @Default(null) List<Words?>? data,
+    @Default(0) int? min,
 }) = _CourseState;
 
 }

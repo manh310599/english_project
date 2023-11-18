@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/cubit/information_card/information_card_cubit.dart';
 import 'package:english_project/font_size.dart';
@@ -38,9 +39,11 @@ class NewsSearchBottomSheet extends StatelessWidget {
                           color: Colors.red,
                         ),
                         DropdownButton<int?>(
-                          value: state.idStorageWord ?? state.data?[0]?.id,
+                          value: state.data?.isEmpty == true
+                              ? state.idStorageWord
+                              : state.idStorageWord ?? state.data?[0]?.id,
                           items: state.data?.map<DropdownMenuItem<int?>>(
-                                (e) {
+                            (e) {
                               return DropdownMenuItem<int?>(
                                 value: e?.id,
                                 child: e?.name?.text.make() ?? ''.text.make(),
@@ -48,18 +51,36 @@ class NewsSearchBottomSheet extends StatelessWidget {
                             },
                           ).toList(),
                           onChanged: (value) {
-                            context.read<InformationCardCubit>().changeId(value!);
+                            context
+                                .read<InformationCardCubit>()
+                                .changeId(value!);
                           },
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (state.idStorageWord != null ||
+                                state.data?.isNotEmpty == true) {
+                              cubit.saveWord(
+                                  state.idStorageWord ?? state.data?[0]?.id,
+                                  context);
+                            } else {
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.error,
+                                title: 'thêm dữ liệu thất bại hãy đảm'
+                                    ' bảo bán có 1 khóa học đã được tạo',
+                                btnOkOnPress: () {},
+                              ).show();
+                            }
+                          },
                           icon: const Icon(Icons.save),
                           color: Colors.green,
                         ),
                       ],
                     ),
                     state.translate?.sentences?[0].orig?.text.orange500
-                            .size(big).softWrap(true)
+                            .size(big)
+                            .softWrap(true)
                             .make() ??
                         'Vocabulary'.text.make(),
                     Gaps.vGap10,
@@ -68,7 +89,10 @@ class NewsSearchBottomSheet extends StatelessWidget {
                       children: [
                         '👉🏻'.text.make(),
                         Gaps.hGap4,
-                        state.translate?.sentences?[0].trans?.text.softWrap(true).make().flexible() ??
+                        state.translate?.sentences?[0].trans?.text
+                                .softWrap(true)
+                                .make()
+                                .flexible() ??
                             ''.text.make().flexible(),
                       ],
                     ),
@@ -80,11 +104,14 @@ class NewsSearchBottomSheet extends StatelessWidget {
                           children: [
                             '👉🏻'.text.make(),
                             Gaps.hGap4,
-                            state.translate?.dict?[0].terms?[index]?.text.softWrap(true)
-                                    .make().flexible()  ??
+                            state.translate?.dict?[0].terms?[index]?.text
+                                    .softWrap(true)
+                                    .make()
+                                    .flexible() ??
                                 '${state.translate?.sentences?[0].trans}'
                                     .text
-                                    .make().flexible() ,
+                                    .make()
+                                    .flexible(),
                           ],
                         );
                       },
@@ -157,8 +184,33 @@ class NewsSearchBottomSheet extends StatelessWidget {
                                 : 0,
                             shrinkWrap: true,
                           ).flexible()
-                        : const SizedBox(
-                            height: 0,
+                        : SizedBox(
+                            child: Column(
+                              children: [
+                                'không có hỉnh ảnh trong kho dữ liệu hảy sử dụng hình ảnh của bạn'
+                                    .text
+                                    .make(),
+                                Gaps.vGap4,
+                                InkWell(
+                                  onTap: () async {
+                                    cubit.selectImageFromGradle();
+                                  },
+                                  child: state.filePath.isNotEmptyAndNotNull
+                                      ? Image.file(
+                                          File(state.filePath!),
+                                          fit: BoxFit.cover,
+                                          height: 200,
+                                          width: 200,
+                                        )
+                                      : Image.asset(
+                                          'assets/images/select_image.png',
+                                          height: 200,
+                                          width: 200,
+                                          fit: BoxFit.cover,
+                                        ),
+                                )
+                              ],
+                            ),
                           ),
                   ],
                 ).px16()

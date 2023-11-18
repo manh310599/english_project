@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CourseState {
   ApiStatus? get apiStatus => throw _privateConstructorUsedError;
   List<Words?>? get data => throw _privateConstructorUsedError;
+  int? get min => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CourseStateCopyWith<CourseState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $CourseStateCopyWith<$Res> {
           CourseState value, $Res Function(CourseState) then) =
       _$CourseStateCopyWithImpl<$Res, CourseState>;
   @useResult
-  $Res call({ApiStatus? apiStatus, List<Words?>? data});
+  $Res call({ApiStatus? apiStatus, List<Words?>? data, int? min});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$CourseStateCopyWithImpl<$Res, $Val extends CourseState>
   $Res call({
     Object? apiStatus = freezed,
     Object? data = freezed,
+    Object? min = freezed,
   }) {
     return _then(_value.copyWith(
       apiStatus: freezed == apiStatus
@@ -58,6 +60,10 @@ class _$CourseStateCopyWithImpl<$Res, $Val extends CourseState>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as List<Words?>?,
+      min: freezed == min
+          ? _value.min
+          : min // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -70,7 +76,7 @@ abstract class _$$CourseStateImplCopyWith<$Res>
       __$$CourseStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ApiStatus? apiStatus, List<Words?>? data});
+  $Res call({ApiStatus? apiStatus, List<Words?>? data, int? min});
 }
 
 /// @nodoc
@@ -86,6 +92,7 @@ class __$$CourseStateImplCopyWithImpl<$Res>
   $Res call({
     Object? apiStatus = freezed,
     Object? data = freezed,
+    Object? min = freezed,
   }) {
     return _then(_$CourseStateImpl(
       apiStatus: freezed == apiStatus
@@ -96,6 +103,10 @@ class __$$CourseStateImplCopyWithImpl<$Res>
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as List<Words?>?,
+      min: freezed == min
+          ? _value.min
+          : min // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -104,7 +115,9 @@ class __$$CourseStateImplCopyWithImpl<$Res>
 
 class _$CourseStateImpl extends _CourseState {
   const _$CourseStateImpl(
-      {this.apiStatus = ApiStatus.init, final List<Words?>? data = null})
+      {this.apiStatus = ApiStatus.init,
+      final List<Words?>? data = null,
+      this.min = 0})
       : _data = data,
         super._();
 
@@ -123,8 +136,12 @@ class _$CourseStateImpl extends _CourseState {
   }
 
   @override
+  @JsonKey()
+  final int? min;
+
+  @override
   String toString() {
-    return 'CourseState(apiStatus: $apiStatus, data: $data)';
+    return 'CourseState(apiStatus: $apiStatus, data: $data, min: $min)';
   }
 
   @override
@@ -134,12 +151,13 @@ class _$CourseStateImpl extends _CourseState {
             other is _$CourseStateImpl &&
             (identical(other.apiStatus, apiStatus) ||
                 other.apiStatus == apiStatus) &&
-            const DeepCollectionEquality().equals(other._data, _data));
+            const DeepCollectionEquality().equals(other._data, _data) &&
+            (identical(other.min, min) || other.min == min));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, apiStatus, const DeepCollectionEquality().hash(_data));
+      runtimeType, apiStatus, const DeepCollectionEquality().hash(_data), min);
 
   @JsonKey(ignore: true)
   @override
@@ -151,13 +169,16 @@ class _$CourseStateImpl extends _CourseState {
 abstract class _CourseState extends CourseState {
   const factory _CourseState(
       {final ApiStatus? apiStatus,
-      final List<Words?>? data}) = _$CourseStateImpl;
+      final List<Words?>? data,
+      final int? min}) = _$CourseStateImpl;
   const _CourseState._() : super._();
 
   @override
   ApiStatus? get apiStatus;
   @override
   List<Words?>? get data;
+  @override
+  int? get min;
   @override
   @JsonKey(ignore: true)
   _$$CourseStateImplCopyWith<_$CourseStateImpl> get copyWith =>

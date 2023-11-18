@@ -7,5 +7,7 @@ class LearnVocabularyState with _$LearnVocabularyState {
   const factory LearnVocabularyState({
     @Default(null) List<StorageWord?>? data,
     @Default(null) List<Words?>? words,
+    @Default(null) bool? addOrCourse,
+    @Default(ApiStatus.init) ApiStatus? apiStatus,
   }) = _LearnVocabularyState;
 }

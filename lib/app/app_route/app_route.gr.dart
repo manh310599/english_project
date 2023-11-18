@@ -77,7 +77,7 @@ abstract class $AppAutoRoute extends _i13.RootStackRouter {
         child: _i6.CoursePage(
           key: args.key,
           name: args.name,
-          words: args.words,
+          id: args.id,
         ),
       );
     },
@@ -94,9 +94,6 @@ abstract class $AppAutoRoute extends _i13.RootStackRouter {
         child: _i8.NewsReadPage(
           key: args.key,
           url: args.url,
-          image: args.image,
-          auth: args.auth,
-          title: args.title,
         ),
       );
     },
@@ -208,14 +205,14 @@ class CourseRoute extends _i13.PageRouteInfo<CourseRouteArgs> {
   CourseRoute({
     _i14.Key? key,
     String? name,
-    List<_i15.Words?>? words,
+    int? id,
     List<_i13.PageRouteInfo>? children,
   }) : super(
           CourseRoute.name,
           args: CourseRouteArgs(
             key: key,
             name: name,
-            words: words,
+            id: id,
           ),
           initialChildren: children,
         );
@@ -230,18 +227,18 @@ class CourseRouteArgs {
   const CourseRouteArgs({
     this.key,
     this.name,
-    this.words,
+    this.id,
   });
 
   final _i14.Key? key;
 
   final String? name;
 
-  final List<_i15.Words?>? words;
+  final int? id;
 
   @override
   String toString() {
-    return 'CourseRouteArgs{key: $key, name: $name, words: $words}';
+    return 'CourseRouteArgs{key: $key, name: $name, id: $id}';
   }
 }
 
@@ -265,18 +262,12 @@ class NewsReadRoute extends _i13.PageRouteInfo<NewsReadRouteArgs> {
   NewsReadRoute({
     _i14.Key? key,
     required String url,
-    required String image,
-    required String auth,
-    required String title,
     List<_i13.PageRouteInfo>? children,
   }) : super(
           NewsReadRoute.name,
           args: NewsReadRouteArgs(
             key: key,
             url: url,
-            image: image,
-            auth: auth,
-            title: title,
           ),
           initialChildren: children,
         );
@@ -291,24 +282,15 @@ class NewsReadRouteArgs {
   const NewsReadRouteArgs({
     this.key,
     required this.url,
-    required this.image,
-    required this.auth,
-    required this.title,
   });
 
   final _i14.Key? key;
 
   final String url;
 
-  final String image;
-
-  final String auth;
-
-  final String title;
-
   @override
   String toString() {
-    return 'NewsReadRouteArgs{key: $key, url: $url, image: $image, auth: $auth, title: $title}';
+    return 'NewsReadRouteArgs{key: $key, url: $url}';
   }
 }
 

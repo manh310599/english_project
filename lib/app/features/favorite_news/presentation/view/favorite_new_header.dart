@@ -12,6 +12,7 @@ class FavoriteNewsHeader extends StatelessWidget {
     return Row(
       children: [
         EditText(
+          preIcon: const Icon(Icons.cleaning_services_sharp),
           icon: const Icon(Icons.search),
           hinText: 'tìm kiếm',
         ).expand(),

@@ -44,31 +44,45 @@ class NewsType extends StatelessWidget {
           CupertinoButtonEdit(
               text: 'Doanh nghiệp',
               textColor: Colors.black,
-              onPressed: () {}),
+              onPressed: () {
+                newsCubit.getNewsBusiness();
+              }),
           CupertinoButtonEdit(
               text: 'Sức khỏe',
               textColor: Colors.black,
-              onPressed: () {}),
+              onPressed: () {
+                newsCubit.getNewsHealth();
+              }),
           CupertinoButtonEdit(
               text: 'Giải trí',
               textColor: Colors.black,
-              onPressed: () {}),
+              onPressed: () {
+                newsCubit.getNewsEntertainment();
+              }),
           CupertinoButtonEdit(
               text: 'Tổng hơp',
               textColor: Colors.black,
-              onPressed: () {}),
+              onPressed: () {
+                newsCubit.getNewsGeneral();
+              }),
           CupertinoButtonEdit(
               text: 'Khoa học',
               textColor: Colors.black,
-              onPressed: () {}),
+              onPressed: () {
+                newsCubit.getNewsScience();
+              }),
           CupertinoButtonEdit(
               text: 'Thể thao',
               textColor: Colors.black,
-              onPressed: () {}),
+              onPressed: () {
+                newsCubit.getNewsSports();
+              }),
           CupertinoButtonEdit(
               text: 'Công nghệ',
               textColor: Colors.black,
-              onPressed: () {}),
+              onPressed: () {
+                newsCubit.getNewsTechnology();
+              }),
         ],
       ),
     );
