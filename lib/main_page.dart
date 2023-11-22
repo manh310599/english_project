@@ -24,7 +24,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-      routes: const [
+      routes:  const [
         NewsRoute(),
         SearchWordRoute(),
         LearnVocabularyRoute(),

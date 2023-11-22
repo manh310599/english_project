@@ -27,14 +27,18 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset('assets/images/logo.png'),
+                  Gaps.vGap16,
                   EditText(
+                    preIcon: const Icon(Icons.cleaning_services_sharp),
                     hinText: 'Email',
                     icon: const Icon(Icons.account_circle_rounded),
                     callback: (data) {
                       context.read<LoginCubit>().setEmail(data);
                     },
                   ),
+                  Gaps.vGap16,
                   EditText(
+                    preIcon: const Icon(Icons.cleaning_services_sharp),
                     hinText: 'Mật khẩu',
                     icon: const Icon(Icons.lock),
                     callback: (data) {
@@ -75,9 +79,8 @@ class LoginPage extends StatelessWidget {
                         src: 'assets/images/google.png',
                         action: () async {
                           await login.loginWithGoogle(context);
-                          login.state.apiStatus == ApiStatus.success
-                              ? checkAuth.add(const CheckauthEvent.logged())
-                              : null;
+                          checkAuth.add(const CheckauthEvent.logged());
+
                         },
                       );
                     },

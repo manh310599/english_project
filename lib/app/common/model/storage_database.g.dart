@@ -6,30 +6,16 @@ part of 'storage_database.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$StorageImpl _$$StorageImplFromJson(Map<String, dynamic> json) =>
-    _$StorageImpl(
-      idNF: json['idNF'] as int?,
-      idSW: json['idSW'] as int?,
-    );
-
-Map<String, dynamic> _$$StorageImplToJson(_$StorageImpl instance) =>
-    <String, dynamic>{
-      'idNF': instance.idNF,
-      'idSW': instance.idSW,
-    };
-
-_$NewsFavoriteImpl _$$NewsFavoriteImplFromJson(Map<String, dynamic> json) =>
-    _$NewsFavoriteImpl(
+_$StorageWordImpl _$$StorageWordImplFromJson(Map<String, dynamic> json) =>
+    _$StorageWordImpl(
       id: json['id'] as int?,
       name: json['name'] as String?,
-      idNew: json['idNew'] as int?,
     );
 
-Map<String, dynamic> _$$NewsFavoriteImplToJson(_$NewsFavoriteImpl instance) =>
+Map<String, dynamic> _$$StorageWordImplToJson(_$StorageWordImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'idNew': instance.idNew,
     };
 
 _$NewsImpl _$$NewsImplFromJson(Map<String, dynamic> json) => _$NewsImpl(
@@ -37,10 +23,7 @@ _$NewsImpl _$$NewsImplFromJson(Map<String, dynamic> json) => _$NewsImpl(
       title: json['title'] as String?,
       description: json['description'] as String?,
       url: json['url'] as String?,
-      imageUrl: json['imageUrl'] as String?,
-      imageAssets: fromJsonImageAssets(json['imageAssets'] as List<int>?),
-      startTime: json['startTime'] as String?,
-      finalTime: json['finalTime'] as String?,
+      image: json['image'] as String?,
     );
 
 Map<String, dynamic> _$$NewsImplToJson(_$NewsImpl instance) =>
@@ -49,37 +32,36 @@ Map<String, dynamic> _$$NewsImplToJson(_$NewsImpl instance) =>
       'title': instance.title,
       'description': instance.description,
       'url': instance.url,
-      'imageUrl': instance.imageUrl,
-      'imageAssets': toJsonImageAssets(instance.imageAssets),
-      'startTime': instance.startTime,
-      'finalTime': instance.finalTime,
-    };
-
-_$StorageWordsImpl _$$StorageWordsImplFromJson(Map<String, dynamic> json) =>
-    _$StorageWordsImpl(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
-      idWord: json['idWord'] as int?,
-    );
-
-Map<String, dynamic> _$$StorageWordsImplToJson(_$StorageWordsImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'idWord': instance.idWord,
+      'image': instance.image,
     };
 
 _$WordsImpl _$$WordsImplFromJson(Map<String, dynamic> json) => _$WordsImpl(
-      id: json['id'] as int?,
       word: json['word'] as String?,
       image: json['image'] as String?,
-      meaning: json['meaning'] as String?,
+      assets_image: json['assets_image'] as String?,
+      mean: json['mean'] as String?,
+      start_time: json['start_time'] as int?,
+      end_time: json['end_time'] as int?,
+      EF: (json['EF'] as num?)?.toDouble(),
+      id: json['id'] as int?,
+      checkNew: json['checkNew'] as int?,
+      lastChoice: json['lastChoice'] as int?,
+      interval: json['interval'] as int?,
+      ease: (json['ease'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$WordsImplToJson(_$WordsImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'word': instance.word,
       'image': instance.image,
-      'meaning': instance.meaning,
+      'assets_image': instance.assets_image,
+      'mean': instance.mean,
+      'start_time': instance.start_time,
+      'end_time': instance.end_time,
+      'EF': instance.EF,
+      'id': instance.id,
+      'checkNew': instance.checkNew,
+      'lastChoice': instance.lastChoice,
+      'interval': instance.interval,
+      'ease': instance.ease,
     };

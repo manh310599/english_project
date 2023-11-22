@@ -43,4 +43,47 @@ class NewReponsitory implements NewsRepo {
     final data = await NewsUpdateApi().getNewsUpdate();
     return data;
   }
+
+  @override
+  Future<NewModel?> getNewsBusiness() async {
+    // TODO: implement getNewsBusiness
+    final data = await _newApi.getNewsBusiness();
+    return data;
+  }
+
+  @override
+  Future<NewModel?> getNewsEntertainment() async {
+    final data = await _newApi.getNewsEntertainment();
+    return data;
+  }
+
+  @override
+  Future<NewModel?> getNewsGeneral() async {
+    final data = await _newApi.getNewsGeneral();
+    return data;
+  }
+
+  @override
+  Future<NewModel?> getNewsHealth() async {
+    final data = await _newApi.getNewsHealth();
+    return data;
+  }
+
+  @override
+  Future<NewModel?> getNewsScience() async {
+    final data = await _newApi.getNewsScience();
+    return data;
+  }
+
+  @override
+  Future<NewModel?> getNewsSports() async {
+    final data = await _newApi.getNewsSports();
+    return data;
+  }
+
+  @override
+  Future<NewModel?> getNewsTechnology() async {
+    final data = await _newApi.getNewsTechnology();
+    return data;
+  }
 }

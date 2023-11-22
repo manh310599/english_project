@@ -7,6 +7,8 @@ import 'package:english_project/app/features/auth/presentation/forgot_pass_word/
 import 'package:english_project/app/features/auth/presentation/forgot_pass_word/viewmodel/forgot_pass_cubit.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../gaps.dart';
+
 @RoutePage()
 class ForgotPasswordPage extends StatelessWidget {
   const ForgotPasswordPage({super.key});
@@ -23,7 +25,9 @@ class ForgotPasswordPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset('assets/images/logo.png'),
+                Gaps.vGap16,
                 EditText(
+                  preIcon: const Icon(Icons.cleaning_services_sharp),
                   hinText: 'Quên mật khẩu',
                   icon: const Icon(Icons.email),
                   callback: (data) {

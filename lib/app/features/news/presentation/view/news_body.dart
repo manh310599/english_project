@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:english_project/all_file/all_file.dart';
 import 'package:english_project/app/app_route/app_route.gr.dart';
 import 'package:english_project/app/common/widget/button/cupertion_button_custom.dart';
 import 'package:english_project/app/features/news/presentation/viewmodel/news_cubit.dart';
@@ -18,12 +20,27 @@ class NewsBody extends StatelessWidget {
       itemBuilder: (context, index) {
         return CupertinoButtonCustom(
           color: Vx.white,
+          press: () {
+            AwesomeDialog(
+              context: context,
+              dialogType: DialogType.success,
+              customHeader: Image.asset('assets/images/add.png'),
+              title: 'Bạn có muốn theo khóa học vào kho lưu chữ không',
+              btnOkOnPress: () {
+                context.read<NewsCubit>().saveFavoriteNews(index);
+                AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.success,
+                  title: 'Thêm khóa học thành công',
+                  btnOkOnPress: () {},
+                ).show();
+              },
+              btnCancelOnPress: () {},
+            ).show();
+          },
           click: () async {
             context.pushRoute(NewsReadRoute(
-              url: state.news?.articles![state.min! + index].url ?? ''!,
-              image: state.news!.articles![state.min! + index].urlToImage ?? '',
-              auth: state.news!.articles![state.min! + index].author ?? '',
-              title: state.news!.articles![state.min! + index].title ?? '',
+              url: state.news?.articles![state.min! + index].url ?? '',
             ));
           },
           child: Row(

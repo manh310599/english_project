@@ -410,6 +410,7 @@ abstract class _Logout extends CheckauthEvent {
 /// @nodoc
 mixin _$CheckauthState {
   CheckAuth? get checkAuth => throw _privateConstructorUsedError;
+  User? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CheckauthStateCopyWith<CheckauthState> get copyWith =>
@@ -422,7 +423,7 @@ abstract class $CheckauthStateCopyWith<$Res> {
           CheckauthState value, $Res Function(CheckauthState) then) =
       _$CheckauthStateCopyWithImpl<$Res, CheckauthState>;
   @useResult
-  $Res call({CheckAuth? checkAuth});
+  $Res call({CheckAuth? checkAuth, User? user});
 }
 
 /// @nodoc
@@ -439,12 +440,17 @@ class _$CheckauthStateCopyWithImpl<$Res, $Val extends CheckauthState>
   @override
   $Res call({
     Object? checkAuth = freezed,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       checkAuth: freezed == checkAuth
           ? _value.checkAuth
           : checkAuth // ignore: cast_nullable_to_non_nullable
               as CheckAuth?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
     ) as $Val);
   }
 }
@@ -457,7 +463,7 @@ abstract class _$$CheckauthStateImplCopyWith<$Res>
       __$$CheckauthStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({CheckAuth? checkAuth});
+  $Res call({CheckAuth? checkAuth, User? user});
 }
 
 /// @nodoc
@@ -472,12 +478,17 @@ class __$$CheckauthStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? checkAuth = freezed,
+    Object? user = freezed,
   }) {
     return _then(_$CheckauthStateImpl(
       checkAuth: freezed == checkAuth
           ? _value.checkAuth
           : checkAuth // ignore: cast_nullable_to_non_nullable
               as CheckAuth?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
     ));
   }
 }
@@ -485,15 +496,19 @@ class __$$CheckauthStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CheckauthStateImpl extends _CheckauthState {
-  const _$CheckauthStateImpl({this.checkAuth = null}) : super._();
+  const _$CheckauthStateImpl({this.checkAuth = null, this.user = null})
+      : super._();
 
   @override
   @JsonKey()
   final CheckAuth? checkAuth;
+  @override
+  @JsonKey()
+  final User? user;
 
   @override
   String toString() {
-    return 'CheckauthState(checkAuth: $checkAuth)';
+    return 'CheckauthState(checkAuth: $checkAuth, user: $user)';
   }
 
   @override
@@ -502,11 +517,12 @@ class _$CheckauthStateImpl extends _CheckauthState {
         (other.runtimeType == runtimeType &&
             other is _$CheckauthStateImpl &&
             (identical(other.checkAuth, checkAuth) ||
-                other.checkAuth == checkAuth));
+                other.checkAuth == checkAuth) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, checkAuth);
+  int get hashCode => Object.hash(runtimeType, checkAuth, user);
 
   @JsonKey(ignore: true)
   @override
@@ -517,12 +533,14 @@ class _$CheckauthStateImpl extends _CheckauthState {
 }
 
 abstract class _CheckauthState extends CheckauthState {
-  const factory _CheckauthState({final CheckAuth? checkAuth}) =
-      _$CheckauthStateImpl;
+  const factory _CheckauthState(
+      {final CheckAuth? checkAuth, final User? user}) = _$CheckauthStateImpl;
   const _CheckauthState._() : super._();
 
   @override
   CheckAuth? get checkAuth;
+  @override
+  User? get user;
   @override
   @JsonKey(ignore: true)
   _$$CheckauthStateImplCopyWith<_$CheckauthStateImpl> get copyWith =>

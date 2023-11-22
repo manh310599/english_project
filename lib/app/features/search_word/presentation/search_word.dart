@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:english_project/all_file/all_file.dart';
 import 'package:english_project/app/common/cubit/information_card/information_card_cubit.dart';
 import 'package:english_project/app/common/widget/button/cupertion_button_custom.dart';
@@ -21,6 +22,7 @@ class SearchWordPage extends StatelessWidget {
         create: (context) => InformationCardCubit(),
         child: BlocBuilder<InformationCardCubit, InformationCardState>(
           builder: (context, state) {
+            final cubit = context.read<InformationCardCubit>();
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -28,29 +30,47 @@ class SearchWordPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Gaps.hGap8,
-
                     Image.asset(
                       'assets/images/logo.png',
                       height: Dimens.ic_XL,
                     ),
                     Gaps.hGap8,
                     EditText(
-                      preIcon: Icon(Icons.cleaning_services_rounded),
+                      preIcon: const Icon(Icons.cleaning_services_rounded),
                       icon: const Icon(
                         Icons.search,
                       ),
                       hinText: 'Tìm kiếm từ vựng',
                       search: (data) {
                         context.read<InformationCardCubit>().searchWord(data);
-                        context.read<InformationCardCubit>().getImage(data);
+                        context.read<InformationCardCubit>().enableSave();
                       },
                     ).flexible(),
                     Gaps.hGap8,
-                     CupertinoButtonCustom(
+                    CupertinoButtonCustom(
                       click: () {
+                        if (state.check == true) {
+                          if (state.idStorageWord != null ||
+                              state.data?.isNotEmpty == true) {
+                            cubit.saveWord(
+                                state.idStorageWord ?? state.data?[0]?.id,
+                                context);
+                            cubit.disibleSave();
+                          } else {
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.error,
+                              title: 'thêm dữ liệu thất bại hãy đảm'
+                                  ' bảo bán có 1 khóa học đã được tạo',
+                              btnOkOnPress: () {},
+                            ).show();
+                          }
+                        }
+                        else{
 
+                        }
                       },
-                       color: Vx.white,
+                      color: Vx.white,
                       child: const Icon(
                         Icons.save_as,
                         color: Colors.black,

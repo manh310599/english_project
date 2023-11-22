@@ -35,6 +35,7 @@ class _EditTextState extends State<EditText> {
     return SizedBox(
 
       child: TextFormField(
+        autofocus: false,
         controller: _textEditingController,
         obscureText: widget.stylePassWord ?? false,
         onChanged: (value) {

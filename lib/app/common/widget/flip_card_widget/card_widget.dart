@@ -24,7 +24,7 @@ class _FlashCardState extends State<FlashCard> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
-      color: context.themeColor.greyLighter,
+      color: Colors.black,
       child: SizedBox(
         height: height,
         width: width,

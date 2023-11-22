@@ -10,5 +10,8 @@ class InformationCardState with _$InformationCardState {
     @Default(null) ImageFromText? imageFromText,
     @Default(0) int? itemSelect,
     @Default(null) String? filePath,
+    @Default(null) List<StorageWord?>? data,
+    @Default(null) int? idStorageWord,
+    @Default(false) bool? check,
   }) = _InformationCardState;
 }
