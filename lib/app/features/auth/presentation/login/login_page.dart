@@ -11,6 +11,7 @@ import 'package:english_project/app/features/auth/presentation/login/viewmodel/l
 import 'package:english_project/gaps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage()
 class LoginPage extends StatelessWidget {
@@ -102,7 +103,7 @@ class LoginPage extends StatelessWidget {
               );
             },
           ),
-        ),
+        ).p16(),
         floatingActionButton: CupertinoButtonEdit(
           text: 'Thoát',
           textColor: Colors.black,

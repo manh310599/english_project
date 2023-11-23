@@ -6,6 +6,7 @@ import 'package:english_project/app/features/auth/presentation/check_user/viewmo
 import 'package:english_project/app/features/auth/presentation/register/viewmodel/register_cubit.dart';
 import 'package:english_project/gaps.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../common/widget/button/cupertino_button.dart';
 
@@ -90,7 +91,7 @@ class RegisterPage extends StatelessWidget {
             );
           },
         ),
-      ),
+      ).p16(),
     );
   }
 }

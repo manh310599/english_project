@@ -6,6 +6,7 @@ import 'package:english_project/app/common/widget/edit_text/edit_text.dart';
 import 'package:english_project/app/features/auth/presentation/forgot_pass_word/viewmodel/forgot_pass_cubit.dart';
 import 'package:english_project/app/features/auth/presentation/forgot_pass_word/viewmodel/forgot_pass_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../../gaps.dart';
 
@@ -45,7 +46,7 @@ class ForgotPasswordPage extends StatelessWidget {
             );
           },
         ),
-      ),
+      ).p16(),
     );
   }
 }
