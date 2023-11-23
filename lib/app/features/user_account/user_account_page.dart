@@ -5,8 +5,8 @@ import 'package:english_project/app/features/auth/presentation/check_user/viewmo
 import 'package:english_project/app/features/user_account/presentation/view/card_title.dart';
 import 'package:english_project/font_size.dart';
 import 'package:english_project/gaps.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -19,9 +19,6 @@ class UserAccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDebugMode = kDebugMode;
-
-
     return BlocBuilder<CheckauthBloc, CheckauthState>(
       builder: (context, state) {
         return Scaffold(
@@ -60,7 +57,8 @@ class UserAccountPage extends StatelessWidget {
                 CardTitle(
                   title: 'Chỉnh sửa thông tin cá nhân',
                   callback: () {
-                    context.pushRoute(const CustomInformationRoute());
+                    context.pushRoute(CustomInformationRoute(
+                        time: state.idUser?.finalDayPremium ?? 0));
                   },
                 ),
                 Gaps.vGap10,
@@ -72,12 +70,17 @@ class UserAccountPage extends StatelessWidget {
                 ),
                 Gaps.vGap10,
                 CardTitle(
-
                   title: 'Hãy tham gia cùng bọn mình',
                   callback: () async {
                     await launchUrl(Uri.parse(
                         'https://www.facebook.com/groups/693049622799187'));
                   },
+                ),
+                Gaps.vGap10,
+                CardTitle(
+                  title: state.premium == true
+                      ? 'Người dùng: VIP'
+                      : 'Người dùng: FREE',
                 ),
                 Gaps.vGap10,
                 CardTitle(
@@ -88,6 +91,13 @@ class UserAccountPage extends StatelessWidget {
                         .add(const CheckauthEvent.logOut());
                   },
                 ),
+                Gaps.vGap10,
+                CardTitle(
+                  title: 'Thaát',
+                  callback: () {
+                    SystemNavigator.pop();
+                  },
+                ),
               ],
             ),
           ),
@@ -95,7 +105,7 @@ class UserAccountPage extends StatelessWidget {
               FloatingActionButtonLocation.endContained,
           floatingActionButton: state.bannerAd != null
               ? SizedBox(
-            height: 60,
+                  height: 60,
                   child: AdWidget(ad: state.bannerAd!),
                 )
               : const SizedBox(),

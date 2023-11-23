@@ -92,6 +92,7 @@ abstract class $AppAutoRoute extends _i15.RootStackRouter {
         child: _i7.LessonPage(
           key: args.key,
           id: args.id,
+          premium: args.premium,
         ),
       );
     },
@@ -118,9 +119,13 @@ abstract class $AppAutoRoute extends _i15.RootStackRouter {
       );
     },
     CustomInformationRoute.name: (routeData) {
+      final args = routeData.argsAs<CustomInformationRouteArgs>();
       return _i15.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i11.CustomInformationPage(),
+        child: _i11.CustomInformationPage(
+          key: args.key,
+          time: args.time,
+        ),
       );
     },
     PremiumRoute.name: (routeData) {
@@ -263,12 +268,14 @@ class LessonRoute extends _i15.PageRouteInfo<LessonRouteArgs> {
   LessonRoute({
     _i16.Key? key,
     int? id,
+    bool? premium,
     List<_i15.PageRouteInfo>? children,
   }) : super(
           LessonRoute.name,
           args: LessonRouteArgs(
             key: key,
             id: id,
+            premium: premium,
           ),
           initialChildren: children,
         );
@@ -283,15 +290,18 @@ class LessonRouteArgs {
   const LessonRouteArgs({
     this.key,
     this.id,
+    this.premium,
   });
 
   final _i16.Key? key;
 
   final int? id;
 
+  final bool? premium;
+
   @override
   String toString() {
-    return 'LessonRouteArgs{key: $key, id: $id}';
+    return 'LessonRouteArgs{key: $key, id: $id, premium: $premium}';
   }
 }
 
@@ -363,16 +373,41 @@ class SearchWordRoute extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i11.CustomInformationPage]
-class CustomInformationRoute extends _i15.PageRouteInfo<void> {
-  const CustomInformationRoute({List<_i15.PageRouteInfo>? children})
-      : super(
+class CustomInformationRoute
+    extends _i15.PageRouteInfo<CustomInformationRouteArgs> {
+  CustomInformationRoute({
+    _i16.Key? key,
+    required int time,
+    List<_i15.PageRouteInfo>? children,
+  }) : super(
           CustomInformationRoute.name,
+          args: CustomInformationRouteArgs(
+            key: key,
+            time: time,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'CustomInformationRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i15.PageInfo<CustomInformationRouteArgs> page =
+      _i15.PageInfo<CustomInformationRouteArgs>(name);
+}
+
+class CustomInformationRouteArgs {
+  const CustomInformationRouteArgs({
+    this.key,
+    required this.time,
+  });
+
+  final _i16.Key? key;
+
+  final int time;
+
+  @override
+  String toString() {
+    return 'CustomInformationRouteArgs{key: $key, time: $time}';
+  }
 }
 
 /// generated route for

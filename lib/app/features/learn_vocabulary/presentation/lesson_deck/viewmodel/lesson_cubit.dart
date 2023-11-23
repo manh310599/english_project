@@ -5,6 +5,7 @@ import 'package:english_project/app/common/service/admob.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 import '../../../../../common/model/storage_database.dart';
 
 part 'lesson_cubit.freezed.dart';
@@ -15,28 +16,32 @@ class LessonCubit extends Cubit<LessonState> {
   LessonCubit() : super(const LessonState());
 
   RewardedAd? _rewardedAd;
+  late final bool? checkPremium;
 
   void _loadReWardedAd() {
-
-    RewardedAd.load(adUnitId: AdMobService.rewarded,
+    RewardedAd.load(
+        adUnitId: AdMobService.rewarded,
         request: const AdRequest(),
         rewardedAdLoadCallback: RewardedAdLoadCallback(
-            onAdLoaded: (ad) => _rewardedAd = ad,
-            onAdFailedToLoad: (error) => _rewardedAd = null,));
+          onAdLoaded: (ad) => _rewardedAd = ad,
+          onAdFailedToLoad: (error) => _rewardedAd = null,
+        ));
   }
 
   FlipCardController controller = FlipCardController();
   QueryDatabase queryDatabase = QueryDatabase();
-  final now = DateTime
-      .now()
-      .millisecondsSinceEpoch;
+  final now = DateTime.now().millisecondsSinceEpoch;
   final n = DateTime.now();
 
-  Future<void> getListWordsByDay(int id,) async {
-    _loadReWardedAd();
-    int date = DateTime
-        .now()
-        .millisecondsSinceEpoch;
+  Future<void> getListWordsByDay(
+    int id,
+    bool? premium,
+  ) async {
+    checkPremium = premium;
+    if (checkPremium == false) {
+      _loadReWardedAd();
+    }
+    int date = DateTime.now().millisecondsSinceEpoch;
     print(date);
     final data = await queryDatabase.getAllFromDate(date, id);
     debugPrint(data.toString());
@@ -164,15 +169,7 @@ class LessonCubit extends Cubit<LessonState> {
         if (e <= 1.3) {
           await queryDatabase.updateWords(
               state.words?[state.indexInLesson!]?.word,
-              DateTime(
-                  n.year,
-                  n.month,
-                  n.day,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0)
+              DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
                   .add(const Duration(days: 1))
                   .millisecondsSinceEpoch,
               0,
@@ -182,15 +179,7 @@ class LessonCubit extends Cubit<LessonState> {
         } else {
           await queryDatabase.updateWords(
               state.words?[state.indexInLesson!]?.word,
-              DateTime(
-                  n.year,
-                  n.month,
-                  n.day,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0)
+              DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
                   .add(Duration(days: interval))
                   .millisecondsSinceEpoch,
               1,
@@ -208,15 +197,7 @@ class LessonCubit extends Cubit<LessonState> {
           state.words?[state.indexInLesson!]?.lastChoice == 3) {
         await queryDatabase.updateWords(
             state.words?[state.indexInLesson!]?.word,
-            DateTime(
-                n.year,
-                n.month,
-                n.day,
-                0,
-                0,
-                0,
-                0,
-                0)
+            DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
                 .add(const Duration(days: 1))
                 .millisecondsSinceEpoch,
             1,
@@ -244,15 +225,7 @@ class LessonCubit extends Cubit<LessonState> {
         double e = ease(choice, state.words?[state.indexInLesson!]?.ease);
         await queryDatabase.updateWords(
             state.words?[state.indexInLesson!]?.word,
-            DateTime(
-                n.year,
-                n.month,
-                n.day,
-                0,
-                0,
-                0,
-                0,
-                0)
+            DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
                 .add(Duration(days: interval))
                 .millisecondsSinceEpoch,
             1,
@@ -268,15 +241,7 @@ class LessonCubit extends Cubit<LessonState> {
       if (state.words?[state.indexInLesson!]?.checkNew == 0) {
         await queryDatabase.updateWords(
             state.words?[state.indexInLesson!]?.word,
-            DateTime(
-                n.year,
-                n.month,
-                n.day,
-                0,
-                0,
-                0,
-                0,
-                0)
+            DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
                 .add(const Duration(days: 4))
                 .millisecondsSinceEpoch,
             1,
@@ -296,15 +261,7 @@ class LessonCubit extends Cubit<LessonState> {
         double e = ease(choice, state.words?[state.indexInLesson!]?.ease);
         await queryDatabase.updateWords(
             state.words?[state.indexInLesson!]?.word,
-            DateTime(
-                n.year,
-                n.month,
-                n.day,
-                0,
-                0,
-                0,
-                0,
-                0)
+            DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
                 .add(Duration(days: interval))
                 .millisecondsSinceEpoch,
             1,
@@ -323,19 +280,13 @@ class LessonCubit extends Cubit<LessonState> {
 
   int forecastTimeMinute(int minute) {
     final dateTime =
-        DateTime
-            .now()
-            .add(Duration(minutes: minute))
-            .millisecondsSinceEpoch;
+        DateTime.now().add(Duration(minutes: minute)).millisecondsSinceEpoch;
     return dateTime - now;
   }
 
   int forecastTimeDays(int days) {
     final dateTime =
-        DateTime
-            .now()
-            .add(Duration(days: days))
-            .millisecondsSinceEpoch;
+        DateTime.now().add(Duration(days: days)).millisecondsSinceEpoch;
     return dateTime - now;
   }
 
@@ -370,7 +321,7 @@ class LessonCubit extends Cubit<LessonState> {
     } else if (millisecondsSinceEpoch >= 2592000000) {
       {
         final month =
-        (millisecondsSinceEpoch / 1000 / 30 / 24 / 60 / 60).truncate();
+            (millisecondsSinceEpoch / 1000 / 30 / 24 / 60 / 60).truncate();
 
         String formattedTime = "$month tháng";
         return formattedTime;
@@ -388,25 +339,22 @@ class LessonCubit extends Cubit<LessonState> {
   @override
   Future<void> close() {
     // TODO: implement close
-
-    if(_rewardedAd != null){
-      _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(
-        onAdDismissedFullScreenContent: (ad){
-          ad.dispose();
-          _loadReWardedAd();
-        },
-        onAdFailedToShowFullScreenContent: (ad, error) {
-          ad.dispose();
-          _loadReWardedAd();
-        },
-      );
-      _rewardedAd?.show(onUserEarnedReward: (ad, reward) {
-
-      },);
-      print('ok');
-    }
-    else{
-      print('không ok');
+    if (checkPremium == false) {
+      if (_rewardedAd != null) {
+        _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(
+          onAdDismissedFullScreenContent: (ad) {
+            ad.dispose();
+            _loadReWardedAd();
+          },
+          onAdFailedToShowFullScreenContent: (ad, error) {
+            ad.dispose();
+            _loadReWardedAd();
+          },
+        );
+        _rewardedAd?.show(
+          onUserEarnedReward: (ad, reward) {},
+        );
+      }
     }
 
     return super.close();

@@ -129,4 +129,10 @@ class LoginCubit extends Cubit<LoginState> {
     await signInWithGoogle();
     emit(state.copyWith(apiStatus: ApiStatus.success));
   }
+  @override
+  Future<void> close() {
+    // TODO: implement close
+
+    return super.close();
+  }
 }

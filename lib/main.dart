@@ -66,10 +66,10 @@ class _AppState extends State<App> {
       create: (context) => CheckauthBloc()..add(const CheckauthEvent.stated()),
       child: BlocListener<CheckauthBloc, CheckauthState>(
         listener: (context, state) {
-          if (state.checkAuth == CheckAuth.logged) {
-            appRouter.navigate(const MainRoute());
-          } else if (state.checkAuth == CheckAuth.loggedOut) {
+            if (state.checkAuth == CheckAuth.loggedOut) {
             appRouter.navigate(const LoginRoute());
+          }else if (state.checkAuth == CheckAuth.logged) {
+          appRouter.navigate(const MainRoute());
           }
         },
         child: BlocBuilder<CheckauthBloc, CheckauthState>(

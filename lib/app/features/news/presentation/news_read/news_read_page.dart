@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:english_project/all_file/all_file.dart';
 import 'package:english_project/app/common/widget/edit_text/edit_text.dart';
+import 'package:english_project/app/features/auth/presentation/check_user/viewmodel/checkauth_bloc.dart';
 import 'package:english_project/app/features/news/presentation/news_read/viewmodel/news_read_cubit.dart';
 import 'package:english_project/app/features/news/presentation/news_read/views/news_search_bottom_sheet.dart';
 import 'package:english_project/dimens.dart';
@@ -22,8 +23,10 @@ class NewsReadPage extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: BlocProvider(
-        create: (context) => NewsReadCubit()..setPageNews(url, context),
+      body: BlocBuilder<CheckauthBloc, CheckauthState>(
+  builder: (context, stateCheck) {
+    return BlocProvider(
+        create: (context) => NewsReadCubit()..setPageNews(stateCheck.premium, context),
         child: BlocBuilder<NewsReadCubit, NewsReadState>(
           builder: (context, state) {
             return SafeArea(
@@ -63,7 +66,9 @@ class NewsReadPage extends StatelessWidget {
             );
           },
         ),
-      ),
+      );
+  },
+),
     );
   }
 }

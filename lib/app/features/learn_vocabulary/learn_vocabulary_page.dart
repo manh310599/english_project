@@ -82,44 +82,49 @@ class LearnVocabularyPage extends StatelessWidget {
               minimum: EdgeInsets.only(bottom: 60),
               child: ListView.separated(
                 itemBuilder: (context, index) {
-                  return CupertinoButtonCustom(
-                      color: Colors.black,
-                      click: () async {
-                        context
-                            .pushRoute(LessonRoute(id: state.data?[index]?.id));
-                      },
-                      press: () {
-                        AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.warning,
-                          animType: AnimType.rightSlide,
-                          title: 'Cài đặt bộ từ vựng',
-                          btnCancelText: 'Xóa',
-                          btnOkText: 'Chỉnh sửa',
-                          btnCancelOnPress: () {
+                  return BlocBuilder<CheckauthBloc, CheckauthState>(
+                    builder: (context, stateCheck) {
+                      return CupertinoButtonCustom(
+                          color: Colors.black,
+                          click: () async {
+                            context.pushRoute(
+                                LessonRoute(id: state.data?[index]?.id,premium: stateCheck.premium));
+                          },
+                          press: () {
                             AwesomeDialog(
                               context: context,
                               dialogType: DialogType.warning,
                               animType: AnimType.rightSlide,
-                              title: 'Bạn có chắc muốn xóa bộ bài học không',
-                              btnCancelOnPress: () {},
+                              title: 'Cài đặt bộ từ vựng',
+                              btnCancelText: 'Xóa',
+                              btnOkText: 'Chỉnh sửa',
+                              btnCancelOnPress: () {
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.warning,
+                                  animType: AnimType.rightSlide,
+                                  title:
+                                      'Bạn có chắc muốn xóa bộ bài học không',
+                                  btnCancelOnPress: () {},
+                                  btnOkOnPress: () {
+                                    context
+                                        .read<LearnVocabularyCubit>()
+                                        .deleteStoreWord(
+                                            context, state.data?[index]?.id);
+                                  },
+                                ).show();
+                              },
                               btnOkOnPress: () {
-                                context
-                                    .read<LearnVocabularyCubit>()
-                                    .deleteStoreWord(
-                                        context, state.data?[index]?.id);
+                                context.pushRoute(CourseRoute(
+                                    id: state.data?[index]?.id,
+                                    name: state.data?[index]?.name));
                               },
                             ).show();
                           },
-                          btnOkOnPress: () {
-                            context.pushRoute(CourseRoute(
-                                id: state.data?[index]?.id,
-                                name: state.data?[index]?.name));
-                          },
-                        ).show();
-                      },
-                      child: state.data?[index]?.name?.text.bold.make() ??
-                          ''.text.make());
+                          child: state.data?[index]?.name?.text.bold.make() ??
+                              ''.text.make());
+                    },
+                  );
                 },
                 itemCount: state.data?.length ?? 0,
                 separatorBuilder: (BuildContext context, int index) {
@@ -131,7 +136,7 @@ class LearnVocabularyPage extends StatelessWidget {
                 FloatingActionButtonLocation.endContained,
             floatingActionButton: BlocBuilder<CheckauthBloc, CheckauthState>(
               builder: (context, stateCheck) {
-                return state.bannerAd != null  && stateCheck.premium == false
+                return state.bannerAd != null && stateCheck.premium == false
                     ? SizedBox(
                         height: 60,
                         child: AdWidget(ad: state.bannerAd!),

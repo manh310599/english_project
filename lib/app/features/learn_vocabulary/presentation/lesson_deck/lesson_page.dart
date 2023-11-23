@@ -15,14 +15,14 @@ import '../../../../common/model/storage_database.dart';
 
 @RoutePage()
 class LessonPage extends StatelessWidget {
-  const LessonPage({super.key,  this.id});
-
+  const LessonPage({super.key,  this.id, this.premium});
+  final bool? premium;
   final int? id;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LessonCubit()..getListWordsByDay(id!),
+      create: (context) => LessonCubit()..getListWordsByDay(id!,premium),
       child: BlocConsumer<LessonCubit, LessonState>(
         listener: (context, state) {
           // TODO: implement listener

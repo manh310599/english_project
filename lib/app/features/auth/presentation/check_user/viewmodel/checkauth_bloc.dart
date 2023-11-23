@@ -31,6 +31,7 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
           await data.collection('users').doc(currentUser.uid).get();
 
       UserData u =  UserData.fromFirestore(information);
+      print('gggq ${DateTime.now().millisecondsSinceEpoch}');
       if (u.finalDayPremium! < DateTime.now().millisecondsSinceEpoch){
         emit(
           state.copyWith(
@@ -74,6 +75,7 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
 
     UserData u =  UserData.fromFirestore(information);
     if (u.finalDayPremium! < DateTime.now().millisecondsSinceEpoch){
+
       emit(
         state.copyWith(
           checkAuth: CheckAuth.logged,
