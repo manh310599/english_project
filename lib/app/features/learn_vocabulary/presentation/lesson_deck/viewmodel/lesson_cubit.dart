@@ -42,17 +42,26 @@ class LessonCubit extends Cubit<LessonState> {
       _loadReWardedAd();
     }
     int date = DateTime.now().millisecondsSinceEpoch;
-    print(date);
     final data = await queryDatabase.getAllFromDate(date, id);
     debugPrint(data.toString());
     List<Words?>? list = [];
     data?.forEach((element) {
       list.add(Words.fromJson(element));
     });
-
-    emit(state.copyWith(
-      words: list,
-    ));
+    if (checkPremium == false) {
+      emit(state.copyWith(
+          words: list,
+          bannerAd: BannerAd(
+            size: AdSize.fullBanner,
+            adUnitId: AdMobService.banner,
+            listener: AdMobService.bannerAdListener,
+            request: const AdRequest(),
+          )..load()));
+    } else {
+      emit(state.copyWith(
+        words: list,
+      ));
+    }
   }
 
   Future<void> setTime() async {

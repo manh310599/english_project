@@ -10,6 +10,7 @@ import 'package:english_project/app/common/widget/flip_card_widget/front_card_vi
 import 'package:english_project/app/features/learn_vocabulary/presentation/lesson_deck/viewmodel/lesson_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../../../common/model/storage_database.dart';
 
@@ -23,12 +24,19 @@ class LessonPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LessonCubit()..getListWordsByDay(id!,premium),
-      child: BlocConsumer<LessonCubit, LessonState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+      child: BlocBuilder<LessonCubit, LessonState>(
+
         builder: (context, state) {
           return Scaffold(
+            appBar: AppBar(
+              flexibleSpace: state.bannerAd != null
+                  ? SizedBox(
+                height: 60,
+                child: AdWidget(ad: state.bannerAd!),
+              )
+                  : const SizedBox(),
+
+            ),
             body: state.words?.isNotEmpty == true
                 ? Center(
                     child: FlipCardWidget(

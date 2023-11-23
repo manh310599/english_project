@@ -19,10 +19,13 @@ class CourseCubit extends Cubit<CourseState> {
     int id,
   ) async {
     final data = await queryDatabase.getAllFromWordByStorage(id);
+
     List<Words?>? list = [];
     data?.forEach((element) {
       list.add(Words.fromJson(element));
     });
+
+    print(list);
 
     emit(state.copyWith(data: list));
   }

@@ -24,6 +24,7 @@ mixin _$LessonState {
   String? get hardTime => throw _privateConstructorUsedError;
   String? get goodTime => throw _privateConstructorUsedError;
   String? get easyTime => throw _privateConstructorUsedError;
+  BannerAd? get bannerAd => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LessonStateCopyWith<LessonState> get copyWith =>
@@ -44,7 +45,8 @@ abstract class $LessonStateCopyWith<$Res> {
       String? againTime,
       String? hardTime,
       String? goodTime,
-      String? easyTime});
+      String? easyTime,
+      BannerAd? bannerAd});
 }
 
 /// @nodoc
@@ -68,6 +70,7 @@ class _$LessonStateCopyWithImpl<$Res, $Val extends LessonState>
     Object? hardTime = freezed,
     Object? goodTime = freezed,
     Object? easyTime = freezed,
+    Object? bannerAd = freezed,
   }) {
     return _then(_value.copyWith(
       apiStatus: freezed == apiStatus
@@ -102,6 +105,10 @@ class _$LessonStateCopyWithImpl<$Res, $Val extends LessonState>
           ? _value.easyTime
           : easyTime // ignore: cast_nullable_to_non_nullable
               as String?,
+      bannerAd: freezed == bannerAd
+          ? _value.bannerAd
+          : bannerAd // ignore: cast_nullable_to_non_nullable
+              as BannerAd?,
     ) as $Val);
   }
 }
@@ -122,7 +129,8 @@ abstract class _$$LessonStateImplCopyWith<$Res>
       String? againTime,
       String? hardTime,
       String? goodTime,
-      String? easyTime});
+      String? easyTime,
+      BannerAd? bannerAd});
 }
 
 /// @nodoc
@@ -144,6 +152,7 @@ class __$$LessonStateImplCopyWithImpl<$Res>
     Object? hardTime = freezed,
     Object? goodTime = freezed,
     Object? easyTime = freezed,
+    Object? bannerAd = freezed,
   }) {
     return _then(_$LessonStateImpl(
       apiStatus: freezed == apiStatus
@@ -178,6 +187,10 @@ class __$$LessonStateImplCopyWithImpl<$Res>
           ? _value.easyTime
           : easyTime // ignore: cast_nullable_to_non_nullable
               as String?,
+      bannerAd: freezed == bannerAd
+          ? _value.bannerAd
+          : bannerAd // ignore: cast_nullable_to_non_nullable
+              as BannerAd?,
     ));
   }
 }
@@ -193,7 +206,8 @@ class _$LessonStateImpl extends _LessonState with DiagnosticableTreeMixin {
       this.againTime = null,
       this.hardTime = null,
       this.goodTime = null,
-      this.easyTime = null})
+      this.easyTime = null,
+      this.bannerAd = null})
       : _words = words,
         super._();
 
@@ -229,10 +243,13 @@ class _$LessonStateImpl extends _LessonState with DiagnosticableTreeMixin {
   @override
   @JsonKey()
   final String? easyTime;
+  @override
+  @JsonKey()
+  final BannerAd? bannerAd;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LessonState(apiStatus: $apiStatus, words: $words, checkBackCard: $checkBackCard, indexInLesson: $indexInLesson, againTime: $againTime, hardTime: $hardTime, goodTime: $goodTime, easyTime: $easyTime)';
+    return 'LessonState(apiStatus: $apiStatus, words: $words, checkBackCard: $checkBackCard, indexInLesson: $indexInLesson, againTime: $againTime, hardTime: $hardTime, goodTime: $goodTime, easyTime: $easyTime, bannerAd: $bannerAd)';
   }
 
   @override
@@ -247,7 +264,8 @@ class _$LessonStateImpl extends _LessonState with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('againTime', againTime))
       ..add(DiagnosticsProperty('hardTime', hardTime))
       ..add(DiagnosticsProperty('goodTime', goodTime))
-      ..add(DiagnosticsProperty('easyTime', easyTime));
+      ..add(DiagnosticsProperty('easyTime', easyTime))
+      ..add(DiagnosticsProperty('bannerAd', bannerAd));
   }
 
   @override
@@ -269,7 +287,9 @@ class _$LessonStateImpl extends _LessonState with DiagnosticableTreeMixin {
             (identical(other.goodTime, goodTime) ||
                 other.goodTime == goodTime) &&
             (identical(other.easyTime, easyTime) ||
-                other.easyTime == easyTime));
+                other.easyTime == easyTime) &&
+            (identical(other.bannerAd, bannerAd) ||
+                other.bannerAd == bannerAd));
   }
 
   @override
@@ -282,7 +302,8 @@ class _$LessonStateImpl extends _LessonState with DiagnosticableTreeMixin {
       againTime,
       hardTime,
       goodTime,
-      easyTime);
+      easyTime,
+      bannerAd);
 
   @JsonKey(ignore: true)
   @override
@@ -300,7 +321,8 @@ abstract class _LessonState extends LessonState {
       final String? againTime,
       final String? hardTime,
       final String? goodTime,
-      final String? easyTime}) = _$LessonStateImpl;
+      final String? easyTime,
+      final BannerAd? bannerAd}) = _$LessonStateImpl;
   const _LessonState._() : super._();
 
   @override
@@ -319,6 +341,8 @@ abstract class _LessonState extends LessonState {
   String? get goodTime;
   @override
   String? get easyTime;
+  @override
+  BannerAd? get bannerAd;
   @override
   @JsonKey(ignore: true)
   _$$LessonStateImplCopyWith<_$LessonStateImpl> get copyWith =>

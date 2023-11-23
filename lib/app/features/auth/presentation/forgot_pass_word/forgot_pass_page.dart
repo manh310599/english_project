@@ -29,7 +29,7 @@ class ForgotPasswordPage extends StatelessWidget {
                 Gaps.vGap16,
                 EditText(
                   preIcon: const Icon(Icons.cleaning_services_sharp),
-                  hinText: 'Quên mật khẩu',
+                  hinText: 'Nhập email',
                   icon: const Icon(Icons.email),
                   callback: (data) {
                     context.read<ForgotPassCubit>().setEmail(data);

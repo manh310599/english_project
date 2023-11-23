@@ -99,8 +99,10 @@ class CoursePage extends StatelessWidget {
                         ),
                       ).p16();
                     },
-                    itemCount: state.data?.isEmpty == false
-                        ? roundUpAbsolute(state.data!.length / 10)
+                    itemCount: state.data?.isNotEmpty == true
+                        ? ((state.data!.length - state.min!.toInt()) >= 20
+                        ? 20
+                        : (state.data!.length - state.min!.toInt()))
                         : 0,
                   )
                 : Center(
