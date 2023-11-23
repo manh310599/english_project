@@ -33,7 +33,7 @@ class NewsReadPage extends StatelessWidget {
                     initialUrlRequest: URLRequest(url: Uri.parse(url)),
                     initialOptions: InAppWebViewGroupOptions(
                         crossPlatform: InAppWebViewOptions(
-                      contentBlockers: [state.contentBlocker!],
+                      //contentBlockers: [state.contentBlocker!],
                     )),
                   ).expand(),
                   EditText(

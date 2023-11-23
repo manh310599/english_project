@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/check_isvaid.dart';
 import 'package:english_project/app/common/widget/dialog/show_dialog.dart';
@@ -13,6 +16,10 @@ part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(const RegisterState());
+
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  var random = Random();
 
   void setEmail(String? email) {
     emit(state.copyWith(
@@ -64,18 +71,32 @@ class RegisterCubit extends Cubit<RegisterState> {
             context, 'Định dạng email không đúng', 'Hãy nhập lại email');
         emit(state.copyWith(apiStatus: ApiStatus.fail));
       } else {
-        final regis = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        final regis =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: state.customUser?.email ?? '',
           password: state.customUser?.passWord ?? '',
         );
-        if(regis.user !=null) {
-          await showDiaLogCustom(context, 'Chúc mừng bạn đăng kí thành công', '');
+        if (regis.user != null) {
+          int randomNumber = random.nextInt(900000) + 100000;
+          firebaseFirestore
+              .collection('users')
+              .doc(regis.user?.uid)
+              .set({
+                'userID': randomNumber,
+                'finalDayPremium': 0,
+                'dayOflearn': 0
+              })
+              .then((value) =>
+                  print("'full_name' & 'age' merged with existing data!"))
+              .catchError((error) {
+                showDiaLogCustom(
+                    context, 'Có vẻ server đang lỗi hãy thử lại nhé', '');
+              });
+
           emit(state.copyWith(apiStatus: ApiStatus.success));
-        }
-        else{
+        } else {
           emit(state.copyWith(apiStatus: ApiStatus.fail));
         }
-
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

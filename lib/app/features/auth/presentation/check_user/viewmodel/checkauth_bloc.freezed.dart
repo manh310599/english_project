@@ -21,6 +21,7 @@ mixin _$CheckauthEvent {
     required TResult Function() stated,
     required TResult Function() logged,
     required TResult Function() logOut,
+    required TResult Function(String? name, int? phoneNumber) changeProfile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$CheckauthEvent {
     TResult? Function()? stated,
     TResult? Function()? logged,
     TResult? Function()? logOut,
+    TResult? Function(String? name, int? phoneNumber)? changeProfile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$CheckauthEvent {
     TResult Function()? stated,
     TResult Function()? logged,
     TResult Function()? logOut,
+    TResult Function(String? name, int? phoneNumber)? changeProfile,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$CheckauthEvent {
     required TResult Function(_Stated value) stated,
     required TResult Function(_Logged value) logged,
     required TResult Function(_Logout value) logOut,
+    required TResult Function(_ChangeProfile value) changeProfile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$CheckauthEvent {
     TResult? Function(_Stated value)? stated,
     TResult? Function(_Logged value)? logged,
     TResult? Function(_Logout value)? logOut,
+    TResult? Function(_ChangeProfile value)? changeProfile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$CheckauthEvent {
     TResult Function(_Stated value)? stated,
     TResult Function(_Logged value)? logged,
     TResult Function(_Logout value)? logOut,
+    TResult Function(_ChangeProfile value)? changeProfile,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -121,6 +127,7 @@ class _$StatedImpl extends _Stated {
     required TResult Function() stated,
     required TResult Function() logged,
     required TResult Function() logOut,
+    required TResult Function(String? name, int? phoneNumber) changeProfile,
   }) {
     return stated();
   }
@@ -131,6 +138,7 @@ class _$StatedImpl extends _Stated {
     TResult? Function()? stated,
     TResult? Function()? logged,
     TResult? Function()? logOut,
+    TResult? Function(String? name, int? phoneNumber)? changeProfile,
   }) {
     return stated?.call();
   }
@@ -141,6 +149,7 @@ class _$StatedImpl extends _Stated {
     TResult Function()? stated,
     TResult Function()? logged,
     TResult Function()? logOut,
+    TResult Function(String? name, int? phoneNumber)? changeProfile,
     required TResult orElse(),
   }) {
     if (stated != null) {
@@ -155,6 +164,7 @@ class _$StatedImpl extends _Stated {
     required TResult Function(_Stated value) stated,
     required TResult Function(_Logged value) logged,
     required TResult Function(_Logout value) logOut,
+    required TResult Function(_ChangeProfile value) changeProfile,
   }) {
     return stated(this);
   }
@@ -165,6 +175,7 @@ class _$StatedImpl extends _Stated {
     TResult? Function(_Stated value)? stated,
     TResult? Function(_Logged value)? logged,
     TResult? Function(_Logout value)? logOut,
+    TResult? Function(_ChangeProfile value)? changeProfile,
   }) {
     return stated?.call(this);
   }
@@ -175,6 +186,7 @@ class _$StatedImpl extends _Stated {
     TResult Function(_Stated value)? stated,
     TResult Function(_Logged value)? logged,
     TResult Function(_Logout value)? logOut,
+    TResult Function(_ChangeProfile value)? changeProfile,
     required TResult orElse(),
   }) {
     if (stated != null) {
@@ -230,6 +242,7 @@ class _$LoggedImpl extends _Logged {
     required TResult Function() stated,
     required TResult Function() logged,
     required TResult Function() logOut,
+    required TResult Function(String? name, int? phoneNumber) changeProfile,
   }) {
     return logged();
   }
@@ -240,6 +253,7 @@ class _$LoggedImpl extends _Logged {
     TResult? Function()? stated,
     TResult? Function()? logged,
     TResult? Function()? logOut,
+    TResult? Function(String? name, int? phoneNumber)? changeProfile,
   }) {
     return logged?.call();
   }
@@ -250,6 +264,7 @@ class _$LoggedImpl extends _Logged {
     TResult Function()? stated,
     TResult Function()? logged,
     TResult Function()? logOut,
+    TResult Function(String? name, int? phoneNumber)? changeProfile,
     required TResult orElse(),
   }) {
     if (logged != null) {
@@ -264,6 +279,7 @@ class _$LoggedImpl extends _Logged {
     required TResult Function(_Stated value) stated,
     required TResult Function(_Logged value) logged,
     required TResult Function(_Logout value) logOut,
+    required TResult Function(_ChangeProfile value) changeProfile,
   }) {
     return logged(this);
   }
@@ -274,6 +290,7 @@ class _$LoggedImpl extends _Logged {
     TResult? Function(_Stated value)? stated,
     TResult? Function(_Logged value)? logged,
     TResult? Function(_Logout value)? logOut,
+    TResult? Function(_ChangeProfile value)? changeProfile,
   }) {
     return logged?.call(this);
   }
@@ -284,6 +301,7 @@ class _$LoggedImpl extends _Logged {
     TResult Function(_Stated value)? stated,
     TResult Function(_Logged value)? logged,
     TResult Function(_Logout value)? logOut,
+    TResult Function(_ChangeProfile value)? changeProfile,
     required TResult orElse(),
   }) {
     if (logged != null) {
@@ -339,6 +357,7 @@ class _$LogoutImpl extends _Logout {
     required TResult Function() stated,
     required TResult Function() logged,
     required TResult Function() logOut,
+    required TResult Function(String? name, int? phoneNumber) changeProfile,
   }) {
     return logOut();
   }
@@ -349,6 +368,7 @@ class _$LogoutImpl extends _Logout {
     TResult? Function()? stated,
     TResult? Function()? logged,
     TResult? Function()? logOut,
+    TResult? Function(String? name, int? phoneNumber)? changeProfile,
   }) {
     return logOut?.call();
   }
@@ -359,6 +379,7 @@ class _$LogoutImpl extends _Logout {
     TResult Function()? stated,
     TResult Function()? logged,
     TResult Function()? logOut,
+    TResult Function(String? name, int? phoneNumber)? changeProfile,
     required TResult orElse(),
   }) {
     if (logOut != null) {
@@ -373,6 +394,7 @@ class _$LogoutImpl extends _Logout {
     required TResult Function(_Stated value) stated,
     required TResult Function(_Logged value) logged,
     required TResult Function(_Logout value) logOut,
+    required TResult Function(_ChangeProfile value) changeProfile,
   }) {
     return logOut(this);
   }
@@ -383,6 +405,7 @@ class _$LogoutImpl extends _Logout {
     TResult? Function(_Stated value)? stated,
     TResult? Function(_Logged value)? logged,
     TResult? Function(_Logout value)? logOut,
+    TResult? Function(_ChangeProfile value)? changeProfile,
   }) {
     return logOut?.call(this);
   }
@@ -393,6 +416,7 @@ class _$LogoutImpl extends _Logout {
     TResult Function(_Stated value)? stated,
     TResult Function(_Logged value)? logged,
     TResult Function(_Logout value)? logOut,
+    TResult Function(_ChangeProfile value)? changeProfile,
     required TResult orElse(),
   }) {
     if (logOut != null) {
@@ -408,9 +432,168 @@ abstract class _Logout extends CheckauthEvent {
 }
 
 /// @nodoc
+abstract class _$$ChangeProfileImplCopyWith<$Res> {
+  factory _$$ChangeProfileImplCopyWith(
+          _$ChangeProfileImpl value, $Res Function(_$ChangeProfileImpl) then) =
+      __$$ChangeProfileImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? name, int? phoneNumber});
+}
+
+/// @nodoc
+class __$$ChangeProfileImplCopyWithImpl<$Res>
+    extends _$CheckauthEventCopyWithImpl<$Res, _$ChangeProfileImpl>
+    implements _$$ChangeProfileImplCopyWith<$Res> {
+  __$$ChangeProfileImplCopyWithImpl(
+      _$ChangeProfileImpl _value, $Res Function(_$ChangeProfileImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? phoneNumber = freezed,
+  }) {
+    return _then(_$ChangeProfileImpl(
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phoneNumber: freezed == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ChangeProfileImpl extends _ChangeProfile {
+  const _$ChangeProfileImpl({this.name, this.phoneNumber}) : super._();
+
+  @override
+  final String? name;
+  @override
+  final int? phoneNumber;
+
+  @override
+  String toString() {
+    return 'CheckauthEvent.changeProfile(name: $name, phoneNumber: $phoneNumber)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ChangeProfileImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, name, phoneNumber);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ChangeProfileImplCopyWith<_$ChangeProfileImpl> get copyWith =>
+      __$$ChangeProfileImplCopyWithImpl<_$ChangeProfileImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() stated,
+    required TResult Function() logged,
+    required TResult Function() logOut,
+    required TResult Function(String? name, int? phoneNumber) changeProfile,
+  }) {
+    return changeProfile(name, phoneNumber);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? stated,
+    TResult? Function()? logged,
+    TResult? Function()? logOut,
+    TResult? Function(String? name, int? phoneNumber)? changeProfile,
+  }) {
+    return changeProfile?.call(name, phoneNumber);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? stated,
+    TResult Function()? logged,
+    TResult Function()? logOut,
+    TResult Function(String? name, int? phoneNumber)? changeProfile,
+    required TResult orElse(),
+  }) {
+    if (changeProfile != null) {
+      return changeProfile(name, phoneNumber);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Stated value) stated,
+    required TResult Function(_Logged value) logged,
+    required TResult Function(_Logout value) logOut,
+    required TResult Function(_ChangeProfile value) changeProfile,
+  }) {
+    return changeProfile(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Stated value)? stated,
+    TResult? Function(_Logged value)? logged,
+    TResult? Function(_Logout value)? logOut,
+    TResult? Function(_ChangeProfile value)? changeProfile,
+  }) {
+    return changeProfile?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Stated value)? stated,
+    TResult Function(_Logged value)? logged,
+    TResult Function(_Logout value)? logOut,
+    TResult Function(_ChangeProfile value)? changeProfile,
+    required TResult orElse(),
+  }) {
+    if (changeProfile != null) {
+      return changeProfile(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChangeProfile extends CheckauthEvent {
+  const factory _ChangeProfile({final String? name, final int? phoneNumber}) =
+      _$ChangeProfileImpl;
+  const _ChangeProfile._() : super._();
+
+  String? get name;
+  int? get phoneNumber;
+  @JsonKey(ignore: true)
+  _$$ChangeProfileImplCopyWith<_$ChangeProfileImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$CheckauthState {
   CheckAuth? get checkAuth => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
+  UserData? get idUser => throw _privateConstructorUsedError;
+  BannerAd? get bannerAd => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CheckauthStateCopyWith<CheckauthState> get copyWith =>
@@ -423,7 +606,10 @@ abstract class $CheckauthStateCopyWith<$Res> {
           CheckauthState value, $Res Function(CheckauthState) then) =
       _$CheckauthStateCopyWithImpl<$Res, CheckauthState>;
   @useResult
-  $Res call({CheckAuth? checkAuth, User? user});
+  $Res call(
+      {CheckAuth? checkAuth, User? user, UserData? idUser, BannerAd? bannerAd});
+
+  $UserDataCopyWith<$Res>? get idUser;
 }
 
 /// @nodoc
@@ -441,6 +627,8 @@ class _$CheckauthStateCopyWithImpl<$Res, $Val extends CheckauthState>
   $Res call({
     Object? checkAuth = freezed,
     Object? user = freezed,
+    Object? idUser = freezed,
+    Object? bannerAd = freezed,
   }) {
     return _then(_value.copyWith(
       checkAuth: freezed == checkAuth
@@ -451,7 +639,27 @@ class _$CheckauthStateCopyWithImpl<$Res, $Val extends CheckauthState>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User?,
+      idUser: freezed == idUser
+          ? _value.idUser
+          : idUser // ignore: cast_nullable_to_non_nullable
+              as UserData?,
+      bannerAd: freezed == bannerAd
+          ? _value.bannerAd
+          : bannerAd // ignore: cast_nullable_to_non_nullable
+              as BannerAd?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserDataCopyWith<$Res>? get idUser {
+    if (_value.idUser == null) {
+      return null;
+    }
+
+    return $UserDataCopyWith<$Res>(_value.idUser!, (value) {
+      return _then(_value.copyWith(idUser: value) as $Val);
+    });
   }
 }
 
@@ -463,7 +671,11 @@ abstract class _$$CheckauthStateImplCopyWith<$Res>
       __$$CheckauthStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({CheckAuth? checkAuth, User? user});
+  $Res call(
+      {CheckAuth? checkAuth, User? user, UserData? idUser, BannerAd? bannerAd});
+
+  @override
+  $UserDataCopyWith<$Res>? get idUser;
 }
 
 /// @nodoc
@@ -479,6 +691,8 @@ class __$$CheckauthStateImplCopyWithImpl<$Res>
   $Res call({
     Object? checkAuth = freezed,
     Object? user = freezed,
+    Object? idUser = freezed,
+    Object? bannerAd = freezed,
   }) {
     return _then(_$CheckauthStateImpl(
       checkAuth: freezed == checkAuth
@@ -489,6 +703,14 @@ class __$$CheckauthStateImplCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User?,
+      idUser: freezed == idUser
+          ? _value.idUser
+          : idUser // ignore: cast_nullable_to_non_nullable
+              as UserData?,
+      bannerAd: freezed == bannerAd
+          ? _value.bannerAd
+          : bannerAd // ignore: cast_nullable_to_non_nullable
+              as BannerAd?,
     ));
   }
 }
@@ -496,7 +718,11 @@ class __$$CheckauthStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CheckauthStateImpl extends _CheckauthState {
-  const _$CheckauthStateImpl({this.checkAuth = null, this.user = null})
+  const _$CheckauthStateImpl(
+      {this.checkAuth = null,
+      this.user = null,
+      this.idUser = null,
+      this.bannerAd = null})
       : super._();
 
   @override
@@ -505,10 +731,16 @@ class _$CheckauthStateImpl extends _CheckauthState {
   @override
   @JsonKey()
   final User? user;
+  @override
+  @JsonKey()
+  final UserData? idUser;
+  @override
+  @JsonKey()
+  final BannerAd? bannerAd;
 
   @override
   String toString() {
-    return 'CheckauthState(checkAuth: $checkAuth, user: $user)';
+    return 'CheckauthState(checkAuth: $checkAuth, user: $user, idUser: $idUser, bannerAd: $bannerAd)';
   }
 
   @override
@@ -518,11 +750,15 @@ class _$CheckauthStateImpl extends _CheckauthState {
             other is _$CheckauthStateImpl &&
             (identical(other.checkAuth, checkAuth) ||
                 other.checkAuth == checkAuth) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.idUser, idUser) || other.idUser == idUser) &&
+            (identical(other.bannerAd, bannerAd) ||
+                other.bannerAd == bannerAd));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, checkAuth, user);
+  int get hashCode =>
+      Object.hash(runtimeType, checkAuth, user, idUser, bannerAd);
 
   @JsonKey(ignore: true)
   @override
@@ -534,13 +770,20 @@ class _$CheckauthStateImpl extends _CheckauthState {
 
 abstract class _CheckauthState extends CheckauthState {
   const factory _CheckauthState(
-      {final CheckAuth? checkAuth, final User? user}) = _$CheckauthStateImpl;
+      {final CheckAuth? checkAuth,
+      final User? user,
+      final UserData? idUser,
+      final BannerAd? bannerAd}) = _$CheckauthStateImpl;
   const _CheckauthState._() : super._();
 
   @override
   CheckAuth? get checkAuth;
   @override
   User? get user;
+  @override
+  UserData? get idUser;
+  @override
+  BannerAd? get bannerAd;
   @override
   @JsonKey(ignore: true)
   _$$CheckauthStateImplCopyWith<_$CheckauthStateImpl> get copyWith =>

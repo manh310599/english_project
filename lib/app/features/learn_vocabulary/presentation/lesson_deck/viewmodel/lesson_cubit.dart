@@ -1,9 +1,10 @@
 import 'package:english_project/all_file/all_file.dart';
 import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/database/query_database.dart';
+import 'package:english_project/app/common/service/admob.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../../../../common/model/storage_database.dart';
 
 part 'lesson_cubit.freezed.dart';
@@ -13,63 +14,91 @@ part 'lesson_state.dart';
 class LessonCubit extends Cubit<LessonState> {
   LessonCubit() : super(const LessonState());
 
+  RewardedAd? _rewardedAd;
+
+  void _loadReWardedAd() {
+
+    RewardedAd.load(adUnitId: AdMobService.rewarded,
+        request: const AdRequest(),
+        rewardedAdLoadCallback: RewardedAdLoadCallback(
+            onAdLoaded: (ad) => _rewardedAd = ad,
+            onAdFailedToLoad: (error) => _rewardedAd = null,));
+  }
+
   FlipCardController controller = FlipCardController();
   QueryDatabase queryDatabase = QueryDatabase();
-  final now = DateTime.now().millisecondsSinceEpoch;
+  final now = DateTime
+      .now()
+      .millisecondsSinceEpoch;
+  final n = DateTime.now();
 
-  Future<void> startWords(List<Words?>? words) async {
-    emit(state.copyWith(words: words));
-    setTime();
+  Future<void> getListWordsByDay(int id,) async {
+    _loadReWardedAd();
+    int date = DateTime
+        .now()
+        .millisecondsSinceEpoch;
+    print(date);
+    final data = await queryDatabase.getAllFromDate(date, id);
+    debugPrint(data.toString());
+    List<Words?>? list = [];
+    data?.forEach((element) {
+      list.add(Words.fromJson(element));
+    });
+
+    emit(state.copyWith(
+      words: list,
+    ));
   }
 
   Future<void> setTime() async {
     try {
-    if (state.words?[state.indexInLesson!]?.checkNew == 0 &&
-        state.words?[state.indexInLesson!]?.lastChoice == 3) {
-      emit(
-        state.copyWith(
-          againTime: convertTime(forecastTimeMinute(1)),
-          hardTime: convertTime(forecastTimeMinute(10)),
-          goodTime: convertTime(forecastTimeDays(1)),
-          easyTime: convertTime(forecastTimeDays(4)),
-        ),
-
-      );
-    } else if (state.words?[state.indexInLesson!]?.checkNew == 0) {
-      emit(
-        state.copyWith(
-          againTime: convertTime(forecastTimeMinute(1)),
-          hardTime: convertTime(forecastTimeMinute(6)),
-          goodTime: convertTime(forecastTimeMinute(10)),
-          easyTime: convertTime(forecastTimeDays(4)),
-        ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          againTime: convertTime(forecastTimeMinute(10)),
-          hardTime: convertTime(forecastTimeDays(intervalTime(
-              state.words![state.indexInLesson!]!.interval!,
-              1,
-              state.words![state.indexInLesson!]!.ease!))),
-          goodTime: convertTime(forecastTimeDays(intervalTime(
-              state.words![state.indexInLesson!]!.interval!,
-              2,
-              state.words![state.indexInLesson!]!.ease!))),
-          easyTime: convertTime(forecastTimeDays(intervalTime(
-              state.words![state.indexInLesson!]!.interval!,
-              3,
-              state.words![state.indexInLesson!]!.ease!))),
-        ),
-      );
-    }
-  }catch(e){
+      if (state.words?[state.indexInLesson!]?.checkNew == 0 &&
+          state.words?[state.indexInLesson!]?.lastChoice == 3) {
+        emit(
+          state.copyWith(
+            againTime: convertTime(forecastTimeMinute(1)),
+            hardTime: convertTime(forecastTimeMinute(10)),
+            goodTime: convertTime(forecastTimeDays(1)),
+            easyTime: convertTime(forecastTimeDays(4)),
+          ),
+        );
+      } else if (state.words?[state.indexInLesson!]?.checkNew == 0 &&
+          state.words?[state.indexInLesson!]?.lastChoice == 0) {
+        emit(
+          state.copyWith(
+            againTime: convertTime(forecastTimeMinute(1)),
+            hardTime: convertTime(forecastTimeMinute(6)),
+            goodTime: convertTime(forecastTimeMinute(10)),
+            easyTime: convertTime(forecastTimeDays(4)),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            againTime: convertTime(forecastTimeMinute(10)),
+            hardTime: convertTime(forecastTimeDays(intervalTime(
+                state.words![state.indexInLesson!]!.interval!,
+                1,
+                state.words![state.indexInLesson!]!.ease!))),
+            goodTime: convertTime(forecastTimeDays(intervalTime(
+                state.words![state.indexInLesson!]!.interval!,
+                2,
+                state.words![state.indexInLesson!]!.ease!))),
+            easyTime: convertTime(forecastTimeDays(intervalTime(
+                state.words![state.indexInLesson!]!.interval!,
+                3,
+                state.words![state.indexInLesson!]!.ease!))),
+          ),
+        );
+      }
+    } catch (e) {
       debugPrint(e.toString());
     }
   }
 
   Future<void> giveChoice() async {
     emit(state.copyWith(checkBackCard: true));
+    await setTime();
   }
 
   Future<void> again() async {
@@ -94,23 +123,27 @@ class LessonCubit extends Cubit<LessonState> {
 
   checkBackCard(int choice) async {
     emit(state.copyWith(checkBackCard: false));
+
     if (choice == 0) {
       if (state.words?[state.indexInLesson!]?.checkNew == 0) {
         List<Words?>? temp = [];
         temp.addAll(state.words!);
         Words? tempWord = state.words?[state.indexInLesson!];
         temp.removeAt(state.indexInLesson!);
-        
+
         temp.add(tempWord?.copyWith(lastChoice: choice + 1, interval: 0));
-        emit(state.copyWith(words: temp, apiStatus: ApiStatus.success,));
+        emit(state.copyWith(
+          words: temp,
+          apiStatus: ApiStatus.success,
+        ));
       } else {
         List<Words?>? temp = [];
         temp.addAll(state.words!);
         Words? tempWord = state.words?[state.indexInLesson!];
         temp.removeAt(state.indexInLesson!);
-        
-        temp.add(
-            tempWord?.copyWith(lastChoice: choice + 1, interval: 0, ease: 2.5,checkNew: 0));
+
+        temp.add(tempWord?.copyWith(
+            lastChoice: choice + 1, interval: 0, ease: 2.5, checkNew: 0));
         emit(state.copyWith(words: temp, apiStatus: ApiStatus.success));
       }
     } else if (choice == 1) {
@@ -119,7 +152,7 @@ class LessonCubit extends Cubit<LessonState> {
         temp.addAll(state.words!);
         Words? tempWord = state.words?[state.indexInLesson!];
         temp.removeAt(state.indexInLesson!);
-        
+
         temp.add(tempWord?.copyWith(lastChoice: choice + 1, interval: 0));
         emit(state.copyWith(words: temp, apiStatus: ApiStatus.success));
       } else {
@@ -128,23 +161,42 @@ class LessonCubit extends Cubit<LessonState> {
             choice,
             state.words![state.indexInLesson!]!.ease!);
         double e = ease(choice, state.words?[state.indexInLesson!]?.ease);
-        if(e <= 1.3){
+        if (e <= 1.3) {
           await queryDatabase.updateWords(
               state.words?[state.indexInLesson!]?.word,
-              DateTime.now().add(const Duration(days: 1)).millisecondsSinceEpoch,
+              DateTime(
+                  n.year,
+                  n.month,
+                  n.day,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0)
+                  .add(const Duration(days: 1))
+                  .millisecondsSinceEpoch,
               0,
               choice + 1,
               1,
               2.5);
-        }
-        else {
+        } else {
           await queryDatabase.updateWords(
-            state.words?[state.indexInLesson!]?.word,
-            DateTime.now().add(Duration(days: interval)).millisecondsSinceEpoch,
-            1,
-            choice + 1,
-            interval,
-            e);
+              state.words?[state.indexInLesson!]?.word,
+              DateTime(
+                  n.year,
+                  n.month,
+                  n.day,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0)
+                  .add(Duration(days: interval))
+                  .millisecondsSinceEpoch,
+              1,
+              choice + 1,
+              interval,
+              e);
         }
         List<Words?>? temp = [];
         temp.addAll(state.words!);
@@ -156,7 +208,17 @@ class LessonCubit extends Cubit<LessonState> {
           state.words?[state.indexInLesson!]?.lastChoice == 3) {
         await queryDatabase.updateWords(
             state.words?[state.indexInLesson!]?.word,
-            DateTime.now().add(const Duration(days: 1)).millisecondsSinceEpoch,
+            DateTime(
+                n.year,
+                n.month,
+                n.day,
+                0,
+                0,
+                0,
+                0,
+                0)
+                .add(const Duration(days: 1))
+                .millisecondsSinceEpoch,
             1,
             choice + 1,
             1,
@@ -170,7 +232,7 @@ class LessonCubit extends Cubit<LessonState> {
         temp.addAll(state.words!);
         Words? tempWord = state.words?[state.indexInLesson!];
         temp.removeAt(state.indexInLesson!);
-        
+
         temp.add(tempWord?.copyWith(lastChoice: choice + 1, interval: 0));
         emit(state.copyWith(words: temp, apiStatus: ApiStatus.success));
         print(state.words);
@@ -182,7 +244,17 @@ class LessonCubit extends Cubit<LessonState> {
         double e = ease(choice, state.words?[state.indexInLesson!]?.ease);
         await queryDatabase.updateWords(
             state.words?[state.indexInLesson!]?.word,
-            DateTime.now().add(Duration(days: interval)).millisecondsSinceEpoch,
+            DateTime(
+                n.year,
+                n.month,
+                n.day,
+                0,
+                0,
+                0,
+                0,
+                0)
+                .add(Duration(days: interval))
+                .millisecondsSinceEpoch,
             1,
             choice + 1,
             interval,
@@ -196,7 +268,17 @@ class LessonCubit extends Cubit<LessonState> {
       if (state.words?[state.indexInLesson!]?.checkNew == 0) {
         await queryDatabase.updateWords(
             state.words?[state.indexInLesson!]?.word,
-            DateTime.now().add(const Duration(days: 4)).millisecondsSinceEpoch,
+            DateTime(
+                n.year,
+                n.month,
+                n.day,
+                0,
+                0,
+                0,
+                0,
+                0)
+                .add(const Duration(days: 4))
+                .millisecondsSinceEpoch,
             1,
             choice + 1,
             4,
@@ -214,7 +296,17 @@ class LessonCubit extends Cubit<LessonState> {
         double e = ease(choice, state.words?[state.indexInLesson!]?.ease);
         await queryDatabase.updateWords(
             state.words?[state.indexInLesson!]?.word,
-            DateTime.now().add(Duration(days: interval)).millisecondsSinceEpoch,
+            DateTime(
+                n.year,
+                n.month,
+                n.day,
+                0,
+                0,
+                0,
+                0,
+                0)
+                .add(Duration(days: interval))
+                .millisecondsSinceEpoch,
             1,
             choice + 1,
             interval,
@@ -227,25 +319,30 @@ class LessonCubit extends Cubit<LessonState> {
     }
 
     state.apiStatus == ApiStatus.success;
-    await setTime();
   }
 
   int forecastTimeMinute(int minute) {
     final dateTime =
-        DateTime.now().add(Duration(minutes: minute)).millisecondsSinceEpoch;
+        DateTime
+            .now()
+            .add(Duration(minutes: minute))
+            .millisecondsSinceEpoch;
     return dateTime - now;
   }
 
   int forecastTimeDays(int days) {
     final dateTime =
-        DateTime.now().add(Duration(days: days)).millisecondsSinceEpoch;
+        DateTime
+            .now()
+            .add(Duration(days: days))
+            .millisecondsSinceEpoch;
     return dateTime - now;
   }
 
-  int intervalTime(int days, int choice, double? e) {
+  int intervalTime(int interval, int choice, double? e) {
     return choice == 2 || choice == 1
-        ? (ease(choice, e) * days).round()
-        : (ease(choice, e) * days * 1.3).round();
+        ? (ease(choice, e) * interval).round()
+        : (ease(choice, e) * interval * 1.3).round();
   }
 
   int convertTimeToDay(int millisecondsSinceEpoch) {
@@ -273,7 +370,7 @@ class LessonCubit extends Cubit<LessonState> {
     } else if (millisecondsSinceEpoch >= 2592000000) {
       {
         final month =
-            (millisecondsSinceEpoch / 1000 / 30 / 24 / 60 / 60).truncate();
+        (millisecondsSinceEpoch / 1000 / 30 / 24 / 60 / 60).truncate();
 
         String formattedTime = "$month tháng";
         return formattedTime;
@@ -286,5 +383,32 @@ class LessonCubit extends Cubit<LessonState> {
   double ease(int gradle, double? e) {
     e = e! + 0.1 - (3 - gradle) * (0.08 + (3 - gradle) * 0.02);
     return e;
+  }
+
+  @override
+  Future<void> close() {
+    // TODO: implement close
+
+    if(_rewardedAd != null){
+      _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(
+        onAdDismissedFullScreenContent: (ad){
+          ad.dispose();
+          _loadReWardedAd();
+        },
+        onAdFailedToShowFullScreenContent: (ad, error) {
+          ad.dispose();
+          _loadReWardedAd();
+        },
+      );
+      _rewardedAd?.show(onUserEarnedReward: (ad, reward) {
+
+      },);
+      print('ok');
+    }
+    else{
+      print('không ok');
+    }
+
+    return super.close();
   }
 }

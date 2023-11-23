@@ -20,6 +20,7 @@ mixin _$LearnVocabularyState {
   List<Words?>? get words => throw _privateConstructorUsedError;
   bool? get addOrCourse => throw _privateConstructorUsedError;
   ApiStatus? get apiStatus => throw _privateConstructorUsedError;
+  BannerAd? get bannerAd => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LearnVocabularyStateCopyWith<LearnVocabularyState> get copyWith =>
@@ -36,7 +37,8 @@ abstract class $LearnVocabularyStateCopyWith<$Res> {
       {List<StorageWord?>? data,
       List<Words?>? words,
       bool? addOrCourse,
-      ApiStatus? apiStatus});
+      ApiStatus? apiStatus,
+      BannerAd? bannerAd});
 }
 
 /// @nodoc
@@ -57,6 +59,7 @@ class _$LearnVocabularyStateCopyWithImpl<$Res,
     Object? words = freezed,
     Object? addOrCourse = freezed,
     Object? apiStatus = freezed,
+    Object? bannerAd = freezed,
   }) {
     return _then(_value.copyWith(
       data: freezed == data
@@ -75,6 +78,10 @@ class _$LearnVocabularyStateCopyWithImpl<$Res,
           ? _value.apiStatus
           : apiStatus // ignore: cast_nullable_to_non_nullable
               as ApiStatus?,
+      bannerAd: freezed == bannerAd
+          ? _value.bannerAd
+          : bannerAd // ignore: cast_nullable_to_non_nullable
+              as BannerAd?,
     ) as $Val);
   }
 }
@@ -91,7 +98,8 @@ abstract class _$$LearnVocabularyStateImplCopyWith<$Res>
       {List<StorageWord?>? data,
       List<Words?>? words,
       bool? addOrCourse,
-      ApiStatus? apiStatus});
+      ApiStatus? apiStatus,
+      BannerAd? bannerAd});
 }
 
 /// @nodoc
@@ -109,6 +117,7 @@ class __$$LearnVocabularyStateImplCopyWithImpl<$Res>
     Object? words = freezed,
     Object? addOrCourse = freezed,
     Object? apiStatus = freezed,
+    Object? bannerAd = freezed,
   }) {
     return _then(_$LearnVocabularyStateImpl(
       data: freezed == data
@@ -127,6 +136,10 @@ class __$$LearnVocabularyStateImplCopyWithImpl<$Res>
           ? _value.apiStatus
           : apiStatus // ignore: cast_nullable_to_non_nullable
               as ApiStatus?,
+      bannerAd: freezed == bannerAd
+          ? _value.bannerAd
+          : bannerAd // ignore: cast_nullable_to_non_nullable
+              as BannerAd?,
     ));
   }
 }
@@ -138,7 +151,8 @@ class _$LearnVocabularyStateImpl extends _LearnVocabularyState {
       {final List<StorageWord?>? data = null,
       final List<Words?>? words = null,
       this.addOrCourse = null,
-      this.apiStatus = ApiStatus.init})
+      this.apiStatus = ApiStatus.init,
+      this.bannerAd = null})
       : _data = data,
         _words = words,
         super._();
@@ -171,10 +185,13 @@ class _$LearnVocabularyStateImpl extends _LearnVocabularyState {
   @override
   @JsonKey()
   final ApiStatus? apiStatus;
+  @override
+  @JsonKey()
+  final BannerAd? bannerAd;
 
   @override
   String toString() {
-    return 'LearnVocabularyState(data: $data, words: $words, addOrCourse: $addOrCourse, apiStatus: $apiStatus)';
+    return 'LearnVocabularyState(data: $data, words: $words, addOrCourse: $addOrCourse, apiStatus: $apiStatus, bannerAd: $bannerAd)';
   }
 
   @override
@@ -187,7 +204,9 @@ class _$LearnVocabularyStateImpl extends _LearnVocabularyState {
             (identical(other.addOrCourse, addOrCourse) ||
                 other.addOrCourse == addOrCourse) &&
             (identical(other.apiStatus, apiStatus) ||
-                other.apiStatus == apiStatus));
+                other.apiStatus == apiStatus) &&
+            (identical(other.bannerAd, bannerAd) ||
+                other.bannerAd == bannerAd));
   }
 
   @override
@@ -196,7 +215,8 @@ class _$LearnVocabularyStateImpl extends _LearnVocabularyState {
       const DeepCollectionEquality().hash(_data),
       const DeepCollectionEquality().hash(_words),
       addOrCourse,
-      apiStatus);
+      apiStatus,
+      bannerAd);
 
   @JsonKey(ignore: true)
   @override
@@ -212,7 +232,8 @@ abstract class _LearnVocabularyState extends LearnVocabularyState {
       {final List<StorageWord?>? data,
       final List<Words?>? words,
       final bool? addOrCourse,
-      final ApiStatus? apiStatus}) = _$LearnVocabularyStateImpl;
+      final ApiStatus? apiStatus,
+      final BannerAd? bannerAd}) = _$LearnVocabularyStateImpl;
   const _LearnVocabularyState._() : super._();
 
   @override
@@ -223,6 +244,8 @@ abstract class _LearnVocabularyState extends LearnVocabularyState {
   bool? get addOrCourse;
   @override
   ApiStatus? get apiStatus;
+  @override
+  BannerAd? get bannerAd;
   @override
   @JsonKey(ignore: true)
   _$$LearnVocabularyStateImplCopyWith<_$LearnVocabularyStateImpl>

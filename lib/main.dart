@@ -8,7 +8,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'app/app_route/app_route.dart';
 import 'depedence.dart';
 import 'firebase_options.dart';
@@ -24,6 +24,8 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
+  MobileAds.instance.initialize();
 
   runApp(const App());
 

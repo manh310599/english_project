@@ -1,3 +1,4 @@
+import 'package:english_project/all_file/all_file.dart';
 import 'package:english_project/app/common/widget/edit_text/edit_text.dart';
 import 'package:english_project/app/features/news/presentation/viewmodel/news_cubit.dart';
 import 'package:english_project/dimens.dart';
@@ -16,6 +17,9 @@ class NewsHeader extends StatelessWidget {
         EditText(
           preIcon: const Icon(Icons.cleaning_services_sharp),
           icon: const Icon(Icons.search),
+          search: (data) {
+            context.read<NewsCubit>().searchNews(data ,context);
+          },
           hinText: 'tìm kiếm',
         ).expand(),
         IconButton(

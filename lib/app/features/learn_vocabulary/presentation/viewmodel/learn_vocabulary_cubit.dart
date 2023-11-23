@@ -3,11 +3,12 @@ import 'package:bloc/bloc.dart';
 import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/model/storage_database.dart';
 import 'package:english_project/app/common/rounding_number.dart';
+import 'package:english_project/app/common/service/admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../common/database/query_database.dart';
-
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 part 'learn_vocabulary_cubit.freezed.dart';
 
 part 'learn_vocabulary_state.dart';
@@ -21,7 +22,12 @@ class LearnVocabularyCubit extends Cubit<LearnVocabularyState> {
   Future<void> getStoreWord() async {
     final data = await queryDatabase.getAllFromStorageWord();
 
-    emit(state.copyWith(data: data, addOrCourse: true));
+    emit(state.copyWith(data: data, addOrCourse: true,bannerAd: BannerAd(
+      size: AdSize.fullBanner,
+      adUnitId: AdMobService.banner,
+      listener: AdMobService.bannerAdListener,
+      request: const AdRequest(),
+    )..load()));
   }
 
   Future<void> addStoreWord(context) async {
@@ -67,20 +73,6 @@ class LearnVocabularyCubit extends Cubit<LearnVocabularyState> {
         btnOkOnPress: () {},
       ).show();
     }
-  }
-
-  Future<void> getListWordsByDay(int id, BuildContext context) async {
-    int date =
-        roundTime(DateTime.now().millisecondsSinceEpoch);
-
-    final data = await queryDatabase.getAllFromDate(date, id);
-    print(data);
-    List<Words?>? list = [];
-    data?.forEach((element) {
-      list.add(Words.fromJson(element));
-    });
-
-    emit(state.copyWith(words: list, apiStatus: ApiStatus.loaded));
   }
 
 

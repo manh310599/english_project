@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$NewsReadState {
   ContentBlocker? get contentBlocker => throw _privateConstructorUsedError;
+  InterstitialAd? get interstitialAd => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NewsReadStateCopyWith<NewsReadState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $NewsReadStateCopyWith<$Res> {
           NewsReadState value, $Res Function(NewsReadState) then) =
       _$NewsReadStateCopyWithImpl<$Res, NewsReadState>;
   @useResult
-  $Res call({ContentBlocker? contentBlocker});
+  $Res call({ContentBlocker? contentBlocker, InterstitialAd? interstitialAd});
 }
 
 /// @nodoc
@@ -46,12 +47,17 @@ class _$NewsReadStateCopyWithImpl<$Res, $Val extends NewsReadState>
   @override
   $Res call({
     Object? contentBlocker = freezed,
+    Object? interstitialAd = freezed,
   }) {
     return _then(_value.copyWith(
       contentBlocker: freezed == contentBlocker
           ? _value.contentBlocker
           : contentBlocker // ignore: cast_nullable_to_non_nullable
               as ContentBlocker?,
+      interstitialAd: freezed == interstitialAd
+          ? _value.interstitialAd
+          : interstitialAd // ignore: cast_nullable_to_non_nullable
+              as InterstitialAd?,
     ) as $Val);
   }
 }
@@ -64,7 +70,7 @@ abstract class _$$NewsReadStateImplCopyWith<$Res>
       __$$NewsReadStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ContentBlocker? contentBlocker});
+  $Res call({ContentBlocker? contentBlocker, InterstitialAd? interstitialAd});
 }
 
 /// @nodoc
@@ -79,12 +85,17 @@ class __$$NewsReadStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? contentBlocker = freezed,
+    Object? interstitialAd = freezed,
   }) {
     return _then(_$NewsReadStateImpl(
       contentBlocker: freezed == contentBlocker
           ? _value.contentBlocker
           : contentBlocker // ignore: cast_nullable_to_non_nullable
               as ContentBlocker?,
+      interstitialAd: freezed == interstitialAd
+          ? _value.interstitialAd
+          : interstitialAd // ignore: cast_nullable_to_non_nullable
+              as InterstitialAd?,
     ));
   }
 }
@@ -92,15 +103,20 @@ class __$$NewsReadStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$NewsReadStateImpl extends _NewsReadState {
-  const _$NewsReadStateImpl({this.contentBlocker = null}) : super._();
+  const _$NewsReadStateImpl(
+      {this.contentBlocker = null, this.interstitialAd = null})
+      : super._();
 
   @override
   @JsonKey()
   final ContentBlocker? contentBlocker;
+  @override
+  @JsonKey()
+  final InterstitialAd? interstitialAd;
 
   @override
   String toString() {
-    return 'NewsReadState(contentBlocker: $contentBlocker)';
+    return 'NewsReadState(contentBlocker: $contentBlocker, interstitialAd: $interstitialAd)';
   }
 
   @override
@@ -109,11 +125,13 @@ class _$NewsReadStateImpl extends _NewsReadState {
         (other.runtimeType == runtimeType &&
             other is _$NewsReadStateImpl &&
             (identical(other.contentBlocker, contentBlocker) ||
-                other.contentBlocker == contentBlocker));
+                other.contentBlocker == contentBlocker) &&
+            (identical(other.interstitialAd, interstitialAd) ||
+                other.interstitialAd == interstitialAd));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, contentBlocker);
+  int get hashCode => Object.hash(runtimeType, contentBlocker, interstitialAd);
 
   @JsonKey(ignore: true)
   @override
@@ -123,12 +141,15 @@ class _$NewsReadStateImpl extends _NewsReadState {
 }
 
 abstract class _NewsReadState extends NewsReadState {
-  const factory _NewsReadState({final ContentBlocker? contentBlocker}) =
-      _$NewsReadStateImpl;
+  const factory _NewsReadState(
+      {final ContentBlocker? contentBlocker,
+      final InterstitialAd? interstitialAd}) = _$NewsReadStateImpl;
   const _NewsReadState._() : super._();
 
   @override
   ContentBlocker? get contentBlocker;
+  @override
+  InterstitialAd? get interstitialAd;
   @override
   @JsonKey(ignore: true)
   _$$NewsReadStateImplCopyWith<_$NewsReadStateImpl> get copyWith =>

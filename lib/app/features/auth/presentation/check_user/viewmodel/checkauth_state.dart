@@ -9,5 +9,7 @@ class CheckauthState with _$CheckauthState {
   const factory CheckauthState({
     @Default(null) CheckAuth? checkAuth,
     @Default(null) User? user,
+    @Default(null) UserData? idUser,
+    @Default(null) BannerAd? bannerAd,
   }) = _CheckauthState;
 }
