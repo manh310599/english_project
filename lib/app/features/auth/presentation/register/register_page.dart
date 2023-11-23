@@ -60,6 +60,14 @@ class RegisterPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+
+                      CupertinoButtonEdit(
+                        color: Colors.greenAccent,
+                        text: 'Đăng nhập',
+                        onPressed: () {
+                          context.popRoute();
+                        },
+                      ),
                       BlocBuilder<CheckauthBloc, CheckauthState>(
                         builder: (context, state) {
                           final register = context.read<RegisterCubit>();
@@ -73,13 +81,6 @@ class RegisterPage extends StatelessWidget {
                                   : null;
                             },
                           );
-                        },
-                      ),
-                      CupertinoButtonEdit(
-                        color: Colors.greenAccent,
-                        text: 'Đăng nhập',
-                        onPressed: () {
-                          context.popRoute();
                         },
                       ),
                     ],

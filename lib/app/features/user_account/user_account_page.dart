@@ -93,7 +93,7 @@ class UserAccountPage extends StatelessWidget {
                 ),
                 Gaps.vGap10,
                 CardTitle(
-                  title: 'Thaát',
+                  title: 'Thoát',
                   callback: () {
                     SystemNavigator.pop();
                   },
