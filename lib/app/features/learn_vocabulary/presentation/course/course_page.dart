@@ -64,7 +64,9 @@ class CoursePage extends StatelessWidget {
                             btnOkText: 'Đóng',
                             btnOkOnPress: () {},
                             btnCancelText: 'Xóa',
-                            btnCancelOnPress: () {},
+                            btnCancelOnPress: () {
+                              context.read<CourseCubit>().deleteWord(state.data?[index]?.word ?? '',context);
+                            },
                           ).show();
                         },
                         child: Row(

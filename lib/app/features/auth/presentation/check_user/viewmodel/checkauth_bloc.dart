@@ -30,21 +30,39 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
       final information =
           await data.collection('users').doc(currentUser.uid).get();
 
-      emit(
-        state.copyWith(
-          checkAuth: CheckAuth.logged,
-          user: currentUser,
-          idUser: UserData.fromFirestore(information),
-          bannerAd: BannerAd(
-            size: AdSize.fullBanner,
-            adUnitId: AdMobService.banner,
-            listener: AdMobService.bannerAdListener,
-            request: const AdRequest(),
-          )..load(),
-        ),
-      );
+      UserData u =  UserData.fromFirestore(information);
+      if (u.finalDayPremium! < DateTime.now().millisecondsSinceEpoch){
+        emit(
+          state.copyWith(
+            checkAuth: CheckAuth.logged,
+            user: currentUser,
+            idUser: u,
+            bannerAd: BannerAd(
+              size: AdSize.fullBanner,
+              adUnitId: AdMobService.banner,
+              listener: AdMobService.bannerAdListener,
+              request: const AdRequest(),
+            )..load(),
+            premium: false
+          ),
+        );
+      }
+      else{
+        emit(
+          state.copyWith(
+            checkAuth: CheckAuth.logged,
+            user: currentUser,
+            idUser: u,
+            bannerAd: null,
+            premium: true
+          ),
+
+        );
+      }
+
+
     } else {
-      emit(state.copyWith(checkAuth: CheckAuth.loggedOut, user: null));
+      emit(state.copyWith(checkAuth: CheckAuth.loggedOut, user: null,premium: null));
     }
   }
 
@@ -54,33 +72,54 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
     final information =
         await data.collection('users').doc(currentUser?.uid).get();
 
-    emit(
-      state.copyWith(
-        checkAuth: CheckAuth.logged,
-        user: currentUser,
-        idUser: UserData.fromFirestore(information),
-        bannerAd: BannerAd(
-          size: AdSize.fullBanner,
-          adUnitId: AdMobService.banner,
-          listener: AdMobService.bannerAdListener,
-          request: const AdRequest(),
-        )..load(),
-      ),
-    );
+    UserData u =  UserData.fromFirestore(information);
+    if (u.finalDayPremium! < DateTime.now().millisecondsSinceEpoch){
+      emit(
+        state.copyWith(
+          checkAuth: CheckAuth.logged,
+          user: currentUser,
+          idUser: u,
+          bannerAd: BannerAd(
+            size: AdSize.fullBanner,
+            adUnitId: AdMobService.banner,
+            listener: AdMobService.bannerAdListener,
+            request: const AdRequest(),
+          )..load(),
+          premium: false
+        ),
+      );
+    }
+    else{
+      emit(
+        state.copyWith(
+          checkAuth: CheckAuth.logged,
+          user: currentUser,
+          idUser: u,
+          bannerAd: null,
+          premium: true
+        ),
+      );
+    }
   }
 
   Future<void> LogOut(event, Emitter<CheckauthState> emit) async {
-    emit(state.copyWith(checkAuth: CheckAuth.loggedOut, user: null,idUser: null,bannerAd: null));
+    emit(state.copyWith(
+        checkAuth: CheckAuth.loggedOut,
+        user: null,
+        idUser: null,
+        bannerAd: null,premium: null));
   }
 
-  Future<void> ChangeProfile(event, Emitter<CheckauthState> emit) async {
+  Future<void> ChangeProfile(
+    _ChangeProfile event,
+    Emitter<CheckauthState> emit,
+  ) async {
     User? user = check.currentUser;
 
     try {
-      await user?.updateDisplayName(const _ChangeProfile().name);
+      await user?.updateDisplayName(event.data);
       await user?.reload();
       emit(state.copyWith(user: user));
-
     } catch (e) {
       print("Lỗi khi cập nhật tên hiển thị: $e");
     }

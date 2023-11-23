@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bloc/bloc.dart';
 import 'package:english_project/app/common/api_status.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -14,7 +15,9 @@ class CourseCubit extends Cubit<CourseState> {
 
   QueryDatabase queryDatabase = QueryDatabase();
 
-  Future<void> getListWordsById(int id,) async {
+  Future<void> getListWordsById(
+    int id,
+  ) async {
     final data = await queryDatabase.getAllFromWordByStorage(id);
     List<Words?>? list = [];
     data?.forEach((element) {
@@ -26,5 +29,29 @@ class CourseCubit extends Cubit<CourseState> {
 
   void setPage(int index) {
     emit(state.copyWith(min: index * 20));
+  }
+
+  Future<void> deleteWord(String word, context) async {
+    try {
+      await queryDatabase.deleteWord(word);
+      emit(state.copyWith(
+          data:
+              state.data?.where((element) => element?.word != word).toList()));
+      AwesomeDialog(
+        context: context,
+        title: 'Xóa từ vựng thành công',
+        btnOkText: 'Đóng',
+        dialogType: DialogType.success,
+        btnOkOnPress: () {},
+      ).show();
+    } catch (_) {
+      AwesomeDialog(
+        context: context,
+        title: 'Xóa từ vựng thành công',
+        btnOkText: 'Đóng',
+        dialogType: DialogType.error,
+        btnOkOnPress: () {},
+      ).show();
+    }
   }
 }

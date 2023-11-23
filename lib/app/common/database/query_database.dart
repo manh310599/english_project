@@ -161,4 +161,11 @@ class QueryDatabase extends AbsQueryDatabase {
       return -1;
     }
   }
+
+  @override
+  Future<void> deleteWord(String word) async {
+    final data = await database;
+    final test = await data?.rawDelete("delete from Words where word = '$word'");
+    print(test);
+  }
 }

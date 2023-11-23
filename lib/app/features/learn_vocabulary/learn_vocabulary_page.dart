@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:english_project/app/app_route/app_route.gr.dart';
 import 'package:english_project/app/common/widget/button/cupertion_button_custom.dart';
+import 'package:english_project/app/features/auth/presentation/check_user/viewmodel/checkauth_bloc.dart';
 import 'package:english_project/app/features/learn_vocabulary/presentation/viewmodel/learn_vocabulary_cubit.dart';
 import 'package:english_project/gaps.dart';
 import 'package:flutter/material.dart';
@@ -128,12 +129,16 @@ class LearnVocabularyPage extends StatelessWidget {
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.endContained,
-            floatingActionButton: state.bannerAd != null
-                ? SizedBox(
-                    height: 60,
-                    child: AdWidget(ad: state.bannerAd!),
-                  )
-                : const SizedBox(),
+            floatingActionButton: BlocBuilder<CheckauthBloc, CheckauthState>(
+              builder: (context, stateCheck) {
+                return state.bannerAd != null  && stateCheck.premium == false
+                    ? SizedBox(
+                        height: 60,
+                        child: AdWidget(ad: state.bannerAd!),
+                      )
+                    : const SizedBox();
+              },
+            ),
           );
         },
       ),

@@ -21,7 +21,7 @@ mixin _$CheckauthEvent {
     required TResult Function() stated,
     required TResult Function() logged,
     required TResult Function() logOut,
-    required TResult Function(String? name, int? phoneNumber) changeProfile,
+    required TResult Function(String? data) changeProfile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$CheckauthEvent {
     TResult? Function()? stated,
     TResult? Function()? logged,
     TResult? Function()? logOut,
-    TResult? Function(String? name, int? phoneNumber)? changeProfile,
+    TResult? Function(String? data)? changeProfile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$CheckauthEvent {
     TResult Function()? stated,
     TResult Function()? logged,
     TResult Function()? logOut,
-    TResult Function(String? name, int? phoneNumber)? changeProfile,
+    TResult Function(String? data)? changeProfile,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,7 +127,7 @@ class _$StatedImpl extends _Stated {
     required TResult Function() stated,
     required TResult Function() logged,
     required TResult Function() logOut,
-    required TResult Function(String? name, int? phoneNumber) changeProfile,
+    required TResult Function(String? data) changeProfile,
   }) {
     return stated();
   }
@@ -138,7 +138,7 @@ class _$StatedImpl extends _Stated {
     TResult? Function()? stated,
     TResult? Function()? logged,
     TResult? Function()? logOut,
-    TResult? Function(String? name, int? phoneNumber)? changeProfile,
+    TResult? Function(String? data)? changeProfile,
   }) {
     return stated?.call();
   }
@@ -149,7 +149,7 @@ class _$StatedImpl extends _Stated {
     TResult Function()? stated,
     TResult Function()? logged,
     TResult Function()? logOut,
-    TResult Function(String? name, int? phoneNumber)? changeProfile,
+    TResult Function(String? data)? changeProfile,
     required TResult orElse(),
   }) {
     if (stated != null) {
@@ -242,7 +242,7 @@ class _$LoggedImpl extends _Logged {
     required TResult Function() stated,
     required TResult Function() logged,
     required TResult Function() logOut,
-    required TResult Function(String? name, int? phoneNumber) changeProfile,
+    required TResult Function(String? data) changeProfile,
   }) {
     return logged();
   }
@@ -253,7 +253,7 @@ class _$LoggedImpl extends _Logged {
     TResult? Function()? stated,
     TResult? Function()? logged,
     TResult? Function()? logOut,
-    TResult? Function(String? name, int? phoneNumber)? changeProfile,
+    TResult? Function(String? data)? changeProfile,
   }) {
     return logged?.call();
   }
@@ -264,7 +264,7 @@ class _$LoggedImpl extends _Logged {
     TResult Function()? stated,
     TResult Function()? logged,
     TResult Function()? logOut,
-    TResult Function(String? name, int? phoneNumber)? changeProfile,
+    TResult Function(String? data)? changeProfile,
     required TResult orElse(),
   }) {
     if (logged != null) {
@@ -357,7 +357,7 @@ class _$LogoutImpl extends _Logout {
     required TResult Function() stated,
     required TResult Function() logged,
     required TResult Function() logOut,
-    required TResult Function(String? name, int? phoneNumber) changeProfile,
+    required TResult Function(String? data) changeProfile,
   }) {
     return logOut();
   }
@@ -368,7 +368,7 @@ class _$LogoutImpl extends _Logout {
     TResult? Function()? stated,
     TResult? Function()? logged,
     TResult? Function()? logOut,
-    TResult? Function(String? name, int? phoneNumber)? changeProfile,
+    TResult? Function(String? data)? changeProfile,
   }) {
     return logOut?.call();
   }
@@ -379,7 +379,7 @@ class _$LogoutImpl extends _Logout {
     TResult Function()? stated,
     TResult Function()? logged,
     TResult Function()? logOut,
-    TResult Function(String? name, int? phoneNumber)? changeProfile,
+    TResult Function(String? data)? changeProfile,
     required TResult orElse(),
   }) {
     if (logOut != null) {
@@ -437,7 +437,7 @@ abstract class _$$ChangeProfileImplCopyWith<$Res> {
           _$ChangeProfileImpl value, $Res Function(_$ChangeProfileImpl) then) =
       __$$ChangeProfileImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String? name, int? phoneNumber});
+  $Res call({String? data});
 }
 
 /// @nodoc
@@ -451,18 +451,13 @@ class __$$ChangeProfileImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? phoneNumber = freezed,
+    Object? data = freezed,
   }) {
     return _then(_$ChangeProfileImpl(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      freezed == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
               as String?,
-      phoneNumber: freezed == phoneNumber
-          ? _value.phoneNumber
-          : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
     ));
   }
 }
@@ -470,16 +465,14 @@ class __$$ChangeProfileImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ChangeProfileImpl extends _ChangeProfile {
-  const _$ChangeProfileImpl({this.name, this.phoneNumber}) : super._();
+  const _$ChangeProfileImpl(this.data) : super._();
 
   @override
-  final String? name;
-  @override
-  final int? phoneNumber;
+  final String? data;
 
   @override
   String toString() {
-    return 'CheckauthEvent.changeProfile(name: $name, phoneNumber: $phoneNumber)';
+    return 'CheckauthEvent.changeProfile(data: $data)';
   }
 
   @override
@@ -487,13 +480,11 @@ class _$ChangeProfileImpl extends _ChangeProfile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ChangeProfileImpl &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.phoneNumber, phoneNumber) ||
-                other.phoneNumber == phoneNumber));
+            (identical(other.data, data) || other.data == data));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, phoneNumber);
+  int get hashCode => Object.hash(runtimeType, data);
 
   @JsonKey(ignore: true)
   @override
@@ -507,9 +498,9 @@ class _$ChangeProfileImpl extends _ChangeProfile {
     required TResult Function() stated,
     required TResult Function() logged,
     required TResult Function() logOut,
-    required TResult Function(String? name, int? phoneNumber) changeProfile,
+    required TResult Function(String? data) changeProfile,
   }) {
-    return changeProfile(name, phoneNumber);
+    return changeProfile(data);
   }
 
   @override
@@ -518,9 +509,9 @@ class _$ChangeProfileImpl extends _ChangeProfile {
     TResult? Function()? stated,
     TResult? Function()? logged,
     TResult? Function()? logOut,
-    TResult? Function(String? name, int? phoneNumber)? changeProfile,
+    TResult? Function(String? data)? changeProfile,
   }) {
-    return changeProfile?.call(name, phoneNumber);
+    return changeProfile?.call(data);
   }
 
   @override
@@ -529,11 +520,11 @@ class _$ChangeProfileImpl extends _ChangeProfile {
     TResult Function()? stated,
     TResult Function()? logged,
     TResult Function()? logOut,
-    TResult Function(String? name, int? phoneNumber)? changeProfile,
+    TResult Function(String? data)? changeProfile,
     required TResult orElse(),
   }) {
     if (changeProfile != null) {
-      return changeProfile(name, phoneNumber);
+      return changeProfile(data);
     }
     return orElse();
   }
@@ -577,12 +568,10 @@ class _$ChangeProfileImpl extends _ChangeProfile {
 }
 
 abstract class _ChangeProfile extends CheckauthEvent {
-  const factory _ChangeProfile({final String? name, final int? phoneNumber}) =
-      _$ChangeProfileImpl;
+  const factory _ChangeProfile(final String? data) = _$ChangeProfileImpl;
   const _ChangeProfile._() : super._();
 
-  String? get name;
-  int? get phoneNumber;
+  String? get data;
   @JsonKey(ignore: true)
   _$$ChangeProfileImplCopyWith<_$ChangeProfileImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -594,6 +583,7 @@ mixin _$CheckauthState {
   User? get user => throw _privateConstructorUsedError;
   UserData? get idUser => throw _privateConstructorUsedError;
   BannerAd? get bannerAd => throw _privateConstructorUsedError;
+  bool? get premium => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CheckauthStateCopyWith<CheckauthState> get copyWith =>
@@ -607,7 +597,11 @@ abstract class $CheckauthStateCopyWith<$Res> {
       _$CheckauthStateCopyWithImpl<$Res, CheckauthState>;
   @useResult
   $Res call(
-      {CheckAuth? checkAuth, User? user, UserData? idUser, BannerAd? bannerAd});
+      {CheckAuth? checkAuth,
+      User? user,
+      UserData? idUser,
+      BannerAd? bannerAd,
+      bool? premium});
 
   $UserDataCopyWith<$Res>? get idUser;
 }
@@ -629,6 +623,7 @@ class _$CheckauthStateCopyWithImpl<$Res, $Val extends CheckauthState>
     Object? user = freezed,
     Object? idUser = freezed,
     Object? bannerAd = freezed,
+    Object? premium = freezed,
   }) {
     return _then(_value.copyWith(
       checkAuth: freezed == checkAuth
@@ -647,6 +642,10 @@ class _$CheckauthStateCopyWithImpl<$Res, $Val extends CheckauthState>
           ? _value.bannerAd
           : bannerAd // ignore: cast_nullable_to_non_nullable
               as BannerAd?,
+      premium: freezed == premium
+          ? _value.premium
+          : premium // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 
@@ -672,7 +671,11 @@ abstract class _$$CheckauthStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {CheckAuth? checkAuth, User? user, UserData? idUser, BannerAd? bannerAd});
+      {CheckAuth? checkAuth,
+      User? user,
+      UserData? idUser,
+      BannerAd? bannerAd,
+      bool? premium});
 
   @override
   $UserDataCopyWith<$Res>? get idUser;
@@ -693,6 +696,7 @@ class __$$CheckauthStateImplCopyWithImpl<$Res>
     Object? user = freezed,
     Object? idUser = freezed,
     Object? bannerAd = freezed,
+    Object? premium = freezed,
   }) {
     return _then(_$CheckauthStateImpl(
       checkAuth: freezed == checkAuth
@@ -711,6 +715,10 @@ class __$$CheckauthStateImplCopyWithImpl<$Res>
           ? _value.bannerAd
           : bannerAd // ignore: cast_nullable_to_non_nullable
               as BannerAd?,
+      premium: freezed == premium
+          ? _value.premium
+          : premium // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -722,7 +730,8 @@ class _$CheckauthStateImpl extends _CheckauthState {
       {this.checkAuth = null,
       this.user = null,
       this.idUser = null,
-      this.bannerAd = null})
+      this.bannerAd = null,
+      this.premium = null})
       : super._();
 
   @override
@@ -737,10 +746,13 @@ class _$CheckauthStateImpl extends _CheckauthState {
   @override
   @JsonKey()
   final BannerAd? bannerAd;
+  @override
+  @JsonKey()
+  final bool? premium;
 
   @override
   String toString() {
-    return 'CheckauthState(checkAuth: $checkAuth, user: $user, idUser: $idUser, bannerAd: $bannerAd)';
+    return 'CheckauthState(checkAuth: $checkAuth, user: $user, idUser: $idUser, bannerAd: $bannerAd, premium: $premium)';
   }
 
   @override
@@ -753,12 +765,13 @@ class _$CheckauthStateImpl extends _CheckauthState {
             (identical(other.user, user) || other.user == user) &&
             (identical(other.idUser, idUser) || other.idUser == idUser) &&
             (identical(other.bannerAd, bannerAd) ||
-                other.bannerAd == bannerAd));
+                other.bannerAd == bannerAd) &&
+            (identical(other.premium, premium) || other.premium == premium));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, checkAuth, user, idUser, bannerAd);
+      Object.hash(runtimeType, checkAuth, user, idUser, bannerAd, premium);
 
   @JsonKey(ignore: true)
   @override
@@ -773,7 +786,8 @@ abstract class _CheckauthState extends CheckauthState {
       {final CheckAuth? checkAuth,
       final User? user,
       final UserData? idUser,
-      final BannerAd? bannerAd}) = _$CheckauthStateImpl;
+      final BannerAd? bannerAd,
+      final bool? premium}) = _$CheckauthStateImpl;
   const _CheckauthState._() : super._();
 
   @override
@@ -784,6 +798,8 @@ abstract class _CheckauthState extends CheckauthState {
   UserData? get idUser;
   @override
   BannerAd? get bannerAd;
+  @override
+  bool? get premium;
   @override
   @JsonKey(ignore: true)
   _$$CheckauthStateImplCopyWith<_$CheckauthStateImpl> get copyWith =>

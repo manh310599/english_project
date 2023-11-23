@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:english_project/app/common/service/admob.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -12,8 +11,9 @@ part 'news_read_state.dart';
 class NewsReadCubit extends Cubit<NewsReadState> {
   NewsReadCubit() : super(const NewsReadState());
   InterstitialAd? interstitialAd;
-  void _createInterstitialAd()  {
-     InterstitialAd.load(
+
+  void _createInterstitialAd() {
+    InterstitialAd.load(
         adUnitId: AdMobService.interstitial,
         request: const AdRequest(),
         adLoadCallback: InterstitialAdLoadCallback(
@@ -30,8 +30,7 @@ class NewsReadCubit extends Cubit<NewsReadState> {
       action: ContentBlockerAction(type: ContentBlockerActionType.BLOCK));
 
   Future<void> setPageNews(String url, context) async {
-
-     _createInterstitialAd();
+    _createInterstitialAd();
 
     emit(state.copyWith(
       contentBlocker: contentBlocker,
@@ -40,8 +39,6 @@ class NewsReadCubit extends Cubit<NewsReadState> {
 
   @override
   Future<void> close() async {
-    // TODO: implement close
-    //inAppWebViewController
     if (interstitialAd != null) {
       interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
         onAdDismissedFullScreenContent: (ad) {
