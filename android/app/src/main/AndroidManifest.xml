@@ -41,5 +41,10 @@
             android:name="flutterEmbedding"
             android:value="2" />
         <meta-data android:name="google_analytics_automatic_screen_reporting_enabled" android:value="true" />
+<!--        banner-->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3156525907485254~4947784359"/>
+
     </application>
 </manifest>

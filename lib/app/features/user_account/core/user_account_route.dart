@@ -3,7 +3,11 @@ import 'package:english_project/app/app_route/app_route.gr.dart';
 
 final userAccountRoute = [
   AutoRoute(
-    path: 'user-account',
-    page: UserAccountRoute.page,
+    path: '/premium',
+    page: PremiumRoute.page,
+  ),
+  AutoRoute(
+    page: CustomInformationRoute.page,
+    path: '/custom-information',
   )
 ];

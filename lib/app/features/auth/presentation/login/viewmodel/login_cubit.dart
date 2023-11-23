@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/check_isvaid.dart';
 import 'package:english_project/app/features/auth/presentation/check_user/viewmodel/checkauth_bloc.dart';
@@ -17,6 +20,9 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(const LoginState());
 
   CheckauthBloc checkauthBloc = CheckauthBloc();
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  var random = Random();
 
   void setEmail(email) {
     emit(state.copyWith(email: email));
@@ -73,6 +79,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> loginWithGoogle(context) async {
+
     Future<UserCredential> signInWithGoogle() async {
       // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -87,7 +94,36 @@ class LoginCubit extends Cubit<LoginState> {
         idToken: googleAuth?.idToken,
       );
 
-      return await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      final getProfile = await firebaseFirestore
+          .collection('users')
+          .doc(userCredential.user?.uid).get();
+
+      if (!getProfile.exists) {
+
+        int randomNumber = random.nextInt(900000) + 100000;
+        firebaseFirestore
+            .collection('users')
+            .doc(userCredential.user?.uid)
+            .set({
+          'userID': randomNumber,
+          'finalDayPremium': 0,
+          'dayOflearn': 0
+        })
+            .then((value) =>
+            print("'full_name' & 'age' merged with existing data!"))
+            .catchError((error) {
+          showDiaLogCustom(
+              context, 'Có vẻ server đang lỗi hãy thử lại nhé', '');
+        });
+
+        print("Đăng nhập lần đầu tiên!");
+
+      } else {
+        print("Đăng nhập không phải lần đầu tiên.");
+      }
+
+      return userCredential;
     }
 
     await signInWithGoogle();

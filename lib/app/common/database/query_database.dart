@@ -75,9 +75,10 @@ class QueryDatabase extends AbsQueryDatabase {
     final data = await database;
     try {
       if (image != null) {
-        await data?.rawInsert(
+        final test = await data?.rawInsert(
             'insert into Words(word,image,mean,start_time,end_time,id) VALUES '
             '("$word","$image","$mean","$startTime","$endTime","$id")');
+        print(test);
       } else if (image == null && assetImage != null) {
         final test = await data?.rawInsert(
             'insert into Words(word,assets_image,mean,start_time,end_time,id) VALUES '

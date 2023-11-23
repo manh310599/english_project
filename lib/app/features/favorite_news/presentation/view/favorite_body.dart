@@ -16,9 +16,7 @@ class FavoriteBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => FavoriteNewsCubit()..getFavoriteNews(),
-      child: BlocBuilder<FavoriteNewsCubit, FavoriteNewsState>(
+    return  BlocBuilder<FavoriteNewsCubit, FavoriteNewsState>(
         builder: (context, state) {
           return RefreshIndicator(
             onRefresh: () async {
@@ -105,7 +103,7 @@ class FavoriteBody extends StatelessWidget {
                   ),
           );
         },
-      ),
+
     ).px16();
   }
 }

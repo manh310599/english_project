@@ -30,6 +30,14 @@ class EditText extends StatefulWidget {
 class _EditTextState extends State<EditText> {
   final TextEditingController _textEditingController = TextEditingController();
 
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _textEditingController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -65,8 +73,8 @@ class _EditTextState extends State<EditText> {
                             ? widget.stylePassWord = true
                             : widget.stylePassWord = false;
                       })
-                    : widget.search!(_textEditingController.text);
-                _textEditingController.clear();
+                    : widget.search == null ? null : widget.search!(_textEditingController.text ) ;
+
               },
               child: widget.icon),
         ),

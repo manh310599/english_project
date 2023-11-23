@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 
 import 'package:english_project/app/features/auth/core/routes/auth_routes.dart';
 import 'package:english_project/app/features/news/core/routes/news_routes.dart';
+import 'package:english_project/app/features/user_account/core/user_account_route.dart';
 
 
 import '../features/learn_vocabulary/core/learn_vocabulary_route.dart';
@@ -33,5 +34,6 @@ class AppAutoRoute extends $AppAutoRoute {
     ...AuthRoutes,
     ...newsRoutes,
     ...learnVocabularyRoute,
+    ...userAccountRoute,
   ];
 }

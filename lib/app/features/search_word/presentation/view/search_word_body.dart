@@ -22,27 +22,26 @@ class SearchWordBody extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              DropdownButton<int?>(
-                value: state.idStorageWord,
-                items: state.data?.map<DropdownMenuItem<int?>>(
-                      (e) {
-                    return DropdownMenuItem<int?>(
-                      value: e?.id,
-                      child: e?.name?.text.make() ?? ''.text.make(),
-                    );
-                  },
-                ).toList(),
-                onChanged: (value) {
-                  context
-                      .read<InformationCardCubit>()
-                      .changeId(value!);
-                },
-              ),
-
+              state.data?.isNotEmpty == true
+                  ? DropdownButton<int?>(
+                      value: state.idStorageWord,
+                      items: state.data?.map<DropdownMenuItem<int?>>(
+                        (e) {
+                          return DropdownMenuItem<int?>(
+                            value: e?.id,
+                            child: e?.name?.text.make() ?? ''.text.make(),
+                          );
+                        },
+                      ).toList(),
+                      onChanged: (value) {
+                        context.read<InformationCardCubit>().changeId(value!);
+                      },
+                    )
+                  : const SizedBox(),
               state.translate?.sentences?[0].orig?.text.orange500
-                  .size(big)
-                  .softWrap(true)
-                  .make() ??
+                      .size(big)
+                      .softWrap(true)
+                      .make() ??
                   'Vocabulary'.text.make(),
               Gaps.vGap10,
               ListView.separated(
@@ -65,94 +64,92 @@ class SearchWordBody extends StatelessWidget {
               Gaps.vGap8,
               state.imageFromText!.results!.isNotEmpty
                   ? GridView.builder(
-                gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                itemBuilder: (context, index) {
-                  return index ==
-                      state.imageFromText!.results!.length
-                      ? InkWell(
-                    onTap: () async {
-                      cubit.selectImageFromGradle();
-                    },
-                    child: state.filePath.isNotEmptyAndNotNull
-                        ? Image.file(
-                      File(state.filePath!),
-                      fit: BoxFit.cover,
-                    ).opacity25()
-                        : Image.asset(
-                      'assets/images/select_image.png',
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                      : state.itemSelect == index
-                      ? Image.network(
-                    '${state.imageFromText?.results?[index].urls!.small}',
-                    fit: BoxFit.cover,
-                    errorBuilder:
-                        (context, error, stackTrace) =>
-                        Image.asset(
-                          'assets/images/logo.png',
-                          fit: BoxFit.cover,
-                        ),
-                  ).opacity25()
-                      : InkWell(
-                    onTap: () {
-                      context
-                          .read<InformationCardCubit>()
-                          .selectImage(index);
-                    },
-                    child: Image.network(
-                      '${state.imageFromText?.results?[index].urls!.small}',
-                      fit: BoxFit.cover,
-                      errorBuilder:
-                          (context, error, stackTrace) =>
-                          Image.asset(
-                            'assets/images/logo.png',
-                          ),
-                    ),
-                  );
-                },
-                itemCount: state
-                    .imageFromText?.results?.isNotEmpty ==
-                    true
-                    ? (state.imageFromText!.results!.length >= 21
-                    ? 20
-                    : state.imageFromText!.results!.length + 1)
-                    : 0,
-                shrinkWrap: true,
-              ).flexible()
-                  : SizedBox(
-                child: Column(
-                  children: [
-                    'không có hỉnh ảnh trong kho dữ liệu hảy sử dụng hình ảnh của bạn'
-                        .text
-                        .make(),
-                    Gaps.vGap4,
-                    InkWell(
-                      onTap: () async {
-                        cubit.selectImageFromGradle();
-                      },
-                      child: state.filePath.isNotEmptyAndNotNull
-                          ? Image.file(
-                        File(state.filePath!),
-                        fit: BoxFit.cover,
-                        height: 200,
-                        width: 200,
-                      )
-                          : Image.asset(
-                        'assets/images/select_image.png',
-                        height: 200,
-                        width: 200,
-                        fit: BoxFit.cover,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
                       ),
-                    )
-                  ],
-                ),
-              ),
+                      itemBuilder: (context, index) {
+                        return index == state.imageFromText!.results!.length
+                            ? InkWell(
+                                onTap: () async {
+                                  cubit.selectImageFromGradle();
+                                },
+                                child: state.filePath.isNotEmptyAndNotNull
+                                    ? Image.file(
+                                        File(state.filePath!),
+                                        fit: BoxFit.cover,
+                                      ).opacity25()
+                                    : Image.asset(
+                                        'assets/images/select_image.png',
+                                        fit: BoxFit.cover,
+                                      ),
+                              )
+                            : state.itemSelect == index
+                                ? Image.network(
+                                    '${state.imageFromText?.results?[index].urls!.small}',
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            Image.asset(
+                                      'assets/images/logo.png',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ).opacity25()
+                                : InkWell(
+                                    onTap: () {
+                                      context
+                                          .read<InformationCardCubit>()
+                                          .selectImage(index);
+                                    },
+                                    child: Image.network(
+                                      '${state.imageFromText?.results?[index].urls!.small}',
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Image.asset(
+                                        'assets/images/logo.png',
+                                      ),
+                                    ),
+                                  );
+                      },
+                      itemCount:
+                          state.imageFromText?.results?.isNotEmpty == true
+                              ? (state.imageFromText!.results!.length >= 21
+                                  ? 20
+                                  : state.imageFromText!.results!.length + 1)
+                              : 0,
+                      shrinkWrap: true,
+                    ).flexible()
+                  : SizedBox(
+                      child: Column(
+                        children: [
+                          'không có hỉnh ảnh trong kho dữ liệu hảy sử dụng hình ảnh của bạn'
+                              .text
+                              .make(),
+                          Gaps.vGap4,
+                          InkWell(
+                            onTap: () async {
+                              cubit.selectImageFromGradle();
+                            },
+                            child: state.filePath.isNotEmptyAndNotNull
+                                ? Image.file(
+                                    File(state.filePath!),
+                                    fit: BoxFit.cover,
+                                    height: 200,
+                                    width: 200,
+                                  )
+                                : Image.asset(
+                                    'assets/images/select_image.png',
+                                    height: 200,
+                                    width: 200,
+                                    fit: BoxFit.cover,
+                                  ),
+                          )
+                        ],
+                      ),
+                    ),
             ],
           ).px16()
         : const SizedBox();

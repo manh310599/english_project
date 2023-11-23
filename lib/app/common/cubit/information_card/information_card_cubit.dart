@@ -8,6 +8,7 @@ import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/core/abs_repo/image_api_repo.dart';
 import 'package:english_project/app/common/model/image_from_text.dart';
 import 'package:english_project/app/common/model/translate_model.dart';
+import 'package:english_project/app/common/rounding_number.dart';
 import 'package:english_project/app/common/translate_api.dart';
 import 'package:english_project/depedence.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -92,14 +93,21 @@ class InformationCardCubit extends Cubit<InformationCardState> {
     int? result;
 
     if (list.isNotEmpty) {
+      List<String?>? mean = [];
+      state.translate?.dict?[0].terms?.forEach((element) {
+        mean.add(element) ;
+      });
+      
+      mean.add(state.translate?.sentences?[0].trans);
       if (state.itemSelect != null) {
+          final now = DateTime.now();
         result = await queryDatabase.addWords(
           state.translate?.sentences?[0].orig,
           state.imageFromText!.results?[state.itemSelect!].urls?.small,
           null,
-          state.translate?.dict?[0].terms.toString(),
+          mean.toString(),
           0,
-          DateTime.now().millisecondsSinceEpoch,
+          DateTime(now.year,now.month,now.day,0 ,0,0,0,0).millisecondsSinceEpoch,
           1.3,
           i,
         );
@@ -112,7 +120,7 @@ class InformationCardCubit extends Cubit<InformationCardState> {
           state.translate?.sentences?[0].orig,
           null,
           base64String,
-          state.translate?.dict?[0].terms.toString(),
+          mean.toString(),
           0,
           DateTime.now().millisecondsSinceEpoch,
           1.3,

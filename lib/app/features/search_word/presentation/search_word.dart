@@ -65,10 +65,7 @@ class SearchWordPage extends StatelessWidget {
                               btnOkOnPress: () {},
                             ).show();
                           }
-                        }
-                        else{
-
-                        }
+                        } else {}
                       },
                       color: Vx.white,
                       child: const Icon(

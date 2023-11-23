@@ -5,6 +5,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:english_project/app/app_route/app_route.gr.dart';
 import 'package:english_project/app/common/rounding_number.dart';
 import 'package:english_project/app/common/widget/button/cupertion_button_custom.dart';
+import 'package:english_project/app/features/learn_vocabulary/presentation/course/view/body_dialog_widget.dart';
 import 'package:english_project/app/features/learn_vocabulary/presentation/course/viewmodel/course_cubit.dart';
 import 'package:english_project/font_size.dart';
 import 'package:english_project/gaps.dart';
@@ -53,24 +54,41 @@ class CoursePage extends StatelessWidget {
                       return CupertinoButtonCustom(
                         color: Vx.white,
                         click: () {
-                          AwesomeDialog(context: context,title: 'Thông tin của thẻ').show();
+                          AwesomeDialog(
+                            context: context,
+                            title: 'Thông tin của thẻ',
+                            body: BodyDialog(
+                              state: state,
+                              index: state.min! + index,
+                            ),
+                            btnOkText: 'Đóng',
+                            btnOkOnPress: () {},
+                            btnCancelText: 'Xóa',
+                            btnCancelOnPress: () {},
+                          ).show();
                         },
                         child: Row(
                           children: [
                             Image.network(
-                              state.data?[index]?.image ?? '',
+                              state.data?[state.min! + index]?.image ?? '',
                               height: 100,
                               width: 100,
                               fit: BoxFit.fill,
                               errorBuilder: (context, error, stackTrace) {
-                                return Image.memory(const Base64Decoder()
-                                    .convert(
-                                        state.data![index]!.assets_image!));
+                                return Image.memory(
+                                  const Base64Decoder().convert(state
+                                      .data![state.min! + index]!
+                                      .assets_image!),
+                                  height: 100,
+                                  width: 100,
+                                  fit: BoxFit.fill,
+                                );
                               },
                             ).cornerRadius(8),
                             Gaps.hGap8,
                             Center(
-                              child: state.data?[index]?.word?.text.bold.black
+                              child: state.data?[state.min! + index]?.word?.text
+                                      .bold.black
                                       .size(big)
                                       .make() ??
                                   'title'.text.bold.black.make(),
@@ -79,14 +97,17 @@ class CoursePage extends StatelessWidget {
                         ),
                       ).p16();
                     },
-                    itemCount: state.data?.length,
+                    itemCount: state.data?.isEmpty == false
+                        ? roundUpAbsolute(state.data!.length / 10)
+                        : 0,
                   )
                 : Center(
                     child: 'Dường như khóa học chưa có từ vựng hay thêm từ vựng'
                         .text
                         .make(),
                   ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.startFloat,
             floatingActionButton: SizedBox(
               height: 40,
               child: SingleChildScrollView(
@@ -113,7 +134,7 @@ class CoursePage extends StatelessWidget {
                       : 0,
                 ),
               ),
-            ),
+            ).px16(),
           );
         },
       ),

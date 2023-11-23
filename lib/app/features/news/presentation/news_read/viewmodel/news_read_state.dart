@@ -6,5 +6,6 @@ class NewsReadState with _$NewsReadState {
 
   const factory NewsReadState({
     @Default(null) ContentBlocker? contentBlocker,
+    @Default(null) InterstitialAd? interstitialAd,
   }) = _NewsReadState;
 }
