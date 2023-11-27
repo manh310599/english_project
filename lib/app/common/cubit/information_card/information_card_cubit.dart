@@ -8,7 +8,6 @@ import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/core/abs_repo/image_api_repo.dart';
 import 'package:english_project/app/common/model/image_from_text.dart';
 import 'package:english_project/app/common/model/translate_model.dart';
-import 'package:english_project/app/common/rounding_number.dart';
 import 'package:english_project/app/common/translate_api.dart';
 import 'package:english_project/depedence.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -95,19 +94,20 @@ class InformationCardCubit extends Cubit<InformationCardState> {
     if (list.isNotEmpty) {
       List<String?>? mean = [];
       state.translate?.dict?[0].terms?.forEach((element) {
-        mean.add(element) ;
+        mean.add(element);
       });
-      
+
       mean.add(state.translate?.sentences?[0].trans);
       if (state.itemSelect != null) {
-          final now = DateTime.now();
+        final now = DateTime.now();
         result = await queryDatabase.addWords(
           state.translate?.sentences?[0].orig,
           state.imageFromText!.results?[state.itemSelect!].urls?.small,
           null,
           mean.toString(),
           0,
-          DateTime(now.year,now.month,now.day,0 ,0,0,0,0).millisecondsSinceEpoch,
+          DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0)
+              .millisecondsSinceEpoch,
           1.3,
           i,
         );
@@ -156,9 +156,11 @@ class InformationCardCubit extends Cubit<InformationCardState> {
       ).show();
     }
   }
-  enableSave(){
+
+  enableSave() {
     emit(state.copyWith(check: true));
   }
+
   disibleSave() {
     emit(state.copyWith(check: false));
   }

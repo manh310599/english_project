@@ -742,3 +742,414 @@ abstract class _Words implements Words {
   _$$WordsImplCopyWith<_$WordsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+InnerJoinStorageWordAndWord _$InnerJoinStorageWordAndWordFromJson(
+    Map<String, dynamic> json) {
+  return _InnerJoinStorageWordAndWord.fromJson(json);
+}
+
+/// @nodoc
+mixin _$InnerJoinStorageWordAndWord {
+  int? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get word => throw _privateConstructorUsedError;
+  String? get image => throw _privateConstructorUsedError;
+  String? get assets_image => throw _privateConstructorUsedError;
+  String? get mean => throw _privateConstructorUsedError;
+  int? get start_time => throw _privateConstructorUsedError;
+  int? get end_time => throw _privateConstructorUsedError;
+  double? get EF => throw _privateConstructorUsedError;
+  int? get checkNew => throw _privateConstructorUsedError;
+  int? get lastChoice => throw _privateConstructorUsedError;
+  int? get interval => throw _privateConstructorUsedError;
+  double? get ease => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $InnerJoinStorageWordAndWordCopyWith<InnerJoinStorageWordAndWord>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $InnerJoinStorageWordAndWordCopyWith<$Res> {
+  factory $InnerJoinStorageWordAndWordCopyWith(
+          InnerJoinStorageWordAndWord value,
+          $Res Function(InnerJoinStorageWordAndWord) then) =
+      _$InnerJoinStorageWordAndWordCopyWithImpl<$Res,
+          InnerJoinStorageWordAndWord>;
+  @useResult
+  $Res call(
+      {int? id,
+      String? name,
+      String? word,
+      String? image,
+      String? assets_image,
+      String? mean,
+      int? start_time,
+      int? end_time,
+      double? EF,
+      int? checkNew,
+      int? lastChoice,
+      int? interval,
+      double? ease});
+}
+
+/// @nodoc
+class _$InnerJoinStorageWordAndWordCopyWithImpl<$Res,
+        $Val extends InnerJoinStorageWordAndWord>
+    implements $InnerJoinStorageWordAndWordCopyWith<$Res> {
+  _$InnerJoinStorageWordAndWordCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? word = freezed,
+    Object? image = freezed,
+    Object? assets_image = freezed,
+    Object? mean = freezed,
+    Object? start_time = freezed,
+    Object? end_time = freezed,
+    Object? EF = freezed,
+    Object? checkNew = freezed,
+    Object? lastChoice = freezed,
+    Object? interval = freezed,
+    Object? ease = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      word: freezed == word
+          ? _value.word
+          : word // ignore: cast_nullable_to_non_nullable
+              as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      assets_image: freezed == assets_image
+          ? _value.assets_image
+          : assets_image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mean: freezed == mean
+          ? _value.mean
+          : mean // ignore: cast_nullable_to_non_nullable
+              as String?,
+      start_time: freezed == start_time
+          ? _value.start_time
+          : start_time // ignore: cast_nullable_to_non_nullable
+              as int?,
+      end_time: freezed == end_time
+          ? _value.end_time
+          : end_time // ignore: cast_nullable_to_non_nullable
+              as int?,
+      EF: freezed == EF
+          ? _value.EF
+          : EF // ignore: cast_nullable_to_non_nullable
+              as double?,
+      checkNew: freezed == checkNew
+          ? _value.checkNew
+          : checkNew // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastChoice: freezed == lastChoice
+          ? _value.lastChoice
+          : lastChoice // ignore: cast_nullable_to_non_nullable
+              as int?,
+      interval: freezed == interval
+          ? _value.interval
+          : interval // ignore: cast_nullable_to_non_nullable
+              as int?,
+      ease: freezed == ease
+          ? _value.ease
+          : ease // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$InnerJoinStorageWordAndWordImplCopyWith<$Res>
+    implements $InnerJoinStorageWordAndWordCopyWith<$Res> {
+  factory _$$InnerJoinStorageWordAndWordImplCopyWith(
+          _$InnerJoinStorageWordAndWordImpl value,
+          $Res Function(_$InnerJoinStorageWordAndWordImpl) then) =
+      __$$InnerJoinStorageWordAndWordImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int? id,
+      String? name,
+      String? word,
+      String? image,
+      String? assets_image,
+      String? mean,
+      int? start_time,
+      int? end_time,
+      double? EF,
+      int? checkNew,
+      int? lastChoice,
+      int? interval,
+      double? ease});
+}
+
+/// @nodoc
+class __$$InnerJoinStorageWordAndWordImplCopyWithImpl<$Res>
+    extends _$InnerJoinStorageWordAndWordCopyWithImpl<$Res,
+        _$InnerJoinStorageWordAndWordImpl>
+    implements _$$InnerJoinStorageWordAndWordImplCopyWith<$Res> {
+  __$$InnerJoinStorageWordAndWordImplCopyWithImpl(
+      _$InnerJoinStorageWordAndWordImpl _value,
+      $Res Function(_$InnerJoinStorageWordAndWordImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? word = freezed,
+    Object? image = freezed,
+    Object? assets_image = freezed,
+    Object? mean = freezed,
+    Object? start_time = freezed,
+    Object? end_time = freezed,
+    Object? EF = freezed,
+    Object? checkNew = freezed,
+    Object? lastChoice = freezed,
+    Object? interval = freezed,
+    Object? ease = freezed,
+  }) {
+    return _then(_$InnerJoinStorageWordAndWordImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      word: freezed == word
+          ? _value.word
+          : word // ignore: cast_nullable_to_non_nullable
+              as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      assets_image: freezed == assets_image
+          ? _value.assets_image
+          : assets_image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mean: freezed == mean
+          ? _value.mean
+          : mean // ignore: cast_nullable_to_non_nullable
+              as String?,
+      start_time: freezed == start_time
+          ? _value.start_time
+          : start_time // ignore: cast_nullable_to_non_nullable
+              as int?,
+      end_time: freezed == end_time
+          ? _value.end_time
+          : end_time // ignore: cast_nullable_to_non_nullable
+              as int?,
+      EF: freezed == EF
+          ? _value.EF
+          : EF // ignore: cast_nullable_to_non_nullable
+              as double?,
+      checkNew: freezed == checkNew
+          ? _value.checkNew
+          : checkNew // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastChoice: freezed == lastChoice
+          ? _value.lastChoice
+          : lastChoice // ignore: cast_nullable_to_non_nullable
+              as int?,
+      interval: freezed == interval
+          ? _value.interval
+          : interval // ignore: cast_nullable_to_non_nullable
+              as int?,
+      ease: freezed == ease
+          ? _value.ease
+          : ease // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$InnerJoinStorageWordAndWordImpl
+    implements _InnerJoinStorageWordAndWord {
+  const _$InnerJoinStorageWordAndWordImpl(
+      {this.id,
+      this.name,
+      this.word,
+      this.image,
+      this.assets_image,
+      this.mean,
+      this.start_time,
+      this.end_time,
+      this.EF,
+      this.checkNew,
+      this.lastChoice,
+      this.interval,
+      this.ease});
+
+  factory _$InnerJoinStorageWordAndWordImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$InnerJoinStorageWordAndWordImplFromJson(json);
+
+  @override
+  final int? id;
+  @override
+  final String? name;
+  @override
+  final String? word;
+  @override
+  final String? image;
+  @override
+  final String? assets_image;
+  @override
+  final String? mean;
+  @override
+  final int? start_time;
+  @override
+  final int? end_time;
+  @override
+  final double? EF;
+  @override
+  final int? checkNew;
+  @override
+  final int? lastChoice;
+  @override
+  final int? interval;
+  @override
+  final double? ease;
+
+  @override
+  String toString() {
+    return 'InnerJoinStorageWordAndWord(id: $id, name: $name, word: $word, image: $image, assets_image: $assets_image, mean: $mean, start_time: $start_time, end_time: $end_time, EF: $EF, checkNew: $checkNew, lastChoice: $lastChoice, interval: $interval, ease: $ease)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InnerJoinStorageWordAndWordImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.word, word) || other.word == word) &&
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.assets_image, assets_image) ||
+                other.assets_image == assets_image) &&
+            (identical(other.mean, mean) || other.mean == mean) &&
+            (identical(other.start_time, start_time) ||
+                other.start_time == start_time) &&
+            (identical(other.end_time, end_time) ||
+                other.end_time == end_time) &&
+            (identical(other.EF, EF) || other.EF == EF) &&
+            (identical(other.checkNew, checkNew) ||
+                other.checkNew == checkNew) &&
+            (identical(other.lastChoice, lastChoice) ||
+                other.lastChoice == lastChoice) &&
+            (identical(other.interval, interval) ||
+                other.interval == interval) &&
+            (identical(other.ease, ease) || other.ease == ease));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      word,
+      image,
+      assets_image,
+      mean,
+      start_time,
+      end_time,
+      EF,
+      checkNew,
+      lastChoice,
+      interval,
+      ease);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InnerJoinStorageWordAndWordImplCopyWith<_$InnerJoinStorageWordAndWordImpl>
+      get copyWith => __$$InnerJoinStorageWordAndWordImplCopyWithImpl<
+          _$InnerJoinStorageWordAndWordImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$InnerJoinStorageWordAndWordImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _InnerJoinStorageWordAndWord
+    implements InnerJoinStorageWordAndWord {
+  const factory _InnerJoinStorageWordAndWord(
+      {final int? id,
+      final String? name,
+      final String? word,
+      final String? image,
+      final String? assets_image,
+      final String? mean,
+      final int? start_time,
+      final int? end_time,
+      final double? EF,
+      final int? checkNew,
+      final int? lastChoice,
+      final int? interval,
+      final double? ease}) = _$InnerJoinStorageWordAndWordImpl;
+
+  factory _InnerJoinStorageWordAndWord.fromJson(Map<String, dynamic> json) =
+      _$InnerJoinStorageWordAndWordImpl.fromJson;
+
+  @override
+  int? get id;
+  @override
+  String? get name;
+  @override
+  String? get word;
+  @override
+  String? get image;
+  @override
+  String? get assets_image;
+  @override
+  String? get mean;
+  @override
+  int? get start_time;
+  @override
+  int? get end_time;
+  @override
+  double? get EF;
+  @override
+  int? get checkNew;
+  @override
+  int? get lastChoice;
+  @override
+  int? get interval;
+  @override
+  double? get ease;
+  @override
+  @JsonKey(ignore: true)
+  _$$InnerJoinStorageWordAndWordImplCopyWith<_$InnerJoinStorageWordAndWordImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}

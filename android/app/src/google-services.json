@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "199804307385-5u6nfn9ngfj35cglkf9n7s55g1rvccbc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mqenglish.vn",
+            "certificate_hash": "27a2645a65dd9f18fc99d24a0206c55959fba915"
+          }
+        },
+        {
           "client_id": "199804307385-en6nncfbsnt1eftp4hiil5ga54jbntif.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -55,7 +63,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-3156525907485254~4947784359"
     }
   ],
   "configuration_version": "1"

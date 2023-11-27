@@ -77,7 +77,7 @@ class _BackCardViewState extends State<BackCardView> {
             },
           ),
         ],
-      ),
+      ).px16(),
     );
   }
 }

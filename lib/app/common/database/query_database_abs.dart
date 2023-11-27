@@ -11,6 +11,9 @@ abstract class AbsQueryDatabase {
 
   Future<List<Map<String, Object?>>?> getFavoriteNews();
 
+  Future<List<Map<String, Object?>>?> getStoreWordById(int? id);
+
+
   //////////////////////////////////////ADD/////////////////////////
   Future<void> addStoreWord(String name);
 

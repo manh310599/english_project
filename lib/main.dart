@@ -12,6 +12,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'app/app_route/app_route.dart';
 import 'depedence.dart';
 import 'firebase_options.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 Future<void> main() async {
   await setupAppDepedence();
@@ -26,7 +27,7 @@ Future<void> main() async {
   ]);
 
   MobileAds.instance.initialize();
-
+  FlutterNativeSplash.remove();
   runApp(const App());
 
   FlutterError.onError = (error) {
@@ -37,6 +38,7 @@ Future<void> main() async {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
+
 }
 
 class App extends StatefulWidget {

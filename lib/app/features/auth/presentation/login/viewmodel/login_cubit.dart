@@ -79,56 +79,52 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> loginWithGoogle(context) async {
+    Future<UserCredential?> signInWithGoogle() async {
+      try {
+        final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+        if (googleUser == null) {
+          // Người dùng đã hủy đăng nhập hoặc xảy ra lỗi.
+          return null;
+        }
 
-    Future<UserCredential> signInWithGoogle() async {
-      // Trigger the authentication flow
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+        final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+        if (googleAuth == null) {
+          // Xử lý trường hợp không có thông tin xác thực.
+          return null;
+        }
 
-      // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
 
-      // Create a new credential
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+        final getProfile = await firebaseFirestore.collection('users').doc(userCredential.user?.uid).get();
 
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-      final getProfile = await firebaseFirestore
-          .collection('users')
-          .doc(userCredential.user?.uid).get();
+        if (!getProfile.exists) {
+          int randomNumber = random.nextInt(900000) + 100000;
+          await firebaseFirestore.collection('users').doc(userCredential.user?.uid).set({
+            'userID': randomNumber,
+            'finalDayPremium': 0,
+            'dayOflearn': 0,
+          });
 
-      if (!getProfile.exists) {
+          print("Đăng nhập lần đầu tiên!");
+        }
 
-        int randomNumber = random.nextInt(900000) + 100000;
-        firebaseFirestore
-            .collection('users')
-            .doc(userCredential.user?.uid)
-            .set({
-          'userID': randomNumber,
-          'finalDayPremium': 0,
-          'dayOflearn': 0
-        })
-            .then((value) =>
-            print("'full_name' & 'age' merged with existing data!"))
-            .catchError((error) {
-          showDiaLogCustom(
-              context, 'Có vẻ server đang lỗi hãy thử lại nhé', '');
-        });
-
-        print("Đăng nhập lần đầu tiên!");
-
-      } else {
-        print("Đăng nhập không phải lần đầu tiên.");
+        return userCredential;
+      } catch (error) {
+        print("Lỗi khi đăng nhập với Google: $error");
+        return null;
       }
-
-      return userCredential;
     }
 
-    await signInWithGoogle();
-    emit(state.copyWith(apiStatus: ApiStatus.success));
+    UserCredential? userCredential = await signInWithGoogle();
+    if (userCredential != null) {
+      emit(state.copyWith(apiStatus: ApiStatus.success));
+    }
   }
+
   @override
   Future<void> close() {
     // TODO: implement close

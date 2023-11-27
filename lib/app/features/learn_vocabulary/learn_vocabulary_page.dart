@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:english_project/app/app_route/app_route.gr.dart';
+import 'package:english_project/app/common/widget/button/cupertino_button.dart';
 import 'package:english_project/app/common/widget/button/cupertion_button_custom.dart';
 import 'package:english_project/app/features/auth/presentation/check_user/viewmodel/checkauth_bloc.dart';
 import 'package:english_project/app/features/learn_vocabulary/presentation/viewmodel/learn_vocabulary_cubit.dart';
@@ -41,40 +42,84 @@ class LearnVocabularyPage extends StatelessWidget {
               title: 'Kho khóa học'.text.make(),
               centerTitle: true,
               actions: [
-                CupertinoButtonCustom(
-                    color: Vx.white,
-                    click: () {
-                      AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.infoReverse,
-                        customHeader: Image.asset('assets/images/add.png'),
-                        title: 'Thêm khóa học',
-                        body: TextFormField(
-                          controller:
-                              context.read<LearnVocabularyCubit>().controller,
-                          decoration: const InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Dimens.rad_circular),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                )),
-                            hintText: 'Nhập vào tên khóa học',
-                            border: OutlineInputBorder(),
-                          ),
-                        ),
-                        btnOkOnPress: () {
-                          context
-                              .read<LearnVocabularyCubit>()
-                              .addStoreWord(context);
+                Row(
+                  children: [
+                    CupertinoButtonCustom(
+                        color: Vx.white,
+                        click: () {
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.info,
+                            customHeader: Image.asset(
+                              'assets/images/export.png',
+                            ).cornerRadius(200),
+                            title: 'Nhập xuất khóa học',
+                            body: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                CupertinoButtonEdit(
+                                  color: Colors.black,
+                                  textColor: Vx.white,
+                                  text: 'Nhập CSV',
+                                  onPressed: () {
+                                    context.pushRoute(const Import());
+                                    context.popRoute();
+                                  },
+                                ),
+                                CupertinoButtonEdit(
+                                  text: 'Xuất CSV',
+                                  onPressed: () {
+                                    context.pushRoute(const Export());
+                                    context.popRoute();
+                                  },
+                                )
+                              ],
+                            ),
+                            btnCancelText: 'Đóng',
+                            btnCancelOnPress: () {},
+                          ).show();
                         },
-                        btnCancelOnPress: () {},
-                      ).show();
-                    },
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.blueAccent,
-                    )).px8().py8()
+                        child: const Icon(
+                          Icons.import_export,
+                          color: Colors.blueAccent,
+                        )).px8().py8(),
+                    CupertinoButtonCustom(
+                        color: Vx.white,
+                        click: () {
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.infoReverse,
+                            customHeader: Image.asset('assets/images/add.png'),
+                            title: 'Thêm khóa học',
+                            body: TextFormField(
+                              controller: context
+                                  .read<LearnVocabularyCubit>()
+                                  .controller,
+                              decoration: const InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Dimens.rad_circular),
+                                    borderSide: BorderSide(
+                                      color: Colors.white,
+                                    )),
+                                hintText: 'Nhập vào tên khóa học',
+                                border: OutlineInputBorder(),
+                              ),
+                            ),
+                            btnOkOnPress: () {
+                              context
+                                  .read<LearnVocabularyCubit>()
+                                  .addStoreWord(context);
+                            },
+                            btnCancelOnPress: () {},
+                          ).show();
+                        },
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.blueAccent,
+                        )).px8().py8(),
+                  ],
+                )
               ],
             ),
             body: SafeArea(
@@ -87,8 +132,9 @@ class LearnVocabularyPage extends StatelessWidget {
                       return CupertinoButtonCustom(
                           color: Colors.black,
                           click: () async {
-                            context.pushRoute(
-                                LessonRoute(id: state.data?[index]?.id,premium: stateCheck.premium));
+                            context.pushRoute(LessonRoute(
+                                id: state.data?[index]?.id,
+                                premium: stateCheck.premium));
                           },
                           press: () {
                             AwesomeDialog(

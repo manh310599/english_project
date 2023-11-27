@@ -63,6 +63,7 @@ class NewsSearchBottomSheet extends StatelessWidget {
                               cubit.saveWord(
                                   state.idStorageWord ?? state.data?[0]?.id,
                                   context);
+
                             } else {
                               AwesomeDialog(
                                 context: context,

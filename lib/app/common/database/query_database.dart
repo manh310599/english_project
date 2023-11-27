@@ -150,7 +150,6 @@ class QueryDatabase extends AbsQueryDatabase {
   ) async {
     final data = await database;
     try {
-
       final test = await data?.rawUpdate(
           "update Words set end_time = $endTime,checkNew = $checkNews"
           ",lastChoice = $lastChoice,interval = $interval,ease = $ease where"
@@ -165,7 +164,27 @@ class QueryDatabase extends AbsQueryDatabase {
   @override
   Future<void> deleteWord(String word) async {
     final data = await database;
-    final test = await data?.rawDelete("delete from Words where word = '$word'");
+    final test =
+        await data?.rawDelete("delete from Words where word = '$word'");
     print(test);
+  }
+
+  @override
+  Future<List<Map<String, Object?>>?> getStoreWordById(int? id) async {
+    final data = await database;
+    final test = await data?.rawQuery('SELECT a.id, a.name,'
+        'b.word,b.image,'
+        'b.assets_image,'
+        'b.mean,'
+        'b.start_time,'
+        'b.end_time,'
+        'b.EF,'
+        'b.checkNew,'
+        'b.lastChoice,'
+        'b.interval,'
+        'b.ease FROM StorageWord AS a INNER JOIN Words AS b'
+        ' ON a.id = b.id WHERE a.id = $id');
+
+    return test;
   }
 }

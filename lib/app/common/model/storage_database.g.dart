@@ -65,3 +65,39 @@ Map<String, dynamic> _$$WordsImplToJson(_$WordsImpl instance) =>
       'interval': instance.interval,
       'ease': instance.ease,
     };
+
+_$InnerJoinStorageWordAndWordImpl _$$InnerJoinStorageWordAndWordImplFromJson(
+        Map<String, dynamic> json) =>
+    _$InnerJoinStorageWordAndWordImpl(
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      word: json['word'] as String?,
+      image: json['image'] as String?,
+      assets_image: json['assets_image'] as String?,
+      mean: json['mean'] as String?,
+      start_time: json['start_time'] as int?,
+      end_time: json['end_time'] as int?,
+      EF: (json['EF'] as num?)?.toDouble(),
+      checkNew: json['checkNew'] as int?,
+      lastChoice: json['lastChoice'] as int?,
+      interval: json['interval'] as int?,
+      ease: (json['ease'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$$InnerJoinStorageWordAndWordImplToJson(
+        _$InnerJoinStorageWordAndWordImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'word': instance.word,
+      'image': instance.image,
+      'assets_image': instance.assets_image,
+      'mean': instance.mean,
+      'start_time': instance.start_time,
+      'end_time': instance.end_time,
+      'EF': instance.EF,
+      'checkNew': instance.checkNew,
+      'lastChoice': instance.lastChoice,
+      'interval': instance.interval,
+      'ease': instance.ease,
+    };
