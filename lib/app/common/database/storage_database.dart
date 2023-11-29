@@ -52,7 +52,6 @@ class StorageDatabase {
 
       _database = await openDatabase(path);
     }
-    print(path);
     return _database;
   }
 

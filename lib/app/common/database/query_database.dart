@@ -172,19 +172,48 @@ class QueryDatabase extends AbsQueryDatabase {
   @override
   Future<List<Map<String, Object?>>?> getStoreWordById(int? id) async {
     final data = await database;
-    final test = await data?.rawQuery('SELECT a.id, a.name,'
+    final test = await data?.rawQuery('SELECT  a.name,'
         'b.word,b.image,'
         'b.assets_image,'
-        'b.mean,'
-        'b.start_time,'
-        'b.end_time,'
-        'b.EF,'
-        'b.checkNew,'
-        'b.lastChoice,'
-        'b.interval,'
-        'b.ease FROM StorageWord AS a INNER JOIN Words AS b'
+        'b.mean '
+        'FROM StorageWord AS a INNER JOIN Words AS b'
         ' ON a.id = b.id WHERE a.id = $id');
 
     return test;
+  }
+
+  @override
+  Future<int?> addFromCSV(
+    String? name,
+    List<InnerJoinStorageWordAndWord> innerJohn,
+  ) async {
+    final data = await database;
+    try {
+
+      final insertResult = await data?.rawInsert('insert into StorageWord(name) values ("$name")');
+
+      if (insertResult == null || insertResult <= 0) {
+        print('Lỗi khi thêm dữ liệu vào bảng StorageWord');
+        return -1;
+      }
+
+      final lastID = await data
+          ?.rawQuery('select * from StorageWord order by rowid desc LIMIT 1');
+      int? id;
+      lastID?.forEach((element) {
+        final first = StorageWord.fromJson(element);
+        id = first.id;
+      });
+      for (var element in innerJohn) {
+        try {
+          addWords(element.word, element.image, element.assets_image,
+              element.mean, 0, 0, 1.3, id);
+        } catch (_) {
+        }
+      }
+      return 0;
+    } catch (_) {
+      return -1;
+    }
   }
 }

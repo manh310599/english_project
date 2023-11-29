@@ -13,10 +13,11 @@ class PremiumPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset('assets/images/qr.jpg'),
           Gaps.vGap8,
-          'Hãy chuyển tiền kèm với ID của bạn nhé'.text.size(30).color(Colors.greenAccent).make(),
+          'Hãy chuyển tiền kèm với ID của bạn nhé'.text.size(30).color(Colors.greenAccent).center.make(),
           Gaps.vGap8,
           '20.000 / 1 tháng'.text.size(big).make(),
           Gaps.vGap8,

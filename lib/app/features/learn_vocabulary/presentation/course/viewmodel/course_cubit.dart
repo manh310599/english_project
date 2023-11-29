@@ -25,7 +25,6 @@ class CourseCubit extends Cubit<CourseState> {
       list.add(Words.fromJson(element));
     });
 
-    print(list);
 
     emit(state.copyWith(data: list));
   }

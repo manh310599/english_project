@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:csv/csv.dart';
-import 'package:english_project/app/common/model/storage_database.dart';
 import 'package:external_path/external_path.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -21,9 +19,11 @@ Future<File> _localFile(String? nameFile) async {
 
 ////write file
 Future<File> writeCounter(String? content, String? nameFile) async {
+
   File file = await _localFile(nameFile);
-  List<List<dynamic>> rowsAsListOfValues = const CsvToListConverter().convert(content);
-  String csv = const ListToCsvConverter(  ).convert(rowsAsListOfValues);
+  List<List<dynamic>> rowsAsListOfValues =
+      const CsvToListConverter().convert(content);
+  String csv = const ListToCsvConverter().convert(rowsAsListOfValues);
   return file.writeAsString(csv);
 }
 
@@ -36,10 +36,10 @@ Future<List<List<dynamic>>?> get readCounter async {
         type: FileType.custom,
         allowedExtensions: ['txt']);
 
-    final fileContent =  File(file?.paths.first ?? '');
+    final fileContent = File(file?.paths.first ?? '');
     final content = await fileContent.readAsString();
-    print(content);
-    List<List<dynamic>> rowsAsListOfValues = const CsvToListConverter().convert(content);
+    List<List<dynamic>> rowsAsListOfValues =
+        const CsvToListConverter().convert(content);
 
     return rowsAsListOfValues;
   } catch (e) {

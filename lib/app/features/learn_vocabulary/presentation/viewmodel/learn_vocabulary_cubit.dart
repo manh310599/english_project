@@ -56,25 +56,14 @@ class LearnVocabularyCubit extends Cubit<LearnVocabularyState> {
     }
   }
 
-  Future<void> deleteStoreWord(context, id) async {
+  Future<int?> deleteStoreWord(context, id) async {
     final result = await queryDatabase.deleteStoreWord(id);
-    if (result != -1) {
-      final data = await queryDatabase.getAllFromStorageWord();
 
-      emit(state.copyWith(data: data));
-      AwesomeDialog(
-        context: context,
-        dialogType: DialogType.success,
-        title: 'Đã xóa khóa học thành công',
-        btnOkOnPress: () {},
-      ).show();
+    if (result != -1) {
+      getStoreWord();
+      return result;
     } else {
-      AwesomeDialog(
-        context: context,
-        dialogType: DialogType.error,
-        title: 'Xóa khóa học thất bại',
-        btnOkOnPress: () {},
-      ).show();
+      return result;
     }
   }
 

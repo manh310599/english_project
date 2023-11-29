@@ -59,6 +59,7 @@ class UserAccountPage extends StatelessWidget {
                   callback: () {
                     context.pushRoute(CustomInformationRoute(
                         time: state.idUser?.finalDayPremium ?? 0));
+                    FocusManager.instance.primaryFocus?.unfocus();
                   },
                 ),
                 Gaps.vGap10,
@@ -66,6 +67,7 @@ class UserAccountPage extends StatelessWidget {
                   title: 'Mở khóa bản pro không quảng cáo',
                   callback: () {
                     context.pushRoute(const PremiumRoute());
+                    FocusManager.instance.primaryFocus?.unfocus();
                   },
                 ),
                 Gaps.vGap10,

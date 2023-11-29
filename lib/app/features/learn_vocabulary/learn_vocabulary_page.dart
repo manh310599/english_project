@@ -63,6 +63,8 @@ class LearnVocabularyPage extends StatelessWidget {
                                   text: 'Nhập CSV',
                                   onPressed: () {
                                     context.pushRoute(const Import());
+                                    FocusManager.instance.primaryFocus
+                                        ?.unfocus();
                                     context.popRoute();
                                   },
                                 ),
@@ -70,7 +72,8 @@ class LearnVocabularyPage extends StatelessWidget {
                                   text: 'Xuất CSV',
                                   onPressed: () {
                                     context.pushRoute(const Export());
-                                    context.popRoute();
+                                    FocusManager.instance.primaryFocus
+                                        ?.unfocus();
                                   },
                                 )
                               ],
@@ -122,61 +125,70 @@ class LearnVocabularyPage extends StatelessWidget {
                 )
               ],
             ),
-            body: SafeArea(
-              bottom: true,
-              minimum: EdgeInsets.only(bottom: 60),
-              child: ListView.separated(
-                itemBuilder: (context, index) {
-                  return BlocBuilder<CheckauthBloc, CheckauthState>(
-                    builder: (context, stateCheck) {
-                      return CupertinoButtonCustom(
-                          color: Colors.black,
-                          click: () async {
-                            context.pushRoute(LessonRoute(
-                                id: state.data?[index]?.id,
-                                premium: stateCheck.premium));
-                          },
-                          press: () {
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.warning,
-                              animType: AnimType.rightSlide,
-                              title: 'Cài đặt bộ từ vựng',
-                              btnCancelText: 'Xóa',
-                              btnOkText: 'Chỉnh sửa',
-                              btnCancelOnPress: () {
-                                AwesomeDialog(
-                                  context: context,
-                                  dialogType: DialogType.warning,
-                                  animType: AnimType.rightSlide,
-                                  title:
-                                      'Bạn có chắc muốn xóa bộ bài học không',
-                                  btnCancelOnPress: () {},
-                                  btnOkOnPress: () {
-                                    context
-                                        .read<LearnVocabularyCubit>()
-                                        .deleteStoreWord(
-                                            context, state.data?[index]?.id);
-                                  },
-                                ).show();
-                              },
-                              btnOkOnPress: () {
-                                context.pushRoute(CourseRoute(
-                                    id: state.data?[index]?.id,
-                                    name: state.data?[index]?.name));
-                              },
-                            ).show();
-                          },
-                          child: state.data?[index]?.name?.text.bold.make() ??
-                              ''.text.make());
-                    },
-                  );
-                },
-                itemCount: state.data?.length ?? 0,
-                separatorBuilder: (BuildContext context, int index) {
-                  return Gaps.vGap16;
-                },
-              ).px16().py16(),
+            body: RefreshIndicator(
+              onRefresh: () async {
+                await context.read<LearnVocabularyCubit>().getStoreWord();
+              },
+              child: SafeArea(
+                bottom: true,
+                minimum: EdgeInsets.only(bottom: 60),
+                child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    return BlocBuilder<CheckauthBloc, CheckauthState>(
+                      builder: (context, stateCheck) {
+                        return CupertinoButtonCustom(
+                            color: Colors.black,
+                            click: () async {
+                              context.pushRoute(LessonRoute(
+                                  id: state.data?[index]?.id,
+                                  premium: stateCheck.premium));
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            press: () {
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.warning,
+                                animType: AnimType.rightSlide,
+                                title: 'Cài đặt bộ từ vựng',
+                                btnCancelText: 'Xóa',
+                                btnOkText: 'Chỉnh sửa',
+                                btnCancelOnPress: () {
+                                  AwesomeDialog(
+                                    context: context,
+                                    dialogType: DialogType.warning,
+                                    animType: AnimType.rightSlide,
+                                    title:
+                                        'Bạn có chắc muốn xóa bộ bài học không',
+                                    btnCancelOnPress: () {},
+                                    btnOkOnPress: () async {
+                                      await context
+                                          .read<LearnVocabularyCubit>()
+                                          .deleteStoreWord(
+                                              context, state.data?[index]?.id);
+
+
+                                    },
+                                  ).show();
+                                },
+                                btnOkOnPress: () {
+                                  context.pushRoute(CourseRoute(
+                                      id: state.data?[index]?.id,
+                                      name: state.data?[index]?.name));
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                },
+                              ).show();
+                            },
+                            child: state.data?[index]?.name?.text.bold.make() ??
+                                ''.text.make());
+                      },
+                    );
+                  },
+                  itemCount: state.data?.length ?? 0,
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Gaps.vGap16;
+                  },
+                ).px16().py16(),
+              ),
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.endContained,

@@ -51,21 +51,23 @@ class Words with _$Words {
 @freezed
 class InnerJoinStorageWordAndWord with _$InnerJoinStorageWordAndWord {
   const factory InnerJoinStorageWordAndWord({
-    final int? id,
     final String? name,
     final String? word,
     final String? image,
     String? assets_image,
     final String? mean,
-    final int? start_time,
-    final int? end_time,
-    final double? EF,
-    final int? checkNew,
-    final int? lastChoice,
-    final int? interval,
-    final double? ease,
   }) = _InnerJoinStorageWordAndWord;
 
   factory InnerJoinStorageWordAndWord.fromJson(Map<String, dynamic> json) =>
       _$InnerJoinStorageWordAndWordFromJson(json);
+
+  factory InnerJoinStorageWordAndWord.fromList(List<dynamic> dataList) {
+    return InnerJoinStorageWordAndWord(
+      name: dataList[0],
+      word: (dataList[1]),
+      image: (dataList[2]),
+      assets_image: (dataList[3]),
+      mean: (dataList[4]),
+    );
+  }
 }

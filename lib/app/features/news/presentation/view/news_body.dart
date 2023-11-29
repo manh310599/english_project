@@ -42,6 +42,7 @@ class NewsBody extends StatelessWidget {
             context.pushRoute(NewsReadRoute(
               url: state.news?.articles![state.min! + index].url ?? '',
             ));
+            FocusManager.instance.primaryFocus?.unfocus();
           },
           child: Row(
             children: [

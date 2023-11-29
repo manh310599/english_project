@@ -13,7 +13,6 @@ abstract class AbsQueryDatabase {
 
   Future<List<Map<String, Object?>>?> getStoreWordById(int? id);
 
-
   //////////////////////////////////////ADD/////////////////////////
   Future<void> addStoreWord(String name);
 
@@ -44,6 +43,11 @@ abstract class AbsQueryDatabase {
     int? lastChoice,
     int? interval,
     double? ease,
+  );
+
+  Future<void> addFromCSV(
+    String? name,
+    List<InnerJoinStorageWordAndWord> innerJohn,
   );
 
   ////////////////////Delete///////////////////////////

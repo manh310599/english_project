@@ -30,6 +30,7 @@ class FavoriteBody extends StatelessWidget {
                         click: () async {
                           context.pushRoute(NewsReadRoute(
                               url: state.news?[index]?.url ?? ''));
+                          FocusManager.instance.primaryFocus?.unfocus();
                         },
                         press: () {
                           AwesomeDialog(

@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('assets/images/logo.png'),
+                    Image.asset('assets/images/logo.png',).h24(context).cornerRadius(30),
                     Gaps.vGap16,
                     EditText(
                       preIcon: const Icon(Icons.cleaning_services_sharp),
@@ -96,6 +96,7 @@ class LoginPage extends StatelessWidget {
                       textColor: context.themeColor.textLink,
                       action: () {
                         context.pushRoute(const RegisterRoute());
+                        FocusManager.instance.primaryFocus?.unfocus();
                       },
                     )
                   ],
