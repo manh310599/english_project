@@ -21,6 +21,10 @@ Future<File> _localFile(String? nameFile) async {
 Future<File> writeCounter(String? content, String? nameFile) async {
 
   File file = await _localFile(nameFile);
+  if (await file.exists()) {
+
+    await file.delete();
+  }
   List<List<dynamic>> rowsAsListOfValues =
       const CsvToListConverter().convert(content);
   String csv = const ListToCsvConverter().convert(rowsAsListOfValues);

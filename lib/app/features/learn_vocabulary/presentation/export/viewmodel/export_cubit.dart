@@ -42,7 +42,8 @@ class ExportCubit extends Cubit<ExportState> {
         );
         emit(state.copyWith(exportImportFile: ExportImportFile.loaded));
       }
-    } catch (_) {
+    } catch (e) {
+      print(e);
       emit(state.copyWith(exportImportFile: ExportImportFile.error));
       emit(state.copyWith(exportImportFile: ExportImportFile.loaded));
     }
