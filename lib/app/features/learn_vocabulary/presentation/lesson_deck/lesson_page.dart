@@ -19,6 +19,7 @@ class LessonPage extends StatelessWidget {
   final bool? premium;
   final int? id;
 
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -69,7 +70,7 @@ class LessonPage extends StatelessWidget {
                     ),
                   ),
             floatingActionButtonLocation:
-                FloatingActionButtonLocation.miniCenterFloat,
+                FloatingActionButtonLocation.centerDocked,
             floatingActionButton: state.words?.isEmpty == true
                 ? const SizedBox()
                 : state.checkBackCard == true

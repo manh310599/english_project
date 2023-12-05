@@ -153,7 +153,7 @@ class QueryDatabase extends AbsQueryDatabase {
       final test = await data?.rawUpdate(
           "update Words set end_time = $endTime,checkNew = $checkNews"
           ",lastChoice = $lastChoice,interval = $interval,ease = $ease where"
-          " word = '$word' ");
+          " word = ? "  ,[word]);
       print(test);
       return 1;
     } catch (_) {

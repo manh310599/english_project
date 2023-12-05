@@ -12,6 +12,9 @@ part 'news_read_state.dart';
 class NewsReadCubit extends Cubit<NewsReadState> {
   NewsReadCubit() : super(const NewsReadState());
 
+  InAppWebViewController? webViewController ;
+
+
   InterstitialAd? interstitialAd;
   late bool? checkPremium ;
   void _createInterstitialAd() {
@@ -31,34 +34,25 @@ class NewsReadCubit extends Cubit<NewsReadState> {
           urlFilter: 'https://easylist.to/easylist/easylist.txt'),
       action: ContentBlockerAction(type: ContentBlockerActionType.BLOCK));
 
-  Future<void> setPageNews(bool? check, context) async {
-    checkPremium = check;
-    if (checkPremium == false) {
-      _createInterstitialAd();
-    }
 
+
+
+  void loadedWeb(){
+    emit(state.copyWith(loading: true));
   }
 
-  @override
-  Future<void> close() async {
-    print('check $checkPremium');
-    if(checkPremium == false){
-      if (interstitialAd != null) {
-        interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-          onAdDismissedFullScreenContent: (ad) {
-            ad.dispose();
-            _createInterstitialAd();
-          },
-          onAdFailedToShowFullScreenContent: (ad, error) {
-            ad.dispose();
-            _createInterstitialAd();
-          },
-        );
-        interstitialAd!.show();
-        interstitialAd = null;
-      }
-    }
+  Future<String?> selectAndPrintText() async {
+    if (webViewController != null) {
+      // Execute JavaScript code to select text
+      final selectedText = await webViewController!.evaluateJavascript(
+        source: "window.getSelection().toString();",
+      );
 
-    return super.close();
+      emit(state.copyWith(word: selectedText));
+      return selectedText;
+    }
+    else {
+      return null;
+    }
   }
 }

@@ -42,7 +42,9 @@ class InformationCardCubit extends Cubit<InformationCardState> {
 
         emit(state.copyWith(
             apiStatus: ApiStatus.success, imageFromText: dataImage));
-      } catch (e) {
+
+      }
+      catch (e) {
         emit(state.copyWith(
           apiStatus: ApiStatus.fail,
         ));
@@ -54,8 +56,8 @@ class InformationCardCubit extends Cubit<InformationCardState> {
     final resultData = await queryDatabase.getAllFromStorageWord();
 
     if (query!.isNotEmpty) {
-      await Future.delayed(const Duration(seconds: 1));
       final result = await translate(query);
+      print('thử nghiệm $result');
       if (result != null) {
         emit(state.copyWith(
             translate: result, data: resultData, apiStatus: ApiStatus.loaded));
@@ -71,9 +73,9 @@ class InformationCardCubit extends Cubit<InformationCardState> {
   }
 
   Future<void> selectImageFromGradle() async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 25);
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 25);
     if (pickedFile!.path.isNotEmptyAndNotNull) {
       emit(state.copyWith(filePath: pickedFile.path, itemSelect: null));
     }

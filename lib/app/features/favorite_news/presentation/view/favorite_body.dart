@@ -27,10 +27,29 @@ class FavoriteBody extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return CupertinoButtonCustom(
                         color: Vx.white,
-                        click: () async {
-                          context.pushRoute(NewsReadRoute(
-                              url: state.news?[index]?.url ?? ''));
-                          FocusManager.instance.primaryFocus?.unfocus();
+                        click: ()  {
+                          AwesomeDialog(
+                            context: context,
+                            btnCancelText: 'Tra từ',
+                            btnOkText: "Tra đoạn",
+                            title: "Chọn kiểu đọc theo nhiều cách",
+                            btnOkOnPress: () {
+                              context.pushRoute(NewsReadRoute(
+                                url: state.news?[index]?.url ?? '',
+                                choice: 1,
+                              ));
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            btnCancelOnPress: () {
+                              context.pushRoute(NewsReadRoute(
+                                url: state.news?[index]?.url ?? '',
+                                choice: 0,
+                              ));
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                          ).show();
                         },
                         press: () {
                           AwesomeDialog(

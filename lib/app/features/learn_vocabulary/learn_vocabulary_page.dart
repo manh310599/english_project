@@ -138,7 +138,8 @@ class LearnVocabularyPage extends StatelessWidget {
                       builder: (context, stateCheck) {
                         return CupertinoButtonCustom(
                             color: Colors.black,
-                            click: () async {
+                            click: () {
+
                               context.pushRoute(LessonRoute(
                                   id: state.data?[index]?.id,
                                   premium: stateCheck.premium));
@@ -165,8 +166,6 @@ class LearnVocabularyPage extends StatelessWidget {
                                           .read<LearnVocabularyCubit>()
                                           .deleteStoreWord(
                                               context, state.data?[index]?.id);
-
-
                                     },
                                   ).show();
                                 },

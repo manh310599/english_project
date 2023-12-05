@@ -54,7 +54,6 @@ _$ResultImpl _$$ResultImplFromJson(Map<String, dynamic> json) => _$ResultImpl(
       currentUserCollections: (json['currentUserCollections'] as List<dynamic>?)
           ?.map((e) => e as String?)
           .toList(),
-      sponsorship: json['sponsorship'] as String?,
       topicSubmissions: json['topicSubmissions'] == null
           ? null
           : TopicSubmissions.fromJson(
@@ -86,7 +85,6 @@ Map<String, dynamic> _$$ResultImplToJson(_$ResultImpl instance) =>
       'likes': instance.likes,
       'likedByUser': instance.likedByUser,
       'currentUserCollections': instance.currentUserCollections,
-      'sponsorship': instance.sponsorship,
       'topicSubmissions': instance.topicSubmissions,
       'user': instance.user,
       'tags': instance.tags,

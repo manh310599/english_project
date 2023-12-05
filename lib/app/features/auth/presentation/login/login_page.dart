@@ -28,78 +28,80 @@ class LoginPage extends StatelessWidget {
           create: (context) => LoginCubit(),
           child: BlocBuilder<LoginCubit, LoginState>(
             builder: (context, state) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset('assets/images/logo.png',).h24(context).cornerRadius(30),
-                    Gaps.vGap16,
-                    EditText(
-                      preIcon: const Icon(Icons.cleaning_services_sharp),
-                      hinText: 'Email',
-                      icon: const Icon(Icons.account_circle_rounded),
-                      callback: (data) {
-                        context.read<LoginCubit>().setEmail(data);
-                      },
-                    ),
-                    Gaps.vGap16,
-                    EditText(
-                      preIcon: const Icon(Icons.cleaning_services_sharp),
-                      hinText: 'Mật khẩu',
-                      icon: const Icon(Icons.lock),
-                      callback: (data) {
-                        context.read<LoginCubit>().setPass(data);
-                      },
-                      stylePassWord: true,
-                      click: true,
-                    ),
-                    BlocBuilder<CheckauthBloc, CheckauthState>(
-                      builder: (context, state) {
-                        final login = context.read<LoginCubit>();
-                        final checkAuth = context.read<CheckauthBloc>();
-                        return CupertinoButtonEdit(
-                          text: 'Đăng nhập',
-                          onPressed: () async {
-                            await context
-                                .read<LoginCubit>()
-                                .loginWithEmail(context);
-                            login.state.apiStatus == ApiStatus.success
-                                ? checkAuth.add(const CheckauthEvent.logged())
-                                : null;
-                          },
-                        );
-                      },
-                    ),
-                    TextButtonCustom(
-                      text: 'Bạn quên mật khẩu click vào đây',
-                      textColor: Colors.amberAccent,
-                      action: () {
-                        context.pushRoute(const ForgotPasswordRoute());
-                      },
-                    ),
-                    BlocBuilder<CheckauthBloc, CheckauthState>(
-                      builder: (context, state) {
-                        final login = context.read<LoginCubit>();
-                        final checkAuth = context.read<CheckauthBloc>();
-                        return ImageButton(
-                          src: 'assets/images/google.png',
-                          action: () async {
-                            await login.loginWithGoogle(context);
-                            checkAuth.add(const CheckauthEvent.logged());
-                          },
-                        );
-                      },
-                    ),
-                    Gaps.vGap8,
-                    TextButtonCustom(
-                      text: 'bạn chưa có tài khoản hãy click vào đây nhé',
-                      textColor: context.themeColor.textLink,
-                      action: () {
-                        context.pushRoute(const RegisterRoute());
-                        FocusManager.instance.primaryFocus?.unfocus();
-                      },
-                    )
-                  ],
+              return SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/images/logo.png',).h24(context).cornerRadius(30),
+                      Gaps.vGap16,
+                      EditText(
+                        preIcon: const Icon(Icons.cleaning_services_sharp),
+                        hinText: 'Email',
+                        icon: const Icon(Icons.account_circle_rounded),
+                        callback: (data) {
+                          context.read<LoginCubit>().setEmail(data);
+                        },
+                      ),
+                      Gaps.vGap16,
+                      EditText(
+                        preIcon: const Icon(Icons.cleaning_services_sharp),
+                        hinText: 'Mật khẩu',
+                        icon: const Icon(Icons.lock),
+                        callback: (data) {
+                          context.read<LoginCubit>().setPass(data);
+                        },
+                        stylePassWord: true,
+                        click: true,
+                      ),
+                      BlocBuilder<CheckauthBloc, CheckauthState>(
+                        builder: (context, state) {
+                          final login = context.read<LoginCubit>();
+                          final checkAuth = context.read<CheckauthBloc>();
+                          return CupertinoButtonEdit(
+                            text: 'Đăng nhập',
+                            onPressed: () async {
+                              await context
+                                  .read<LoginCubit>()
+                                  .loginWithEmail(context);
+                              login.state.apiStatus == ApiStatus.success
+                                  ? checkAuth.add(const CheckauthEvent.logged())
+                                  : null;
+                            },
+                          );
+                        },
+                      ),
+                      TextButtonCustom(
+                        text: 'Bạn quên mật khẩu click vào đây',
+                        textColor: Colors.amberAccent,
+                        action: () {
+                          context.pushRoute(const ForgotPasswordRoute());
+                        },
+                      ),
+                      BlocBuilder<CheckauthBloc, CheckauthState>(
+                        builder: (context, state) {
+                          final login = context.read<LoginCubit>();
+                          final checkAuth = context.read<CheckauthBloc>();
+                          return ImageButton(
+                            src: 'assets/images/google.png',
+                            action: () async {
+                              await login.loginWithGoogle(context);
+                              checkAuth.add(const CheckauthEvent.logged());
+                            },
+                          );
+                        },
+                      ),
+                      Gaps.vGap8,
+                      TextButtonCustom(
+                        text: 'bạn chưa có tài khoản hãy click vào đây nhé',
+                        textColor: context.themeColor.textLink,
+                        action: () {
+                          context.pushRoute(const RegisterRoute());
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        },
+                      )
+                    ],
+                  ),
                 ),
               );
             },

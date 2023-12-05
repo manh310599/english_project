@@ -21,72 +21,74 @@ class RegisterPage extends StatelessWidget {
         create: (BuildContext context) => RegisterCubit(),
         child: BlocBuilder<RegisterCubit, RegisterState>(
           builder: (context, state) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/images/logo.png'),
-                  Gaps.vGap16,
-                  EditText(
-                    preIcon: const Icon(Icons.cleaning_services_sharp),
-                    hinText: 'Email',
-                    icon: const Icon(Icons.account_circle_rounded),
-                    callback: (data) {
-                      context.read<RegisterCubit>().setEmail(data);
-                    },
-                  ),
-                  Gaps.vGap16,
-                  EditText(
-                    preIcon: const Icon(Icons.cleaning_services_sharp),
-                    hinText: 'Mật khẩu',
-                    icon: const Icon(Icons.lock),
-                    callback: (data) {
-                      context.read<RegisterCubit>().setPass(data);
-                    },
-                    stylePassWord: true,
-                    click: true,
-                  ),
-                  Gaps.vGap16,
-                  EditText(
-                    preIcon: const Icon(Icons.cleaning_services_sharp),
-                    hinText: 'Nhập lại mật khẩu',
-                    icon: const Icon(Icons.lock),
-                    callback: (data) {
-                      context.read<RegisterCubit>().setRePass(data);
-                    },
-                    stylePassWord: true,
-                    click: true,
-                  ),
-                  Gaps.vGap16,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+            return SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/images/logo.png'),
+                    Gaps.vGap16,
+                    EditText(
+                      preIcon: const Icon(Icons.cleaning_services_sharp),
+                      hinText: 'Email',
+                      icon: const Icon(Icons.account_circle_rounded),
+                      callback: (data) {
+                        context.read<RegisterCubit>().setEmail(data);
+                      },
+                    ),
+                    Gaps.vGap16,
+                    EditText(
+                      preIcon: const Icon(Icons.cleaning_services_sharp),
+                      hinText: 'Mật khẩu',
+                      icon: const Icon(Icons.lock),
+                      callback: (data) {
+                        context.read<RegisterCubit>().setPass(data);
+                      },
+                      stylePassWord: true,
+                      click: true,
+                    ),
+                    Gaps.vGap16,
+                    EditText(
+                      preIcon: const Icon(Icons.cleaning_services_sharp),
+                      hinText: 'Nhập lại mật khẩu',
+                      icon: const Icon(Icons.lock),
+                      callback: (data) {
+                        context.read<RegisterCubit>().setRePass(data);
+                      },
+                      stylePassWord: true,
+                      click: true,
+                    ),
+                    Gaps.vGap16,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
 
-                      CupertinoButtonEdit(
-                        color: Colors.greenAccent,
-                        text: 'Đăng nhập',
-                        onPressed: () {
-                          context.popRoute();
-                        },
-                      ),
-                      BlocBuilder<CheckauthBloc, CheckauthState>(
-                        builder: (context, state) {
-                          final register = context.read<RegisterCubit>();
-                          final checkAuth = context.read<CheckauthBloc>();
-                          return CupertinoButtonEdit(
-                            text: 'Đăng ký',
-                            onPressed: () async {
-                              await register.registerByEmail(context);
-                              register.state.apiStatus == ApiStatus.success
-                                  ? checkAuth.add(const CheckauthEvent.logged())
-                                  : null;
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+                        CupertinoButtonEdit(
+                          color: Colors.greenAccent,
+                          text: 'Đăng nhập',
+                          onPressed: () {
+                            context.popRoute();
+                          },
+                        ),
+                        BlocBuilder<CheckauthBloc, CheckauthState>(
+                          builder: (context, state) {
+                            final register = context.read<RegisterCubit>();
+                            final checkAuth = context.read<CheckauthBloc>();
+                            return CupertinoButtonEdit(
+                              text: 'Đăng ký',
+                              onPressed: () async {
+                                await register.registerByEmail(context);
+                                register.state.apiStatus == ApiStatus.success
+                                    ? checkAuth.add(const CheckauthEvent.logged())
+                                    : null;
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             );
           },

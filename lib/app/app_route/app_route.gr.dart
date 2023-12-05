@@ -125,6 +125,7 @@ abstract class $AppAutoRoute extends _i17.RootStackRouter {
         child: _i11.NewsReadPage(
           key: args.key,
           url: args.url,
+          choice: args.choice,
         ),
       );
     },
@@ -369,12 +370,14 @@ class NewsReadRoute extends _i17.PageRouteInfo<NewsReadRouteArgs> {
   NewsReadRoute({
     _i18.Key? key,
     required String url,
+    required int choice,
     List<_i17.PageRouteInfo>? children,
   }) : super(
           NewsReadRoute.name,
           args: NewsReadRouteArgs(
             key: key,
             url: url,
+            choice: choice,
           ),
           initialChildren: children,
         );
@@ -389,15 +392,18 @@ class NewsReadRouteArgs {
   const NewsReadRouteArgs({
     this.key,
     required this.url,
+    required this.choice,
   });
 
   final _i18.Key? key;
 
   final String url;
 
+  final int choice;
+
   @override
   String toString() {
-    return 'NewsReadRouteArgs{key: $key, url: $url}';
+    return 'NewsReadRouteArgs{key: $key, url: $url, choice: $choice}';
   }
 }
 

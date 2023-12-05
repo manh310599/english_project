@@ -58,3 +58,4 @@ class _FrontCardViewState extends State<FrontCardView> {
     );
   }
 }
+ 

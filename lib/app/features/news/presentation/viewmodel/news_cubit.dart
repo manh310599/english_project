@@ -18,10 +18,17 @@ class NewsCubit extends Cubit<NewsState> {
   NewsRepo newReponsitory = getIt<NewsRepo>();
   QueryDatabase queryDatabase = QueryDatabase();
   late NewModel? temp;
+
   Future<void> getNewsUpdate() async {
     temp = null;
     final data = await newReponsitory.getNewsUpdate();
-    emit(state.copyWith(news: data, min: 0));
+    final filter = data?.articles
+        ?.where((element) =>
+            element.source?.id != 'financial-times' &&
+            element.source?.id != "the-washington-post")
+        .toList();
+
+    emit(state.copyWith(news: data?.copyWith(articles: filter), min: 0));
   }
 
   Future<void> getBBCNews() async {
@@ -100,32 +107,29 @@ class NewsCubit extends Cubit<NewsState> {
       state.news?.articles?[state.min! + news].url,
       state.news?.articles?[state.min! + news].urlToImage,
     );
-
   }
 
   Future<void> searchNews(String? title, BuildContext context) async {
     temp ??= state.news;
     if (title?.isEmpty == true) {
       AwesomeDialog(
-          context: context,
-          title: 'bạn phải nhập vào mội dung',
-          dialogType: DialogType.error,
-          btnOkOnPress: () {
-
-          },
+        context: context,
+        title: 'bạn phải nhập vào mội dung',
+        dialogType: DialogType.error,
+        btnOkOnPress: () {},
       ).show();
     } else {
-
-
-      NewModel? news = NewModel(articles: temp?.articles
-          ?.where((element) => element.title!.toLowerCase().contains(title!.toLowerCase()))
-          .toList() ?? []);
+      NewModel? news = NewModel(
+          articles: temp?.articles
+                  ?.where((element) => element.title!
+                      .toLowerCase()
+                      .contains(title!.toLowerCase()))
+                  .toList() ??
+              []);
 
       print(temp);
 
       emit(state.copyWith(news: news, min: 0));
     }
   }
-
 }
-

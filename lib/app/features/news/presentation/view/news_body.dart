@@ -38,11 +38,27 @@ class NewsBody extends StatelessWidget {
               btnCancelOnPress: () {},
             ).show();
           },
-          click: () async {
-            context.pushRoute(NewsReadRoute(
-              url: state.news?.articles![state.min! + index].url ?? '',
-            ));
-            FocusManager.instance.primaryFocus?.unfocus();
+          click: () {
+            AwesomeDialog(
+              context: context,
+              btnCancelText: 'Tra từ',
+              btnOkText: "Tra đoạn",
+              title: "Chọn kiểu đọc theo nhiều cách",
+              btnOkOnPress: () {
+                context.pushRoute(NewsReadRoute(
+                  url: state.news?.articles![state.min! + index].url ?? '',
+                  choice: 1,
+                ));
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+              btnCancelOnPress: () {
+                context.pushRoute(NewsReadRoute(
+                  url: state.news?.articles![state.min! + index].url ?? '',
+                  choice: 0,
+                ));
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+            ).show();
           },
           child: Row(
             children: [

@@ -30,7 +30,7 @@ class LessonCubit extends Cubit<LessonState> {
 
   FlipCardController controller = FlipCardController();
   QueryDatabase queryDatabase = QueryDatabase();
-  final now = DateTime.now().millisecondsSinceEpoch;
+  int now = DateTime.now().millisecondsSinceEpoch;
   final n = DateTime.now();
 
   Future<void> getListWordsByDay(
@@ -145,7 +145,7 @@ class LessonCubit extends Cubit<LessonState> {
         Words? tempWord = state.words?[state.indexInLesson!];
         temp.removeAt(state.indexInLesson!);
 
-        temp.add(tempWord?.copyWith(lastChoice: choice + 1, interval: 0));
+        temp.add(tempWord?.copyWith(interval: 0));
         emit(state.copyWith(
           words: temp,
           apiStatus: ApiStatus.success,
@@ -167,7 +167,7 @@ class LessonCubit extends Cubit<LessonState> {
         Words? tempWord = state.words?[state.indexInLesson!];
         temp.removeAt(state.indexInLesson!);
 
-        temp.add(tempWord?.copyWith(lastChoice: choice + 1, interval: 0));
+        temp.add(tempWord?.copyWith(interval: 0));
         emit(state.copyWith(words: temp, apiStatus: ApiStatus.success));
       } else {
         int interval = intervalTime(
@@ -216,6 +216,9 @@ class LessonCubit extends Cubit<LessonState> {
         List<Words?>? temp = [];
         temp.addAll(state.words!);
         temp.removeAt(state.indexInLesson!);
+        print(DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
+            .add(const Duration(days: 1))
+            .millisecondsSinceEpoch);
         emit(state.copyWith(words: temp, apiStatus: ApiStatus.success));
       } else if (state.words?[state.indexInLesson!]?.checkNew == 0) {
         List<Words?>? temp = [];
@@ -225,7 +228,7 @@ class LessonCubit extends Cubit<LessonState> {
 
         temp.add(tempWord?.copyWith(lastChoice: choice + 1, interval: 0));
         emit(state.copyWith(words: temp, apiStatus: ApiStatus.success));
-        print(state.words);
+
       } else if (state.words?[state.indexInLesson!]?.checkNew != 0) {
         int interval = intervalTime(
             state.words![state.indexInLesson!]!.interval!,

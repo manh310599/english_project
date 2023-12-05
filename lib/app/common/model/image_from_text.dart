@@ -36,7 +36,6 @@ class Result with _$Result {
     int? likes,
     bool? likedByUser,
     List<String?>? currentUserCollections,
-    String? sponsorship,
     TopicSubmissions? topicSubmissions,
     User? user,
     List<Tag>? tags,

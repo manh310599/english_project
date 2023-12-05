@@ -220,7 +220,6 @@ mixin _$Result {
   bool? get likedByUser => throw _privateConstructorUsedError;
   List<String?>? get currentUserCollections =>
       throw _privateConstructorUsedError;
-  String? get sponsorship => throw _privateConstructorUsedError;
   TopicSubmissions? get topicSubmissions => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
   List<Tag>? get tags => throw _privateConstructorUsedError;
@@ -253,7 +252,6 @@ abstract class $ResultCopyWith<$Res> {
       int? likes,
       bool? likedByUser,
       List<String?>? currentUserCollections,
-      String? sponsorship,
       TopicSubmissions? topicSubmissions,
       User? user,
       List<Tag>? tags});
@@ -294,7 +292,6 @@ class _$ResultCopyWithImpl<$Res, $Val extends Result>
     Object? likes = freezed,
     Object? likedByUser = freezed,
     Object? currentUserCollections = freezed,
-    Object? sponsorship = freezed,
     Object? topicSubmissions = freezed,
     Object? user = freezed,
     Object? tags = freezed,
@@ -368,10 +365,6 @@ class _$ResultCopyWithImpl<$Res, $Val extends Result>
           ? _value.currentUserCollections
           : currentUserCollections // ignore: cast_nullable_to_non_nullable
               as List<String?>?,
-      sponsorship: freezed == sponsorship
-          ? _value.sponsorship
-          : sponsorship // ignore: cast_nullable_to_non_nullable
-              as String?,
       topicSubmissions: freezed == topicSubmissions
           ? _value.topicSubmissions
           : topicSubmissions // ignore: cast_nullable_to_non_nullable
@@ -461,7 +454,6 @@ abstract class _$$ResultImplCopyWith<$Res> implements $ResultCopyWith<$Res> {
       int? likes,
       bool? likedByUser,
       List<String?>? currentUserCollections,
-      String? sponsorship,
       TopicSubmissions? topicSubmissions,
       User? user,
       List<Tag>? tags});
@@ -504,7 +496,6 @@ class __$$ResultImplCopyWithImpl<$Res>
     Object? likes = freezed,
     Object? likedByUser = freezed,
     Object? currentUserCollections = freezed,
-    Object? sponsorship = freezed,
     Object? topicSubmissions = freezed,
     Object? user = freezed,
     Object? tags = freezed,
@@ -578,10 +569,6 @@ class __$$ResultImplCopyWithImpl<$Res>
           ? _value._currentUserCollections
           : currentUserCollections // ignore: cast_nullable_to_non_nullable
               as List<String?>?,
-      sponsorship: freezed == sponsorship
-          ? _value.sponsorship
-          : sponsorship // ignore: cast_nullable_to_non_nullable
-              as String?,
       topicSubmissions: freezed == topicSubmissions
           ? _value.topicSubmissions
           : topicSubmissions // ignore: cast_nullable_to_non_nullable
@@ -619,7 +606,6 @@ class _$ResultImpl implements _Result {
       this.likes,
       this.likedByUser,
       final List<String?>? currentUserCollections,
-      this.sponsorship,
       this.topicSubmissions,
       this.user,
       final List<Tag>? tags})
@@ -682,8 +668,6 @@ class _$ResultImpl implements _Result {
   }
 
   @override
-  final String? sponsorship;
-  @override
   final TopicSubmissions? topicSubmissions;
   @override
   final User? user;
@@ -699,7 +683,7 @@ class _$ResultImpl implements _Result {
 
   @override
   String toString() {
-    return 'Result(id: $id, slug: $slug, createdAt: $createdAt, updatedAt: $updatedAt, promotedAt: $promotedAt, width: $width, height: $height, color: $color, blurHash: $blurHash, description: $description, altDescription: $altDescription, breadcrumbs: $breadcrumbs, urls: $urls, links: $links, likes: $likes, likedByUser: $likedByUser, currentUserCollections: $currentUserCollections, sponsorship: $sponsorship, topicSubmissions: $topicSubmissions, user: $user, tags: $tags)';
+    return 'Result(id: $id, slug: $slug, createdAt: $createdAt, updatedAt: $updatedAt, promotedAt: $promotedAt, width: $width, height: $height, color: $color, blurHash: $blurHash, description: $description, altDescription: $altDescription, breadcrumbs: $breadcrumbs, urls: $urls, links: $links, likes: $likes, likedByUser: $likedByUser, currentUserCollections: $currentUserCollections, topicSubmissions: $topicSubmissions, user: $user, tags: $tags)';
   }
 
   @override
@@ -733,8 +717,6 @@ class _$ResultImpl implements _Result {
                 other.likedByUser == likedByUser) &&
             const DeepCollectionEquality().equals(
                 other._currentUserCollections, _currentUserCollections) &&
-            (identical(other.sponsorship, sponsorship) ||
-                other.sponsorship == sponsorship) &&
             (identical(other.topicSubmissions, topicSubmissions) ||
                 other.topicSubmissions == topicSubmissions) &&
             (identical(other.user, user) || other.user == user) &&
@@ -762,7 +744,6 @@ class _$ResultImpl implements _Result {
         likes,
         likedByUser,
         const DeepCollectionEquality().hash(_currentUserCollections),
-        sponsorship,
         topicSubmissions,
         user,
         const DeepCollectionEquality().hash(_tags)
@@ -801,7 +782,6 @@ abstract class _Result implements Result {
       final int? likes,
       final bool? likedByUser,
       final List<String?>? currentUserCollections,
-      final String? sponsorship,
       final TopicSubmissions? topicSubmissions,
       final User? user,
       final List<Tag>? tags}) = _$ResultImpl;
@@ -842,8 +822,6 @@ abstract class _Result implements Result {
   bool? get likedByUser;
   @override
   List<String?>? get currentUserCollections;
-  @override
-  String? get sponsorship;
   @override
   TopicSubmissions? get topicSubmissions;
   @override

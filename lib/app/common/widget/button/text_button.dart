@@ -14,6 +14,6 @@ class TextButtonCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoButton(onPressed: action, child: '$text'.text.color(textColor).make());
+    return CupertinoButton(onPressed: action, child: '$text'.text.color(textColor).center.make());
   }
 }
