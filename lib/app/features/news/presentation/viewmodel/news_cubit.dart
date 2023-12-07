@@ -7,6 +7,7 @@ import 'package:english_project/app/features/news/model/news_model.dart';
 import 'package:english_project/depedence.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 part 'news_cubit.freezed.dart';
 

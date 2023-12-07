@@ -1,4 +1,6 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:english_project/all_file/all_file.dart';
 import 'package:english_project/app/features/news/data/api/news_update_api.dart';
 import 'package:english_project/app/features/news/presentation/view/news_body.dart';
@@ -8,6 +10,8 @@ import 'package:english_project/app/features/news/presentation/view/news_index_p
 import 'package:english_project/app/features/news/presentation/viewmodel/news_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+import '../../app_route/app_route.gr.dart';
 
 @RoutePage()
 class NewsPage extends StatelessWidget {
@@ -41,7 +45,27 @@ class NewsPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          AwesomeDialog(
+            context: context,
+            btnCancelText: 'Tra từ',
+            btnOkText: "Tra đoạn",
+            title: "Chọn kiểu đọc theo nhiều cách",
 
+            btnOkOnPress: () {
+              context.pushRoute(NewsReadRoute(
+                url: "https://pub.dev/packages/google_mobile_ads/example",
+                choice: 1,
+              ));
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            btnCancelOnPress: () {
+              context.pushRoute(NewsReadRoute(
+                url: 'https://pub.dev/packages/google_mobile_ads/example',
+                choice: 0,
+              ));
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+          ).show();
         },
         backgroundColor: Colors.purpleAccent,
         child: const Icon(Icons.web_rounded),

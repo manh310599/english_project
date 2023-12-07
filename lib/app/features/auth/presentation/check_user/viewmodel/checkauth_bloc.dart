@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:english_project/app/common/model/user_data.dart';
 import 'package:english_project/app/common/service/admob.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -19,6 +22,9 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
     on<_Logout>(LogOut);
     on<_ChangeProfile>(ChangeProfile);
   }
+  final StreamController<bool>  premiumController = StreamController<bool>.broadcast();
+  Stream<bool> get premiumStream => premiumController.stream;
+  StreamSink<bool> get gbaSink => premiumController.sink;
 
   final check = FirebaseAuth.instance;
   final data = FirebaseFirestore.instance;
@@ -31,8 +37,12 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
           await data.collection('users').doc(currentUser.uid).get();
 
       UserData u =  UserData.fromFirestore(information);
-      print('gggq ${DateTime.now().millisecondsSinceEpoch}');
+
       if (u.finalDayPremium! < DateTime.now().millisecondsSinceEpoch){
+        gbaSink.add(false);
+        premiumStream.listen((event) {
+          debugPrint(event.toString());
+        });
         emit(
           state.copyWith(
             checkAuth: CheckAuth.logged,
@@ -49,6 +59,10 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
         );
       }
       else{
+        gbaSink.add(true);
+        premiumStream.listen((event) {
+          debugPrint(event.toString());
+        });
         emit(
           state.copyWith(
             checkAuth: CheckAuth.logged,
@@ -75,7 +89,10 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
 
     UserData u =  UserData.fromFirestore(information);
     if (u.finalDayPremium! < DateTime.now().millisecondsSinceEpoch){
-
+      gbaSink.add(false);
+      premiumStream.listen((event) {
+        debugPrint(event.toString());
+      });
       emit(
         state.copyWith(
           checkAuth: CheckAuth.logged,
@@ -92,6 +109,12 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
       );
     }
     else{
+      gbaSink.add(true);
+      premiumStream.listen((event) {
+        debugPrint(event.toString());
+      });premiumStream.listen((event) {
+        debugPrint(event.toString());
+      });
       emit(
         state.copyWith(
           checkAuth: CheckAuth.logged,
@@ -105,6 +128,7 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
   }
 
   Future<void> LogOut(event, Emitter<CheckauthState> emit) async {
+    gbaSink.add(false);
     emit(state.copyWith(
         checkAuth: CheckAuth.loggedOut,
         user: null,

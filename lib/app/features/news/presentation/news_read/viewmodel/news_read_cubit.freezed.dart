@@ -17,9 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$NewsReadState {
   ContentBlocker? get contentBlocker => throw _privateConstructorUsedError;
-  InterstitialAd? get interstitialAd => throw _privateConstructorUsedError;
   String? get word => throw _privateConstructorUsedError;
   bool? get loading => throw _privateConstructorUsedError;
+  BannerAd? get bannerAd => throw _privateConstructorUsedError;
+  bool? get flag => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NewsReadStateCopyWith<NewsReadState> get copyWith =>
@@ -34,9 +35,10 @@ abstract class $NewsReadStateCopyWith<$Res> {
   @useResult
   $Res call(
       {ContentBlocker? contentBlocker,
-      InterstitialAd? interstitialAd,
       String? word,
-      bool? loading});
+      bool? loading,
+      BannerAd? bannerAd,
+      bool? flag});
 }
 
 /// @nodoc
@@ -53,19 +55,16 @@ class _$NewsReadStateCopyWithImpl<$Res, $Val extends NewsReadState>
   @override
   $Res call({
     Object? contentBlocker = freezed,
-    Object? interstitialAd = freezed,
     Object? word = freezed,
     Object? loading = freezed,
+    Object? bannerAd = freezed,
+    Object? flag = freezed,
   }) {
     return _then(_value.copyWith(
       contentBlocker: freezed == contentBlocker
           ? _value.contentBlocker
           : contentBlocker // ignore: cast_nullable_to_non_nullable
               as ContentBlocker?,
-      interstitialAd: freezed == interstitialAd
-          ? _value.interstitialAd
-          : interstitialAd // ignore: cast_nullable_to_non_nullable
-              as InterstitialAd?,
       word: freezed == word
           ? _value.word
           : word // ignore: cast_nullable_to_non_nullable
@@ -73,6 +72,14 @@ class _$NewsReadStateCopyWithImpl<$Res, $Val extends NewsReadState>
       loading: freezed == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      bannerAd: freezed == bannerAd
+          ? _value.bannerAd
+          : bannerAd // ignore: cast_nullable_to_non_nullable
+              as BannerAd?,
+      flag: freezed == flag
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
               as bool?,
     ) as $Val);
   }
@@ -88,9 +95,10 @@ abstract class _$$NewsReadStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {ContentBlocker? contentBlocker,
-      InterstitialAd? interstitialAd,
       String? word,
-      bool? loading});
+      bool? loading,
+      BannerAd? bannerAd,
+      bool? flag});
 }
 
 /// @nodoc
@@ -105,19 +113,16 @@ class __$$NewsReadStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? contentBlocker = freezed,
-    Object? interstitialAd = freezed,
     Object? word = freezed,
     Object? loading = freezed,
+    Object? bannerAd = freezed,
+    Object? flag = freezed,
   }) {
     return _then(_$NewsReadStateImpl(
       contentBlocker: freezed == contentBlocker
           ? _value.contentBlocker
           : contentBlocker // ignore: cast_nullable_to_non_nullable
               as ContentBlocker?,
-      interstitialAd: freezed == interstitialAd
-          ? _value.interstitialAd
-          : interstitialAd // ignore: cast_nullable_to_non_nullable
-              as InterstitialAd?,
       word: freezed == word
           ? _value.word
           : word // ignore: cast_nullable_to_non_nullable
@@ -125,6 +130,14 @@ class __$$NewsReadStateImplCopyWithImpl<$Res>
       loading: freezed == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      bannerAd: freezed == bannerAd
+          ? _value.bannerAd
+          : bannerAd // ignore: cast_nullable_to_non_nullable
+              as BannerAd?,
+      flag: freezed == flag
+          ? _value.flag
+          : flag // ignore: cast_nullable_to_non_nullable
               as bool?,
     ));
   }
@@ -135,9 +148,10 @@ class __$$NewsReadStateImplCopyWithImpl<$Res>
 class _$NewsReadStateImpl extends _NewsReadState {
   const _$NewsReadStateImpl(
       {this.contentBlocker = null,
-      this.interstitialAd = null,
       this.word = null,
-      this.loading = false})
+      this.loading = false,
+      this.bannerAd = null,
+      this.flag = false})
       : super._();
 
   @override
@@ -145,17 +159,20 @@ class _$NewsReadStateImpl extends _NewsReadState {
   final ContentBlocker? contentBlocker;
   @override
   @JsonKey()
-  final InterstitialAd? interstitialAd;
-  @override
-  @JsonKey()
   final String? word;
   @override
   @JsonKey()
   final bool? loading;
+  @override
+  @JsonKey()
+  final BannerAd? bannerAd;
+  @override
+  @JsonKey()
+  final bool? flag;
 
   @override
   String toString() {
-    return 'NewsReadState(contentBlocker: $contentBlocker, interstitialAd: $interstitialAd, word: $word, loading: $loading)';
+    return 'NewsReadState(contentBlocker: $contentBlocker, word: $word, loading: $loading, bannerAd: $bannerAd, flag: $flag)';
   }
 
   @override
@@ -165,15 +182,16 @@ class _$NewsReadStateImpl extends _NewsReadState {
             other is _$NewsReadStateImpl &&
             (identical(other.contentBlocker, contentBlocker) ||
                 other.contentBlocker == contentBlocker) &&
-            (identical(other.interstitialAd, interstitialAd) ||
-                other.interstitialAd == interstitialAd) &&
             (identical(other.word, word) || other.word == word) &&
-            (identical(other.loading, loading) || other.loading == loading));
+            (identical(other.loading, loading) || other.loading == loading) &&
+            (identical(other.bannerAd, bannerAd) ||
+                other.bannerAd == bannerAd) &&
+            (identical(other.flag, flag) || other.flag == flag));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, contentBlocker, interstitialAd, word, loading);
+      Object.hash(runtimeType, contentBlocker, word, loading, bannerAd, flag);
 
   @JsonKey(ignore: true)
   @override
@@ -185,19 +203,22 @@ class _$NewsReadStateImpl extends _NewsReadState {
 abstract class _NewsReadState extends NewsReadState {
   const factory _NewsReadState(
       {final ContentBlocker? contentBlocker,
-      final InterstitialAd? interstitialAd,
       final String? word,
-      final bool? loading}) = _$NewsReadStateImpl;
+      final bool? loading,
+      final BannerAd? bannerAd,
+      final bool? flag}) = _$NewsReadStateImpl;
   const _NewsReadState._() : super._();
 
   @override
   ContentBlocker? get contentBlocker;
   @override
-  InterstitialAd? get interstitialAd;
-  @override
   String? get word;
   @override
   bool? get loading;
+  @override
+  BannerAd? get bannerAd;
+  @override
+  bool? get flag;
   @override
   @JsonKey(ignore: true)
   _$$NewsReadStateImplCopyWith<_$NewsReadStateImpl> get copyWith =>

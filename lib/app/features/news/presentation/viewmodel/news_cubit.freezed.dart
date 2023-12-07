@@ -19,6 +19,7 @@ mixin _$NewsState {
   ApiStatus? get apiStatus => throw _privateConstructorUsedError;
   NewModel? get news => throw _privateConstructorUsedError;
   int? get min => throw _privateConstructorUsedError;
+  BannerAd? get bannerAd => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NewsStateCopyWith<NewsState> get copyWith =>
@@ -30,7 +31,8 @@ abstract class $NewsStateCopyWith<$Res> {
   factory $NewsStateCopyWith(NewsState value, $Res Function(NewsState) then) =
       _$NewsStateCopyWithImpl<$Res, NewsState>;
   @useResult
-  $Res call({ApiStatus? apiStatus, NewModel? news, int? min});
+  $Res call(
+      {ApiStatus? apiStatus, NewModel? news, int? min, BannerAd? bannerAd});
 
   $NewModelCopyWith<$Res>? get news;
 }
@@ -51,6 +53,7 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
     Object? apiStatus = freezed,
     Object? news = freezed,
     Object? min = freezed,
+    Object? bannerAd = freezed,
   }) {
     return _then(_value.copyWith(
       apiStatus: freezed == apiStatus
@@ -65,6 +68,10 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
           ? _value.min
           : min // ignore: cast_nullable_to_non_nullable
               as int?,
+      bannerAd: freezed == bannerAd
+          ? _value.bannerAd
+          : bannerAd // ignore: cast_nullable_to_non_nullable
+              as BannerAd?,
     ) as $Val);
   }
 
@@ -89,7 +96,8 @@ abstract class _$$NewsStateImplCopyWith<$Res>
       __$$NewsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ApiStatus? apiStatus, NewModel? news, int? min});
+  $Res call(
+      {ApiStatus? apiStatus, NewModel? news, int? min, BannerAd? bannerAd});
 
   @override
   $NewModelCopyWith<$Res>? get news;
@@ -109,6 +117,7 @@ class __$$NewsStateImplCopyWithImpl<$Res>
     Object? apiStatus = freezed,
     Object? news = freezed,
     Object? min = freezed,
+    Object? bannerAd = freezed,
   }) {
     return _then(_$NewsStateImpl(
       apiStatus: freezed == apiStatus
@@ -123,6 +132,10 @@ class __$$NewsStateImplCopyWithImpl<$Res>
           ? _value.min
           : min // ignore: cast_nullable_to_non_nullable
               as int?,
+      bannerAd: freezed == bannerAd
+          ? _value.bannerAd
+          : bannerAd // ignore: cast_nullable_to_non_nullable
+              as BannerAd?,
     ));
   }
 }
@@ -131,7 +144,10 @@ class __$$NewsStateImplCopyWithImpl<$Res>
 
 class _$NewsStateImpl extends _NewsState {
   const _$NewsStateImpl(
-      {this.apiStatus = ApiStatus.init, this.news = null, this.min = 0})
+      {this.apiStatus = ApiStatus.init,
+      this.news = null,
+      this.min = 0,
+      this.bannerAd = null})
       : super._();
 
   @override
@@ -143,10 +159,13 @@ class _$NewsStateImpl extends _NewsState {
   @override
   @JsonKey()
   final int? min;
+  @override
+  @JsonKey()
+  final BannerAd? bannerAd;
 
   @override
   String toString() {
-    return 'NewsState(apiStatus: $apiStatus, news: $news, min: $min)';
+    return 'NewsState(apiStatus: $apiStatus, news: $news, min: $min, bannerAd: $bannerAd)';
   }
 
   @override
@@ -157,11 +176,13 @@ class _$NewsStateImpl extends _NewsState {
             (identical(other.apiStatus, apiStatus) ||
                 other.apiStatus == apiStatus) &&
             (identical(other.news, news) || other.news == news) &&
-            (identical(other.min, min) || other.min == min));
+            (identical(other.min, min) || other.min == min) &&
+            (identical(other.bannerAd, bannerAd) ||
+                other.bannerAd == bannerAd));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, apiStatus, news, min);
+  int get hashCode => Object.hash(runtimeType, apiStatus, news, min, bannerAd);
 
   @JsonKey(ignore: true)
   @override
@@ -174,7 +195,8 @@ abstract class _NewsState extends NewsState {
   const factory _NewsState(
       {final ApiStatus? apiStatus,
       final NewModel? news,
-      final int? min}) = _$NewsStateImpl;
+      final int? min,
+      final BannerAd? bannerAd}) = _$NewsStateImpl;
   const _NewsState._() : super._();
 
   @override
@@ -183,6 +205,8 @@ abstract class _NewsState extends NewsState {
   NewModel? get news;
   @override
   int? get min;
+  @override
+  BannerAd? get bannerAd;
   @override
   @JsonKey(ignore: true)
   _$$NewsStateImplCopyWith<_$NewsStateImpl> get copyWith =>

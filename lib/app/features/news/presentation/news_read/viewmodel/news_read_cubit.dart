@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:english_project/app/common/service/admob.dart';
-import 'package:english_project/app/features/auth/presentation/check_user/viewmodel/checkauth_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -12,33 +13,36 @@ part 'news_read_state.dart';
 class NewsReadCubit extends Cubit<NewsReadState> {
   NewsReadCubit() : super(const NewsReadState());
 
-  InAppWebViewController? webViewController ;
+  InAppWebViewController? webViewController;
 
-
-  InterstitialAd? interstitialAd;
-  late bool? checkPremium ;
-  void _createInterstitialAd() {
-    InterstitialAd.load(
-        adUnitId: AdMobService.interstitial,
-        request: const AdRequest(),
-        adLoadCallback: InterstitialAdLoadCallback(
-          onAdLoaded: (ad) => interstitialAd = ad,
-          onAdFailedToLoad: (error) {
-            interstitialAd = null;
-          },
-        ));
-  }
+  late bool? checkPremium;
 
   final ContentBlocker contentBlocker = ContentBlocker(
       trigger: ContentBlockerTrigger(
           urlFilter: 'https://easylist.to/easylist/easylist.txt'),
       action: ContentBlockerAction(type: ContentBlockerActionType.BLOCK));
 
-
-
-
-  void loadedWeb(){
-    emit(state.copyWith(loading: true));
+  void loadedWeb(int choice) {
+    if (choice == 1) {
+      emit(state.copyWith(
+        loading: true,
+        bannerAd: BannerAd(
+          size: AdSize.fullBanner,
+          adUnitId: AdMobService.banner,
+          listener: AdMobService.bannerAdListener,
+          request: const AdRequest(),
+        )..load(),
+      ));
+    } else {
+      emit(state.copyWith(
+        bannerAd: BannerAd(
+          size: AdSize.fullBanner,
+          adUnitId: AdMobService.banner,
+          listener: AdMobService.bannerAdListener,
+          request: const AdRequest(),
+        )..load(),
+      ));
+    }
   }
 
   Future<String?> selectAndPrintText() async {
@@ -49,10 +53,14 @@ class NewsReadCubit extends Cubit<NewsReadState> {
       );
 
       emit(state.copyWith(word: selectedText));
+
       return selectedText;
-    }
-    else {
+    } else {
       return null;
     }
+  }
+
+  reset(){
+    emit(state.copyWith(word: null));
   }
 }
