@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:english_project/app/common/widget/image/image_cache.dart';
 import 'package:english_project/app/common/widget/voice/set_voice.dart';
 import 'package:english_project/font_size.dart';
 import 'package:english_project/gaps.dart';
@@ -44,8 +46,8 @@ class _BackCardViewState extends State<BackCardView> {
           ),
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              widget.image,
+            child: ImageCacheCustom(
+              url: widget.image,
               height: height,
               width: width,
               fit: BoxFit.cover,
@@ -53,6 +55,7 @@ class _BackCardViewState extends State<BackCardView> {
                 return Image.memory(widget.imageMemory!);
               },
             ),
+
           ),
           IconButton(
             onPressed: () async {

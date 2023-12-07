@@ -11,7 +11,7 @@ class AdMobService {
 
   static const interstitial = kDebugMode == true
       ? 'ca-app-pub-3940256099942544/1033173712'
-      : 'ca-app-pub-3156525907485254/6060876853';
+      : 'ca-app-pub-3156525907485254/7931940265';
   static const rewarded = kDebugMode == true
       ? 'ca-app-pub-3940256099942544/5224354917'
       : 'ca-app-pub-3156525907485254/3434713510';

@@ -10,6 +10,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../../all_file/all_file.dart';
 import '../../../../../font_size.dart';
+import '../../../../common/widget/image/image_cache.dart';
 
 class FavoriteBody extends StatelessWidget {
   const FavoriteBody({super.key});
@@ -65,8 +66,8 @@ class FavoriteBody extends StatelessWidget {
                         },
                         child: Row(
                           children: [
-                            Image.network(
-                              state.news?[index]?.image ?? '',
+                            ImageCacheCustom(
+                              url: state.news?[index]?.image ?? '',
                               height: 100,
                               width: 100,
                               fit: BoxFit.fill,

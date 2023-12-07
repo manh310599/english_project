@@ -4,6 +4,8 @@ import 'package:english_project/app/common/widget/voice/set_voice.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../image/image_cache.dart';
+
 class FrontCardView extends StatefulWidget {
   const FrontCardView({
     super.key,
@@ -37,8 +39,8 @@ class _FrontCardViewState extends State<FrontCardView> {
           ),
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              widget.image ?? '',
+            child: ImageCacheCustom(
+             url: widget.image ?? '',
               height: height,
               width: width,
               fit: BoxFit.cover,

@@ -17,6 +17,19 @@ class LessonCubit extends Cubit<LessonState> {
 
   RewardedAd? _rewardedAd;
   late final bool? checkPremium;
+  InterstitialAd? interstitialAd;
+
+  void _createInterstitialAd() {
+    InterstitialAd.load(
+        adUnitId: AdMobService.interstitial,
+        request: const AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(
+          onAdLoaded: (ad) => interstitialAd = ad,
+          onAdFailedToLoad: (error) {
+            interstitialAd = null;
+          },
+        ));
+  }
 
   void _loadReWardedAd() {
     RewardedAd.load(
@@ -39,7 +52,8 @@ class LessonCubit extends Cubit<LessonState> {
   ) async {
     checkPremium = premium;
     if (checkPremium == false) {
-      _loadReWardedAd();
+     // _loadReWardedAd();
+      _createInterstitialAd();
     }
     int date = DateTime.now().millisecondsSinceEpoch;
     final data = await queryDatabase.getAllFromDate(date, id);
@@ -352,21 +366,7 @@ class LessonCubit extends Cubit<LessonState> {
   Future<void> close() {
     // TODO: implement close
     if (checkPremium == false) {
-      if (_rewardedAd != null) {
-        _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(
-          onAdDismissedFullScreenContent: (ad) {
-            ad.dispose();
-            _loadReWardedAd();
-          },
-          onAdFailedToShowFullScreenContent: (ad, error) {
-            ad.dispose();
-            _loadReWardedAd();
-          },
-        );
-        _rewardedAd?.show(
-          onUserEarnedReward: (ad, reward) {},
-        );
-      }
+      interstitialAd?.show();
     }
 
     return super.close();

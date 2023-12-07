@@ -3,6 +3,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:english_project/all_file/all_file.dart';
 import 'package:english_project/app/app_route/app_route.gr.dart';
 import 'package:english_project/app/common/widget/button/cupertion_button_custom.dart';
+import 'package:english_project/app/common/widget/image/image_cache.dart';
 import 'package:english_project/app/features/news/presentation/viewmodel/news_cubit.dart';
 import 'package:english_project/font_size.dart';
 import 'package:english_project/gaps.dart';
@@ -68,8 +69,8 @@ class NewsBody extends StatelessWidget {
                       height: 100,
                       width: 100,
                     )
-                  : Image.network(
-                      state.news!.articles![state.min! + index].urlToImage ??
+                  : ImageCacheCustom(
+                      url: state.news!.articles![state.min! + index].urlToImage ??
                           'https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg',
                       height: 100,
                       width: 100,

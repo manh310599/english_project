@@ -13,6 +13,7 @@ class LessonState with _$LessonState {
     @Default(null) String? goodTime,
     @Default(null) String? easyTime,
     @Default(null) BannerAd? bannerAd,
+
 }) = _LessonState;
   
 }

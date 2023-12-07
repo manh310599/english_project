@@ -39,6 +39,13 @@ class NewsPage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+
+        },
+        backgroundColor: Colors.purpleAccent,
+        child: const Icon(Icons.web_rounded),
+      ),
     );
   }
 }

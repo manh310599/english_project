@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../../../gaps.dart';
+import '../../../../../common/widget/image/image_cache.dart';
 
 class BodyDialog extends StatelessWidget {
   const BodyDialog({super.key, required this.state, required this.index});
@@ -24,17 +25,20 @@ class BodyDialog extends StatelessWidget {
         state.data?[index]?.word?.text.size(big).color(Vx.orange500).make() ??
             ''.text.size(big).make(),
         Gaps.vGap8,
-        Image.network(
-          state.data?[index]?.image ?? '',
+        ImageCacheCustom(
+          url: state.data?[index]?.image ?? '',
           height: 100,
           width: 100,
           fit: BoxFit.fill,
           errorBuilder: (context, error, stackTrace) {
             return Image.memory(
-              const Base64Decoder().convert(state.data![index]!.assets_image!),
+              const Base64Decoder().convert(state.data![index]?.assets_image ?? ''),
               height: 100,
               width: 100,
               fit: BoxFit.fill,
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset('assets/images/logo.png',height: 100,width: 100,);
+              },
             );
           },
         ).cornerRadius(8),

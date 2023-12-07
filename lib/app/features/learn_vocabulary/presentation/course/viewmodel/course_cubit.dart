@@ -14,10 +14,11 @@ class CourseCubit extends Cubit<CourseState> {
   CourseCubit() : super(const CourseState());
 
   QueryDatabase queryDatabase = QueryDatabase();
-
+  late int id ;
   Future<void> getListWordsById(
     int id,
   ) async {
+    this.id = id;
     final data = await queryDatabase.getAllFromWordByStorage(id);
 
     List<Words?>? list = [];
@@ -36,9 +37,8 @@ class CourseCubit extends Cubit<CourseState> {
   Future<void> deleteWord(String word, context) async {
     try {
       await queryDatabase.deleteWord(word);
-      emit(state.copyWith(
-          data:
-              state.data?.where((element) => element?.word != word).toList()));
+      getListWordsById(id);
+
       AwesomeDialog(
         context: context,
         title: 'Xóa từ vựng thành công',
@@ -46,10 +46,11 @@ class CourseCubit extends Cubit<CourseState> {
         dialogType: DialogType.success,
         btnOkOnPress: () {},
       ).show();
-    } catch (_) {
+    } catch (e) {
+      print(e);
       AwesomeDialog(
         context: context,
-        title: 'Xóa từ vựng thành công',
+        title: 'Xóa từ vựng thất bại',
         btnOkText: 'Đóng',
         dialogType: DialogType.error,
         btnOkOnPress: () {},

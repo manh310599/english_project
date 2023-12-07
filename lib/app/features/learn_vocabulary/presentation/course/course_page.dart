@@ -5,6 +5,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:english_project/app/app_route/app_route.gr.dart';
 import 'package:english_project/app/common/rounding_number.dart';
 import 'package:english_project/app/common/widget/button/cupertion_button_custom.dart';
+import 'package:english_project/app/common/widget/image/image_cache.dart';
 import 'package:english_project/app/features/learn_vocabulary/presentation/course/view/body_dialog_widget.dart';
 import 'package:english_project/app/features/learn_vocabulary/presentation/course/viewmodel/course_cubit.dart';
 import 'package:english_project/font_size.dart';
@@ -65,25 +66,28 @@ class CoursePage extends StatelessWidget {
                             btnOkOnPress: () {},
                             btnCancelText: 'Xóa',
                             btnCancelOnPress: () {
-                              context.read<CourseCubit>().deleteWord(state.data?[index]?.word ?? '',context);
+                              context.read<CourseCubit>().deleteWord(state.data?[state.min! + index]?.word ?? '',context);
                             },
                           ).show();
                         },
                         child: Row(
                           children: [
-                            Image.network(
-                              state.data?[state.min! + index]?.image ?? '',
+                            ImageCacheCustom(
+                              url: state.data?[state.min! + index]?.image ?? '',
                               height: 100,
                               width: 100,
                               fit: BoxFit.fill,
                               errorBuilder: (context, error, stackTrace) {
                                 return Image.memory(
                                   const Base64Decoder().convert(state
-                                      .data![state.min! + index]!
-                                      .assets_image!),
+                                      .data?[state.min! + index]?.
+                                      assets_image ?? ''),
                                   height: 100,
                                   width: 100,
                                   fit: BoxFit.fill,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return const SizedBox();
+                                  },
                                 );
                               },
                             ).cornerRadius(8),

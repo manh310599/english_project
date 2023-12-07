@@ -11,6 +11,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../../common/widget/image/image_cache.dart';
+
 @RoutePage()
 class UserAccountPage extends StatelessWidget {
   const UserAccountPage({
@@ -30,8 +32,8 @@ class UserAccountPage extends StatelessWidget {
                 Row(
                   children: [
                     Gaps.hGap10,
-                    Image.network(
-                      state.user?.photoURL ??
+                    ImageCacheCustom(
+                      url: state.user?.photoURL ??
                           'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Anonymous_emblem.svg/1200px-Anonymous_emblem.svg.png',
                       width: 100,
                       height: 100,

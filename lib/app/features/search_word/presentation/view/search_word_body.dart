@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:english_project/all_file/all_file.dart';
 import 'package:english_project/app/common/api_status.dart';
+import 'package:english_project/app/common/widget/image/image_cache.dart';
 import 'package:english_project/font_size.dart';
 import 'package:english_project/gaps.dart';
 import 'package:flutter/material.dart';
@@ -87,8 +88,8 @@ class SearchWordBody extends StatelessWidget {
                                       ),
                               )
                             : state.itemSelect == index
-                                ? Image.network(
-                                    '${state.imageFromText?.results?[index].urls!.small}',
+                                ? ImageCacheCustom(
+                                    url: '${state.imageFromText?.results?[index].urls!.small}',
                                     fit: BoxFit.cover,
                                     errorBuilder:
                                         (context, error, stackTrace) =>
@@ -103,8 +104,8 @@ class SearchWordBody extends StatelessWidget {
                                           .read<InformationCardCubit>()
                                           .selectImage(index);
                                     },
-                                    child: Image.network(
-                                      '${state.imageFromText?.results?[index].urls!.small}',
+                                    child: ImageCacheCustom(
+                                      url: '${state.imageFromText?.results?[index].urls!.small}',
                                       fit: BoxFit.cover,
                                       errorBuilder:
                                           (context, error, stackTrace) =>
