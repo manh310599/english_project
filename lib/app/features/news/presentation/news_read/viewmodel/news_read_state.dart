@@ -1,5 +1,7 @@
 part of 'news_read_cubit.dart';
 
+
+
 @freezed
 class NewsReadState with _$NewsReadState {
   const NewsReadState._();

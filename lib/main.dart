@@ -72,7 +72,9 @@ class _AppState extends State<App> {
             appRouter.navigate(const LoginRoute());
           }else if (state.checkAuth == CheckAuth.logged) {
           appRouter.navigate(const MainRoute());
-          }
+          }else if(state.checkAuth == CheckAuth.login){
+              appRouter.navigate(const WaitingLoginRoute());
+            }
         },
         child: BlocBuilder<CheckauthBloc, CheckauthState>(
           builder: (context, state) {

@@ -90,9 +90,12 @@ class NewsPage extends StatelessWidget {
 
                         : AwesomeDialog(
                             context: context,
-                            btnCancelText: 'Tra từ',
-                            btnOkText: "Tra đoạn",
-                            title: "Chọn kiểu đọc theo nhiều cách",
+                            btnCancelText: 'PDF',
+                            btnOkText: "Google",
+                            title: "Chọn cách học",
+                            btnCancelOnPress: () {
+                              context.pushRoute(const PDFRoute());
+                            },
                             btnOkOnPress: () {
                               context.pushRoute(NewsReadRoute(
                                 url: "https://www.google.com/",

@@ -1,6 +1,6 @@
 part of 'checkauth_bloc.dart';
 
-enum CheckAuth { logged, loggedOut }
+enum CheckAuth { logged,login, loggedOut }
 
 @freezed
 class CheckauthState with _$CheckauthState {

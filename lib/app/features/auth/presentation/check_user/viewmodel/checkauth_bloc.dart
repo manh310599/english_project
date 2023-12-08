@@ -30,6 +30,7 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
   final data = FirebaseFirestore.instance;
 
   Future<void> checkLogin(event, Emitter<CheckauthState> emit) async {
+    emit(state.copyWith(checkAuth: CheckAuth.login));
     final currentUser = check.currentUser;
 
     if (currentUser != null) {
@@ -82,6 +83,7 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
   }
 
   Future<void> Login(event, Emitter<CheckauthState> emit) async {
+    emit(state.copyWith(checkAuth: CheckAuth.login));
     final currentUser = check.currentUser;
 
     final information =
