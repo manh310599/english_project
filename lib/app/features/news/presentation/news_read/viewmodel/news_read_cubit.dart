@@ -53,7 +53,7 @@ class NewsReadCubit extends Cubit<NewsReadState> {
       );
 
       emit(state.copyWith(word: selectedText));
-
+      await webViewController?.evaluateJavascript(source: 'window.getSelection().removeAllRanges();');
       return selectedText;
     } else {
       return null;

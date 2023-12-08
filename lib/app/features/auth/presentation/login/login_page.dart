@@ -28,10 +28,11 @@ class LoginPage extends StatelessWidget {
           create: (context) => LoginCubit(),
           child: BlocBuilder<LoginCubit, LoginState>(
             builder: (context, state) {
-              return SingleChildScrollView(
-                child: Center(
+              return Center(
+                child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+
                     children: [
                       Image.asset('assets/images/logo.png',).h24(context).cornerRadius(30),
                       Gaps.vGap16,

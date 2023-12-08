@@ -20,6 +20,7 @@ mixin _$NewsState {
   NewModel? get news => throw _privateConstructorUsedError;
   int? get min => throw _privateConstructorUsedError;
   BannerAd? get bannerAd => throw _privateConstructorUsedError;
+  int? get checkAD => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NewsStateCopyWith<NewsState> get copyWith =>
@@ -32,7 +33,11 @@ abstract class $NewsStateCopyWith<$Res> {
       _$NewsStateCopyWithImpl<$Res, NewsState>;
   @useResult
   $Res call(
-      {ApiStatus? apiStatus, NewModel? news, int? min, BannerAd? bannerAd});
+      {ApiStatus? apiStatus,
+      NewModel? news,
+      int? min,
+      BannerAd? bannerAd,
+      int? checkAD});
 
   $NewModelCopyWith<$Res>? get news;
 }
@@ -54,6 +59,7 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
     Object? news = freezed,
     Object? min = freezed,
     Object? bannerAd = freezed,
+    Object? checkAD = freezed,
   }) {
     return _then(_value.copyWith(
       apiStatus: freezed == apiStatus
@@ -72,6 +78,10 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
           ? _value.bannerAd
           : bannerAd // ignore: cast_nullable_to_non_nullable
               as BannerAd?,
+      checkAD: freezed == checkAD
+          ? _value.checkAD
+          : checkAD // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -97,7 +107,11 @@ abstract class _$$NewsStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {ApiStatus? apiStatus, NewModel? news, int? min, BannerAd? bannerAd});
+      {ApiStatus? apiStatus,
+      NewModel? news,
+      int? min,
+      BannerAd? bannerAd,
+      int? checkAD});
 
   @override
   $NewModelCopyWith<$Res>? get news;
@@ -118,6 +132,7 @@ class __$$NewsStateImplCopyWithImpl<$Res>
     Object? news = freezed,
     Object? min = freezed,
     Object? bannerAd = freezed,
+    Object? checkAD = freezed,
   }) {
     return _then(_$NewsStateImpl(
       apiStatus: freezed == apiStatus
@@ -136,6 +151,10 @@ class __$$NewsStateImplCopyWithImpl<$Res>
           ? _value.bannerAd
           : bannerAd // ignore: cast_nullable_to_non_nullable
               as BannerAd?,
+      checkAD: freezed == checkAD
+          ? _value.checkAD
+          : checkAD // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -147,7 +166,8 @@ class _$NewsStateImpl extends _NewsState {
       {this.apiStatus = ApiStatus.init,
       this.news = null,
       this.min = 0,
-      this.bannerAd = null})
+      this.bannerAd = null,
+      this.checkAD = 0})
       : super._();
 
   @override
@@ -162,10 +182,13 @@ class _$NewsStateImpl extends _NewsState {
   @override
   @JsonKey()
   final BannerAd? bannerAd;
+  @override
+  @JsonKey()
+  final int? checkAD;
 
   @override
   String toString() {
-    return 'NewsState(apiStatus: $apiStatus, news: $news, min: $min, bannerAd: $bannerAd)';
+    return 'NewsState(apiStatus: $apiStatus, news: $news, min: $min, bannerAd: $bannerAd, checkAD: $checkAD)';
   }
 
   @override
@@ -178,11 +201,13 @@ class _$NewsStateImpl extends _NewsState {
             (identical(other.news, news) || other.news == news) &&
             (identical(other.min, min) || other.min == min) &&
             (identical(other.bannerAd, bannerAd) ||
-                other.bannerAd == bannerAd));
+                other.bannerAd == bannerAd) &&
+            (identical(other.checkAD, checkAD) || other.checkAD == checkAD));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, apiStatus, news, min, bannerAd);
+  int get hashCode =>
+      Object.hash(runtimeType, apiStatus, news, min, bannerAd, checkAD);
 
   @JsonKey(ignore: true)
   @override
@@ -196,7 +221,8 @@ abstract class _NewsState extends NewsState {
       {final ApiStatus? apiStatus,
       final NewModel? news,
       final int? min,
-      final BannerAd? bannerAd}) = _$NewsStateImpl;
+      final BannerAd? bannerAd,
+      final int? checkAD}) = _$NewsStateImpl;
   const _NewsState._() : super._();
 
   @override
@@ -207,6 +233,8 @@ abstract class _NewsState extends NewsState {
   int? get min;
   @override
   BannerAd? get bannerAd;
+  @override
+  int? get checkAD;
   @override
   @JsonKey(ignore: true)
   _$$NewsStateImplCopyWith<_$NewsStateImpl> get copyWith =>

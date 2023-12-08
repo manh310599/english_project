@@ -9,5 +9,6 @@ class NewsState with _$NewsState {
     @Default(null) NewModel? news,
     @Default(0) int? min,
     @Default(null) BannerAd? bannerAd,
+    @Default(0) int? checkAD,
   }) = _NewsState;
 }

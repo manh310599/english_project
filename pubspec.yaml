@@ -113,6 +113,7 @@ dependencies:
   csv: ^5.1.1
   file_picker: ^6.1.1
   external_path: ^1.0.3
+  lottie: ^2.6.0
 
 icons_launcher:
   image_path: "assets/images/logo_icon.png"
@@ -170,6 +171,8 @@ flutter:
     - assets/file/
     #file database
     - assets/database/
+    #file animation
+    - assets/animation/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

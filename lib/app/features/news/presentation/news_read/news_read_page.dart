@@ -11,7 +11,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage()
 class NewsReadPage extends StatelessWidget {
-   NewsReadPage({
+  NewsReadPage({
     super.key,
     required this.url,
     required this.choice,
@@ -39,39 +39,37 @@ class NewsReadPage extends StatelessWidget {
                     onWebViewCreated: (controller) {
                       cubit.webViewController = controller;
                       if (choice == 0) {
-                        if(checkSelect == false) {
+                        if (checkSelect == false) {
                           checkSelect = true;
                           controller.addJavaScriptHandler(
-                          handlerName: 'onSelectionChange',
-                          callback: (args) async {
-                            //controller.removeJavaScriptHandler(handlerName: 'onSelectionChange');
+                            handlerName: 'onSelectionChange',
+                            callback: (args) async {
+                              String? check = await cubit.selectAndPrintText();
+                              if (context.mounted &&
+                                  check != null &&
+                                  args.isNotEmpty &&
+                                  check.isNotEmptyAndNotNull ) {
+                                showModalBottomSheet(
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadiusDirectional.only(
+                                    topStart: Dimens.rad_circular_XL1,
+                                    topEnd: Dimens.rad_circular_XL1,
+                                  )),
+                                  context: context,
+                                  builder: (context) {
+                                    return SizedBox(
+                                      height: height * 0.6,
+                                      width: width,
+                                      child: NewsSearchBottomSheet(
+                                          query: check ?? ''),
+                                    );
+                                  },
+                                ).whenComplete(() => (checkSelect = false));
 
-                            String? check = await cubit.selectAndPrintText();
-                            if (context.mounted &&
-                                check != null &&
-                                args.isNotEmpty &&
-                                check.isNotEmptyAndNotNull) {
-                              showModalBottomSheet(
-
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadiusDirectional.only(
-                                  topStart: Dimens.rad_circular_XL1,
-                                  topEnd: Dimens.rad_circular_XL1,
-                                )),
-                                context: context,
-                                builder: (context) {
-                                  return SizedBox(
-                                    height: height * 0.6,
-                                    width: width,
-                                    child: NewsSearchBottomSheet(
-                                        query: check ?? ''),
-                                  );
-
-                                },
-                              ).whenComplete(() => (checkSelect = false));
-                            }
-                          },
-                        );
+                              }
+                            },
+                          );
                         }
                       }
                     },
@@ -89,10 +87,7 @@ class NewsReadPage extends StatelessWidget {
                       }
                     },
                     initialUrlRequest: URLRequest(url: Uri.parse(url)),
-                    initialOptions: InAppWebViewGroupOptions(
-                        crossPlatform: InAppWebViewOptions(
-                            //contentBlockers: [state.contentBlocker!],
-                            )),
+
                   ).expand(),
                   state.bannerAd != null
                       ? SizedBox(child: AdWidget(ad: state.bannerAd!)).h(60)
