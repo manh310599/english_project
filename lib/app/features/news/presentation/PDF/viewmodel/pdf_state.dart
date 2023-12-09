@@ -5,6 +5,7 @@ enum PDFLoading {
   loading,
   loaded,
   error,
+  stop,
 }
 
 
@@ -16,5 +17,6 @@ class PdfState with _$PdfState {
     @Default(null) File? path,
     @Default(null) String? content,
     @Default(PDFLoading.start) PDFLoading pdfLoading,
+    @Default(null) String? selectText,
   }) = _PdfState;
 }

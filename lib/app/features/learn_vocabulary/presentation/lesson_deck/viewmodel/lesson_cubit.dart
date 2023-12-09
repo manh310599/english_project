@@ -15,7 +15,7 @@ part 'lesson_state.dart';
 class LessonCubit extends Cubit<LessonState> {
   LessonCubit() : super(const LessonState());
 
-  RewardedAd? _rewardedAd;
+
   late final bool? checkPremium;
   InterstitialAd? interstitialAd;
 
@@ -31,20 +31,12 @@ class LessonCubit extends Cubit<LessonState> {
         ));
   }
 
-  void _loadReWardedAd() {
-    RewardedAd.load(
-        adUnitId: AdMobService.rewarded,
-        request: const AdRequest(),
-        rewardedAdLoadCallback: RewardedAdLoadCallback(
-          onAdLoaded: (ad) => _rewardedAd = ad,
-          onAdFailedToLoad: (error) => _rewardedAd = null,
-        ));
-  }
+
 
   FlipCardController controller = FlipCardController();
   QueryDatabase queryDatabase = QueryDatabase();
-  int now = DateTime.now().millisecondsSinceEpoch;
-  final n = DateTime.now();
+
+
 
   Future<void> getListWordsByDay(
     int id,
@@ -150,6 +142,7 @@ class LessonCubit extends Cubit<LessonState> {
   }
 
   checkBackCard(int choice) async {
+    final n = DateTime.now();
     emit(state.copyWith(checkBackCard: false));
 
     if (choice == 0) {
@@ -305,12 +298,14 @@ class LessonCubit extends Cubit<LessonState> {
   }
 
   int forecastTimeMinute(int minute) {
+    int now = DateTime.now().millisecondsSinceEpoch;
     final dateTime =
         DateTime.now().add(Duration(minutes: minute)).millisecondsSinceEpoch;
     return dateTime - now;
   }
 
   int forecastTimeDays(int days) {
+    int now = DateTime.now().millisecondsSinceEpoch;
     final dateTime =
         DateTime.now().add(Duration(days: days)).millisecondsSinceEpoch;
     return dateTime - now;

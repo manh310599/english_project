@@ -19,6 +19,7 @@ mixin _$PdfState {
   File? get path => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
   PDFLoading get pdfLoading => throw _privateConstructorUsedError;
+  String? get selectText => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PdfStateCopyWith<PdfState> get copyWith =>
@@ -30,7 +31,8 @@ abstract class $PdfStateCopyWith<$Res> {
   factory $PdfStateCopyWith(PdfState value, $Res Function(PdfState) then) =
       _$PdfStateCopyWithImpl<$Res, PdfState>;
   @useResult
-  $Res call({File? path, String? content, PDFLoading pdfLoading});
+  $Res call(
+      {File? path, String? content, PDFLoading pdfLoading, String? selectText});
 }
 
 /// @nodoc
@@ -49,6 +51,7 @@ class _$PdfStateCopyWithImpl<$Res, $Val extends PdfState>
     Object? path = freezed,
     Object? content = freezed,
     Object? pdfLoading = null,
+    Object? selectText = freezed,
   }) {
     return _then(_value.copyWith(
       path: freezed == path
@@ -63,6 +66,10 @@ class _$PdfStateCopyWithImpl<$Res, $Val extends PdfState>
           ? _value.pdfLoading
           : pdfLoading // ignore: cast_nullable_to_non_nullable
               as PDFLoading,
+      selectText: freezed == selectText
+          ? _value.selectText
+          : selectText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -75,7 +82,8 @@ abstract class _$$PdfStateImplCopyWith<$Res>
       __$$PdfStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({File? path, String? content, PDFLoading pdfLoading});
+  $Res call(
+      {File? path, String? content, PDFLoading pdfLoading, String? selectText});
 }
 
 /// @nodoc
@@ -92,6 +100,7 @@ class __$$PdfStateImplCopyWithImpl<$Res>
     Object? path = freezed,
     Object? content = freezed,
     Object? pdfLoading = null,
+    Object? selectText = freezed,
   }) {
     return _then(_$PdfStateImpl(
       path: freezed == path
@@ -106,6 +115,10 @@ class __$$PdfStateImplCopyWithImpl<$Res>
           ? _value.pdfLoading
           : pdfLoading // ignore: cast_nullable_to_non_nullable
               as PDFLoading,
+      selectText: freezed == selectText
+          ? _value.selectText
+          : selectText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -116,7 +129,8 @@ class _$PdfStateImpl extends _PdfState {
   const _$PdfStateImpl(
       {this.path = null,
       this.content = null,
-      this.pdfLoading = PDFLoading.start})
+      this.pdfLoading = PDFLoading.start,
+      this.selectText = null})
       : super._();
 
   @override
@@ -128,10 +142,13 @@ class _$PdfStateImpl extends _PdfState {
   @override
   @JsonKey()
   final PDFLoading pdfLoading;
+  @override
+  @JsonKey()
+  final String? selectText;
 
   @override
   String toString() {
-    return 'PdfState(path: $path, content: $content, pdfLoading: $pdfLoading)';
+    return 'PdfState(path: $path, content: $content, pdfLoading: $pdfLoading, selectText: $selectText)';
   }
 
   @override
@@ -142,11 +159,14 @@ class _$PdfStateImpl extends _PdfState {
             (identical(other.path, path) || other.path == path) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.pdfLoading, pdfLoading) ||
-                other.pdfLoading == pdfLoading));
+                other.pdfLoading == pdfLoading) &&
+            (identical(other.selectText, selectText) ||
+                other.selectText == selectText));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, path, content, pdfLoading);
+  int get hashCode =>
+      Object.hash(runtimeType, path, content, pdfLoading, selectText);
 
   @JsonKey(ignore: true)
   @override
@@ -159,7 +179,8 @@ abstract class _PdfState extends PdfState {
   const factory _PdfState(
       {final File? path,
       final String? content,
-      final PDFLoading pdfLoading}) = _$PdfStateImpl;
+      final PDFLoading pdfLoading,
+      final String? selectText}) = _$PdfStateImpl;
   const _PdfState._() : super._();
 
   @override
@@ -168,6 +189,8 @@ abstract class _PdfState extends PdfState {
   String? get content;
   @override
   PDFLoading get pdfLoading;
+  @override
+  String? get selectText;
   @override
   @JsonKey(ignore: true)
   _$$PdfStateImplCopyWith<_$PdfStateImpl> get copyWith =>

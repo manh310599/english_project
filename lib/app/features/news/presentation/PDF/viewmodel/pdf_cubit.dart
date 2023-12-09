@@ -24,13 +24,19 @@ class PdfCubit extends Cubit<PdfState> {
       try {
         text = await ReadPdfText.getPDFtext(file.path);
         emit(state.copyWith(content: text,pdfLoading: PDFLoading.loaded));
+        emit(state.copyWith(pdfLoading: PDFLoading.stop));
       } on PlatformException {
-        print('Failed to get PDF text.');
+
         emit(state.copyWith(pdfLoading: PDFLoading.error));
+        emit(state.copyWith(pdfLoading: PDFLoading.stop));
       }
 
     } else {
       // User canceled the picker
     }
+  }
+
+  changeSelect(String? text) {
+    emit(state.copyWith(selectText: text));
   }
 }
