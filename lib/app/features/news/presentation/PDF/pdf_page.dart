@@ -1,14 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:english_project/app/app_route/app_route.gr.dart';
 import 'package:english_project/app/features/news/presentation/PDF/viewmodel/pdf_cubit.dart';
-import 'package:english_project/font_size.dart';
 import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../../../../all_file/all_file.dart';
 import '../../../../../dimens.dart';
 import '../../../../common/widget/button/cupertino_button.dart';
-import '../news_read/views/news_search_bottom_sheet.dart';
+import '../../../../common/widget/news_search_bottom_sheet.dart';
 
 @RoutePage()
 class PDFPage extends StatelessWidget {
@@ -33,27 +32,14 @@ class PDFPage extends StatelessWidget {
           final cubit = context.read<PdfCubit>();
           return Scaffold(
             appBar: AppBar(),
-            body: state.content.isNotEmptyAndNotNull
-                ? SelectableText(
-                    state.content ?? "",
-                    onSelectionChanged: (selection, cause) async {
-                      print(selection.textInside(state.content ?? ''));
-                      String text = selection
-                          .textInside(state.content ?? '')
-                          .replaceAll("\n", " ");
-
-                      cubit.changeSelect(text);
-                    },
-                    // selectionControls: TextSelectionControls,
-                    showCursor: true,
-                    textAlign: TextAlign.start,
-                    style: const TextStyle(
-                      fontSize: big - 2,
-                      overflow: TextOverflow.ellipsis,
-                    ).copyWith(
-                      height: 1.5,
-                    ),
-                  ).p16()
+            body: state.path != null
+                ? SfPdfViewer.file(state.path!,enableTextSelection: true,onTextSelectionChanged: (details) {
+                  cubit.changSelect(details.selectedText);
+                },onDocumentLoaded: (details) {
+                  cubit.loaded();
+                },onDocumentLoadFailed: (details) {
+                  cubit.loadFail();
+                },)
                 : const SizedBox(),
             floatingActionButton: CupertinoButtonEdit(
               text: '🔍',
@@ -69,7 +55,7 @@ class PDFPage extends StatelessWidget {
                     context: context,
                     builder: (context) {
                       return SizedBox(
-                        height: height * 0.6,
+                        height: height * 0.8,
                         width: width,
                         child: NewsSearchBottomSheet(
                             query: state.selectText ?? ''),

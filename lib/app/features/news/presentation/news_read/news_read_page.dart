@@ -1,8 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:english_project/all_file/all_file.dart';
 import 'package:english_project/app/common/widget/button/cupertino_button.dart';
+import 'package:english_project/app/common/widget/news_search_bottom_sheet.dart';
 import 'package:english_project/app/features/news/presentation/news_read/viewmodel/news_read_cubit.dart';
-import 'package:english_project/app/features/news/presentation/news_read/views/news_search_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -16,10 +16,12 @@ class NewsReadPage extends StatelessWidget {
     super.key,
     required this.url,
     required this.choice,
+    required this.premium,
   });
 
   final String url;
   final int choice;
+  final bool? premium;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class NewsReadPage extends StatelessWidget {
                 context: context,
                 builder: (context) {
                   return SizedBox(
-                    height: height * 0.8,
+                    height: height,
                     width: width,
                     child: NewsSearchBottomSheet(query: state.word ?? ''),
                   );
@@ -58,39 +60,54 @@ class NewsReadPage extends StatelessWidget {
                 SafeArea(
                   child: Column(
                     children: [
-                      InAppWebView(
-                        implementation: WebViewImplementation.NATIVE,
-                        onWebViewCreated: (controller) async {
-                          cubit.webViewController = controller;
-                          if (watch.flagBottom == true) {
-                          } else if (choice == 0 && watch.flagBottom == false) {
-                            controller.addJavaScriptHandler(
-                              handlerName: 'onSelectionChange',
-                              callback: (args) async {
-                                cubit.flagBottom = true;
-                                await cubit.selectAndPrintText(
-                                    context, height, width);
-                              },
-                            );
-                          }
+                      WillPopScope(
+                        onWillPop: () async {
+                          final back =
+                              await cubit.webViewController?.canGoBack();
+                          back == true
+                              ? cubit.webViewController?.goBack()
+                              : null;
+                          return back == true ? false : true;
                         },
-                        onLoadStop: (controller, url) {
-                          if (choice == 1) {
-                            cubit.loadedWeb(1);
-                          } else if (choice == 0) {
-                            cubit.loadedWeb(0);
-                            controller.evaluateJavascript(source: '''
-                                    document.addEventListener('selectionchange', function() {
-                                      var selectedText = window.getSelection().toString();
-                                      window.flutter_inappwebview.callHandler('onSelectionChange', selectedText);
-                                    });
-                                  ''');
-                          }
-                        },
-                        initialUrlRequest: URLRequest(url: Uri.parse(url)),
-                      ).expand(),
-                      state.bannerAd != null
-                          ? SizedBox(child: AdWidget(ad: state.bannerAd!)).h(60)
+                        child: InAppWebView(
+                          implementation: WebViewImplementation.NATIVE,
+                          onWebViewCreated: (controller) async {
+                            cubit.webViewController = controller;
+                            if (watch.flagBottom == true) {
+                            } else if (choice == 0 &&
+                                watch.flagBottom == false) {
+                              controller.addJavaScriptHandler(
+                                handlerName: 'onSelectionChange',
+                                callback: (args) async {
+                                  cubit.flagBottom = true;
+                                  await cubit.selectAndPrintText(
+                                      context, height, width);
+                                },
+                              );
+                            }
+                          },
+                          onLoadStop: (controller, url) {
+                            if (choice == 1) {
+                              cubit.loadedWeb(1);
+                            } else if (choice == 0) {
+                              cubit.loadedWeb(0);
+                              controller.evaluateJavascript(source: '''
+                                      document.addEventListener('selectionchange', function() {
+                                        var selectedText = window.getSelection().toString();
+                                        window.flutter_inappwebview.callHandler('onSelectionChange', selectedText);
+                                      });
+                                    ''');
+                            }
+                          },
+                          initialUrlRequest: URLRequest(url: Uri.parse(url)),
+                        ).expand(),
+                      ),
+                      state.bannerAd != null && premium == false
+                          ? Center(
+                              child: SizedBox(
+                                      child: Center(
+                                          child: AdWidget(ad: state.bannerAd!)))
+                                  .h(60))
                           : const SizedBox(),
                     ],
                   ),

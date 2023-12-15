@@ -11,10 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class NewsBody extends StatelessWidget {
-  const NewsBody({super.key, required this.state});
+  const NewsBody({super.key, required this.state, this.premium});
 
   final NewsState state;
-
+  final bool? premium;
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -47,6 +47,7 @@ class NewsBody extends StatelessWidget {
               title: "Chọn kiểu đọc theo nhiều cách",
               btnOkOnPress: () {
                 context.pushRoute(NewsReadRoute(
+                  premium: premium,
                   url: state.news?.articles![state.min! + index].url ?? '',
                   choice: 1,
                 ));
@@ -54,6 +55,7 @@ class NewsBody extends StatelessWidget {
               },
               btnCancelOnPress: () {
                 context.pushRoute(NewsReadRoute(
+                  premium: premium,
                   url: state.news?.articles![state.min! + index].url ?? '',
                   choice: 0,
                 ));

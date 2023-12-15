@@ -11,6 +11,8 @@ class UserData with _$UserData {
   const factory UserData({
     int? userID,
     int? finalDayPremium,
+    int? gift,
+    String? tokent,
 
   }) = _UserData;
 

@@ -106,11 +106,11 @@ class UserAccountPage extends StatelessWidget {
             ),
           ),
           floatingActionButtonLocation:
-              FloatingActionButtonLocation.endContained,
+              FloatingActionButtonLocation.miniCenterFloat,
           floatingActionButton: state.bannerAd != null
               ? SizedBox(
                   height: 60,
-                  child: AdWidget(ad: state.bannerAd!),
+                  child: Center(child: AdWidget(ad: state.bannerAd!)),
                 )
               : const SizedBox(),
         );

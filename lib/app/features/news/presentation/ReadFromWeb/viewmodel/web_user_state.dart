@@ -4,8 +4,5 @@ part of 'web_user_cubit.dart';
 class WebUserState with _$WebUserState {
   const WebUserState._();
 
-  const factory WebUserState(
-
-      ) = _WebUserState;
-
+  const factory WebUserState() = _WebUserState;
 }

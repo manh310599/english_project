@@ -13,7 +13,9 @@ import '../../../../../font_size.dart';
 import '../../../../common/widget/image/image_cache.dart';
 
 class FavoriteBody extends StatelessWidget {
-  const FavoriteBody({super.key});
+  const FavoriteBody({super.key, required this.premium});
+
+  final bool premium;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class FavoriteBody extends StatelessWidget {
                             title: "Chọn kiểu đọc theo nhiều cách",
                             btnOkOnPress: () {
                               context.pushRoute(NewsReadRoute(
+                                premium: premium,
                                 url: state.news?[index]?.url ?? '',
                                 choice: 1,
                               ));
@@ -44,6 +47,7 @@ class FavoriteBody extends StatelessWidget {
                             },
                             btnCancelOnPress: () {
                               context.pushRoute(NewsReadRoute(
+                                premium: premium,
                                 url: state.news?[index]?.url ?? '',
                                 choice: 0,
                               ));

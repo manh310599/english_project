@@ -1,10 +1,8 @@
 import 'package:auto_route/annotations.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:english_project/all_file/all_file.dart';
 import 'package:english_project/app/common/cubit/information_card/information_card_cubit.dart';
-import 'package:english_project/app/common/widget/button/cupertion_button_custom.dart';
 import 'package:english_project/app/common/widget/edit_text/edit_text.dart';
-import 'package:english_project/app/features/search_word/presentation/view/search_word_body.dart';
+import 'package:english_project/app/common/widget/news_search_bottom_sheet.dart';
 import 'package:english_project/dimens.dart';
 import 'package:english_project/gaps.dart';
 import 'package:flutter/material.dart';
@@ -47,38 +45,14 @@ class SearchWordPage extends StatelessWidget {
                       },
                     ).flexible(),
                     Gaps.hGap8,
-                    CupertinoButtonCustom(
-                      click: () {
-                        if (state.check == true) {
-                          if (state.idStorageWord != null ||
-                              state.data?.isNotEmpty == true) {
-                            cubit.saveWord(
-                                state.idStorageWord ?? state.data?[0]?.id,
-                                context);
-                            cubit.disibleSave();
-                          } else {
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.error,
-                              title: 'thêm dữ liệu thất bại hãy đảm'
-                                  ' bảo bán có 1 khóa học đã được tạo',
-                              btnOkOnPress: () {},
-                            ).show();
-                          }
-                        } else {}
-                      },
-                      color: Vx.white,
-                      child: const Icon(
-                        Icons.save_as,
-                        color: Colors.black,
-                      ),
-                    ),
                   ],
                 ).px8(),
                 Container(
                   padding: Vx.m16,
-                  child: state.translate?.sentences?[0].orig?.text != null
-                      ? SearchWordBody(state: state)
+                  child: cubit.state.translate?.sentences?[0].orig?.text != null
+                      // ? SearchWordBody(state: state)
+                      ? NewsSearchBottomSheet(
+                          query: state.translate?.sentences?[0].orig ?? '')
                       : Image.asset(
                           'assets/images/search_word.png',
                           fit: BoxFit.fill,

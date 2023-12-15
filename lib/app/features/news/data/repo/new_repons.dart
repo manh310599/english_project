@@ -13,29 +13,7 @@ class NewReponsitory implements NewsRepo {
 
   late final NewApi _newApi;
 
-  @override
-  Future<NewModel?> getHeadLinesBBCNew() async {
-    final test = await _newApi.getHeadLinesBBCNews();
-    return test;
-  }
 
-  @override
-  Future<NewModel?> getHeadLinesCNNNews() async {
-    final test = await _newApi.getHeadLinesCNNNews();
-    return test;
-  }
-
-  @override
-  Future<NewModel?> getHeadLinesFoxNews() async {
-    final test = await _newApi.getHeadLinesFoxNews();
-    return test;
-  }
-
-  @override
-  Future<NewModel?> getHeadLinesGoogleNews() async {
-    final test = await _newApi.getHeadLinesGoogleNews();
-    return test;
-  }
 
   @override
   Future<NewModel?> getNewsUpdate() async {

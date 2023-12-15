@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:english_project/all_file/all_file.dart';
 import 'package:english_project/app/app_route/app_route.gr.dart';
+import 'package:english_project/app/common/service/local_push_notification.dart';
 import 'package:english_project/app/features/auth/presentation/check_user/viewmodel/checkauth_bloc.dart';
 import 'package:english_project/check_internet.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -8,11 +11,13 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'app/app_route/app_route.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'depedence.dart';
 import 'firebase_options.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 Future<void> main() async {
   await setupAppDepedence();
@@ -21,6 +26,8 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  LocalNotificationService.initialize();
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -28,6 +35,9 @@ Future<void> main() async {
 
   MobileAds.instance.initialize();
   FlutterNativeSplash.remove();
+
+  requestPermission();
+
   runApp(const App());
 
   FlutterError.onError = (error) {
@@ -38,7 +48,16 @@ Future<void> main() async {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
+}
 
+requestPermission() async {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    sound: true,
+  );
+  settings;
 }
 
 class App extends StatefulWidget {
@@ -57,24 +76,31 @@ class _AppState extends State<App> {
   void initState() {
     // TODO: implement initState
     analytic.setAnalyticsCollectionEnabled(true);
-
+    FirebaseMessaging.instance.getInitialMessage();
+    FirebaseMessaging.onMessage.listen((event) {
+      LocalNotificationService.display(event);
+    });
     getConnect(context);
     super.initState();
   }
+
+  // final StreamController<CheckAuth> loginController =
+  //     StreamController<CheckAuth>.broadcast();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CheckauthBloc()..add(const CheckauthEvent.stated()),
       child: BlocListener<CheckauthBloc, CheckauthState>(
-        listener: (context, state) {
-            if (state.checkAuth == CheckAuth.loggedOut) {
+        listener: (context, state) async {
+          print('vuive   ${state.gift}');
+          if (state.checkAuth == CheckAuth.loggedOut) {
             appRouter.navigate(const LoginRoute());
-          }else if (state.checkAuth == CheckAuth.logged) {
-          appRouter.navigate(const MainRoute());
-          }else if(state.checkAuth == CheckAuth.login){
-              appRouter.navigate(const WaitingLoginRoute());
-            }
+          } else if (state.checkAuth == CheckAuth.logged) {
+            appRouter.navigate( MainRoute(stateAuth: state));
+          } else if (state.checkAuth == CheckAuth.login) {
+            appRouter.navigate(const WaitingLoginRoute());
+          }
         },
         child: BlocBuilder<CheckauthBloc, CheckauthState>(
           builder: (context, state) {
@@ -86,6 +112,7 @@ class _AppState extends State<App> {
               highContrastTheme: ThemeData.dark(),
               debugShowCheckedModeBanner: false,
               routerConfig: appRouter.config(),
+
             );
           },
         ),

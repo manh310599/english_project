@@ -17,29 +17,12 @@ class NewsType extends StatelessWidget {
       child: Row(
         children: [
           CupertinoButtonEdit(
-              text: 'Báo mới cập nhật',
+              text: 'Gần nhất',
               textColor: Colors.black,
               onPressed: () {
                 newsCubit.getNewsUpdate();
               }),
-          CupertinoButtonEdit(
-              text: 'BBC-News',
-              textColor: Colors.black,
-              onPressed: () {
-                newsCubit.getBBCNews();
-              }),
-          CupertinoButtonEdit(
-              text: 'CNN',
-              textColor: Colors.black,
-              onPressed: () {
-                newsCubit.getCNNNews();
-              }),
-          CupertinoButtonEdit(
-              text: 'Fox News',
-              textColor: Colors.black,
-              onPressed: () {
-                newsCubit.getFoxNews();
-              }),
+
 
           CupertinoButtonEdit(
               text: 'Doanh nghiệp',

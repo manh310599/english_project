@@ -17,7 +17,19 @@ class PremiumPage extends StatelessWidget {
         children: [
           Image.asset('assets/images/qr.jpg'),
           Gaps.vGap8,
-          'Hãy chuyển tiền kèm với ID của bạn nhé'.text.size(30).color(Colors.greenAccent).center.make(),
+          'Hãy chuyển tiền kèm với ID của bạn nhé'
+              .text
+              .size(30)
+              .color(Colors.greenAccent)
+              .center
+              .make(),
+          Gaps.vGap8,
+          'Thời giam kích hoạt premium sẽ trong khoảng từ vài phút đến vài giờ'
+              .text
+              .size(30)
+              .color(Colors.greenAccent)
+              .center
+              .make(),
           Gaps.vGap8,
           '20.000 / 1 tháng'.text.size(big).make(),
           Gaps.vGap8,

@@ -12,5 +12,6 @@ class CheckauthState with _$CheckauthState {
     @Default(null) UserData? idUser,
     @Default(null) BannerAd? bannerAd,
     @Default(null) bool? premium,
+    @Default(null) int? gift,
   }) = _CheckauthState;
 }

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:english_project/app/common/service/admob.dart';
-import 'package:english_project/app/features/news/presentation/news_read/views/news_search_bottom_sheet.dart';
+import 'package:english_project/app/common/widget/news_search_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -33,7 +33,7 @@ class NewsReadCubit extends Cubit<NewsReadState> {
         loading: true,
         bannerAd: BannerAd(
           size: AdSize.fullBanner,
-          adUnitId: AdMobService.banner,
+          adUnitId: AdMobService.banner2,
           listener: AdMobService.bannerAdListener,
           request: const AdRequest(),
         )..load(),
@@ -43,7 +43,7 @@ class NewsReadCubit extends Cubit<NewsReadState> {
         loading: true,
         bannerAd: BannerAd(
           size: AdSize.fullBanner,
-          adUnitId: AdMobService.banner,
+          adUnitId: AdMobService.banner2,
           listener: AdMobService.bannerAdListener,
           request: const AdRequest(),
         )..load(),
@@ -53,6 +53,7 @@ class NewsReadCubit extends Cubit<NewsReadState> {
 
   Future<void> selectAndPrintText(BuildContext context, height, width) async {
     String? selectedText;
+
     if (webViewController != null && !selectedText.isNotEmptyAndNotNull) {
       // Execute JavaScript code to select text
       selectedText = await webViewController!.evaluateJavascript(

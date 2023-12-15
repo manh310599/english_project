@@ -25,12 +25,7 @@ class LearnVocabularyCubit extends Cubit<LearnVocabularyState> {
     emit(state.copyWith(
         data: data,
         addOrCourse: true,
-        bannerAd: BannerAd(
-          size: AdSize.fullBanner,
-          adUnitId: AdMobService.banner,
-          listener: AdMobService.bannerAdListener,
-          request: const AdRequest(),
-        )..load()));
+       ));
   }
 
   Future<void> addStoreWord(context) async {

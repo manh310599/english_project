@@ -25,34 +25,49 @@ class LessonPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => LessonCubit()..getListWordsByDay(id!, premium),
       child: BlocBuilder<LessonCubit, LessonState>(
+
         builder: (context, state) {
+          final cubit = context.read<LessonCubit>();
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
+              automaticallyImplyLeading: false,
               title: state.bannerAd != null
                   ? SizedBox(
                       height: 60,
-                      child: AdWidget(ad: state.bannerAd!),
+                      child: Center(child: AdWidget(ad: state.bannerAd!)),
                     )
                   : const SizedBox(),
             ),
             body: state.words?.isNotEmpty == true
-                ? Align(
-                    alignment: Alignment.topCenter,
-                    child: FlipCardWidget(
-                        front: FrontCardView(
-                            imageMemory: const Base64Decoder()
-                                .convert(state.words?[0]?.assets_image ?? ''),
-                            vocabulary: state.words?[0]?.word,
-                            image: state.words?[0]?.image ?? ''),
-                        back: BackCardView(
-                            imageMemory: const Base64Decoder()
-                                .convert(state.words?[0]?.assets_image ?? ''),
-                            vocabulary: state.words?[0]?.word ?? '',
-                            image: state.words?[0]?.image ?? '',
-                            meaning: state.words?[0]?.mean ?? ''),
-                        controller: context.read<LessonCubit>().controller),
-                  )
+                ? Stack(
+                  children: [
+
+                    Align(
+                        alignment: Alignment.topCenter,
+                        child: FlipCardWidget(
+                            front: FrontCardView(
+                                imageMemory: const Base64Decoder()
+                                    .convert(state.words?[0]?.assets_image ?? ''),
+                                vocabulary: state.words?[0]?.word,
+                                image: state.words?[0]?.image ?? ''),
+                            back: BackCardView(
+                                imageMemory: const Base64Decoder()
+                                    .convert(state.words?[0]?.assets_image ?? ''),
+                                vocabulary: state.words?[0]?.word ?? '',
+                                image: state.words?[0]?.image ?? '',
+                                meaning: state.words?[0]?.mean ?? ''),
+                            controller: context.read<LessonCubit>().controller),
+                      ),
+                    // '${state.words?.length}/${cubit.total ?? 0}'.text.make(),
+                    Row(
+                      children: [
+                        '${state.words?.length}/'.text.orange400.make(),
+                        '${cubit.total ?? 0}'.text.blue400.make()
+                      ],
+                    )
+                  ],
+                )
                 : Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -91,10 +106,10 @@ class LessonPage extends StatelessWidget {
                           context.read<LessonCubit>().controllerFlipCard();
                           context.read<LessonCubit>().easy();
                         },
-                        againTime: state.againTime.toString() ?? '',
-                        easyTime: state.easyTime.toString() ?? '',
-                        goodTime: state.goodTime.toString() ?? '',
-                        hardTime: state.hardTime.toString() ?? '',
+                        againTime: state.againTime.toString(),
+                        easyTime: state.easyTime.toString() ,
+                        goodTime: state.goodTime.toString(),
+                        hardTime: state.hardTime.toString(),
                       )
                     : CupertinoButtonEdit(
                         text: 'Hiện lựa chọn',

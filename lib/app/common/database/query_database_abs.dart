@@ -36,7 +36,7 @@ abstract class AbsQueryDatabase {
 
   /////////////////////update//////////////////////////
   Future<int?> updateWords(
-    // int? startTime,
+    int? startTime,
     String? word,
     int? endTime,
     int? checkNews,

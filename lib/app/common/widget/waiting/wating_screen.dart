@@ -8,10 +8,15 @@ class WaitingScreenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Center(
-        child: Lottie.asset('assets/animation/waiting.json'),
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: Lottie.asset('assets/animation/waiting.json'),
+        ),
       ),
     );
   }

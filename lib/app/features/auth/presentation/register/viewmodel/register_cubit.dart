@@ -7,6 +7,7 @@ import 'package:english_project/app/common/check_isvaid.dart';
 import 'package:english_project/app/common/widget/dialog/show_dialog.dart';
 import 'package:english_project/app/features/auth/presentation/register/model/custom_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -87,7 +88,7 @@ class RegisterCubit extends Cubit<RegisterState> {
                 'dayOflearn': 0
               })
               .then((value) =>
-                  print("'full_name' & 'age' merged with existing data!"))
+                  debugPrint("'full_name' & 'age' merged with existing data!"))
               .catchError((error) {
                 showDiaLogCustom(
                     context, 'Có vẻ server đang lỗi hãy thử lại nhé', '');
@@ -103,16 +104,13 @@ class RegisterCubit extends Cubit<RegisterState> {
         showDiaLogCustom(
             context, 'mật khẩu quá yếu', 'Hãy dùng mật khẩu mạnh hơn');
         emit(state.copyWith(registerStatus: RegisterStatus.passToWeek));
-        print('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
         showDiaLogCustom(context, 'Tài khoản đã có người sử dụng',
             'Hãy dùng tài khoản khác nhé');
         emit(state.copyWith(registerStatus: RegisterStatus.emailIsValid));
-        print('The account already exists for that email.');
       }
       emit(state.copyWith(apiStatus: ApiStatus.fail));
     } catch (e) {
-      print(e);
       emit(state.copyWith(apiStatus: ApiStatus.fail));
     }
   }

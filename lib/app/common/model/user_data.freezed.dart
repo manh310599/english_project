@@ -22,6 +22,8 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) {
 mixin _$UserData {
   int? get userID => throw _privateConstructorUsedError;
   int? get finalDayPremium => throw _privateConstructorUsedError;
+  int? get gift => throw _privateConstructorUsedError;
+  String? get tokent => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +36,7 @@ abstract class $UserDataCopyWith<$Res> {
   factory $UserDataCopyWith(UserData value, $Res Function(UserData) then) =
       _$UserDataCopyWithImpl<$Res, UserData>;
   @useResult
-  $Res call({int? userID, int? finalDayPremium});
+  $Res call({int? userID, int? finalDayPremium, int? gift, String? tokent});
 }
 
 /// @nodoc
@@ -52,6 +54,8 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
   $Res call({
     Object? userID = freezed,
     Object? finalDayPremium = freezed,
+    Object? gift = freezed,
+    Object? tokent = freezed,
   }) {
     return _then(_value.copyWith(
       userID: freezed == userID
@@ -62,6 +66,14 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
           ? _value.finalDayPremium
           : finalDayPremium // ignore: cast_nullable_to_non_nullable
               as int?,
+      gift: freezed == gift
+          ? _value.gift
+          : gift // ignore: cast_nullable_to_non_nullable
+              as int?,
+      tokent: freezed == tokent
+          ? _value.tokent
+          : tokent // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -74,7 +86,7 @@ abstract class _$$UserDataImplCopyWith<$Res>
       __$$UserDataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? userID, int? finalDayPremium});
+  $Res call({int? userID, int? finalDayPremium, int? gift, String? tokent});
 }
 
 /// @nodoc
@@ -90,6 +102,8 @@ class __$$UserDataImplCopyWithImpl<$Res>
   $Res call({
     Object? userID = freezed,
     Object? finalDayPremium = freezed,
+    Object? gift = freezed,
+    Object? tokent = freezed,
   }) {
     return _then(_$UserDataImpl(
       userID: freezed == userID
@@ -100,6 +114,14 @@ class __$$UserDataImplCopyWithImpl<$Res>
           ? _value.finalDayPremium
           : finalDayPremium // ignore: cast_nullable_to_non_nullable
               as int?,
+      gift: freezed == gift
+          ? _value.gift
+          : gift // ignore: cast_nullable_to_non_nullable
+              as int?,
+      tokent: freezed == tokent
+          ? _value.tokent
+          : tokent // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -107,7 +129,8 @@ class __$$UserDataImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$UserDataImpl with DiagnosticableTreeMixin implements _UserData {
-  const _$UserDataImpl({this.userID, this.finalDayPremium});
+  const _$UserDataImpl(
+      {this.userID, this.finalDayPremium, this.gift, this.tokent});
 
   factory _$UserDataImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserDataImplFromJson(json);
@@ -116,10 +139,14 @@ class _$UserDataImpl with DiagnosticableTreeMixin implements _UserData {
   final int? userID;
   @override
   final int? finalDayPremium;
+  @override
+  final int? gift;
+  @override
+  final String? tokent;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserData(userID: $userID, finalDayPremium: $finalDayPremium)';
+    return 'UserData(userID: $userID, finalDayPremium: $finalDayPremium, gift: $gift, tokent: $tokent)';
   }
 
   @override
@@ -128,7 +155,9 @@ class _$UserDataImpl with DiagnosticableTreeMixin implements _UserData {
     properties
       ..add(DiagnosticsProperty('type', 'UserData'))
       ..add(DiagnosticsProperty('userID', userID))
-      ..add(DiagnosticsProperty('finalDayPremium', finalDayPremium));
+      ..add(DiagnosticsProperty('finalDayPremium', finalDayPremium))
+      ..add(DiagnosticsProperty('gift', gift))
+      ..add(DiagnosticsProperty('tokent', tokent));
   }
 
   @override
@@ -138,12 +167,15 @@ class _$UserDataImpl with DiagnosticableTreeMixin implements _UserData {
             other is _$UserDataImpl &&
             (identical(other.userID, userID) || other.userID == userID) &&
             (identical(other.finalDayPremium, finalDayPremium) ||
-                other.finalDayPremium == finalDayPremium));
+                other.finalDayPremium == finalDayPremium) &&
+            (identical(other.gift, gift) || other.gift == gift) &&
+            (identical(other.tokent, tokent) || other.tokent == tokent));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, userID, finalDayPremium);
+  int get hashCode =>
+      Object.hash(runtimeType, userID, finalDayPremium, gift, tokent);
 
   @JsonKey(ignore: true)
   @override
@@ -160,8 +192,11 @@ class _$UserDataImpl with DiagnosticableTreeMixin implements _UserData {
 }
 
 abstract class _UserData implements UserData {
-  const factory _UserData({final int? userID, final int? finalDayPremium}) =
-      _$UserDataImpl;
+  const factory _UserData(
+      {final int? userID,
+      final int? finalDayPremium,
+      final int? gift,
+      final String? tokent}) = _$UserDataImpl;
 
   factory _UserData.fromJson(Map<String, dynamic> json) =
       _$UserDataImpl.fromJson;
@@ -170,6 +205,10 @@ abstract class _UserData implements UserData {
   int? get userID;
   @override
   int? get finalDayPremium;
+  @override
+  int? get gift;
+  @override
+  String? get tokent;
   @override
   @JsonKey(ignore: true)
   _$$UserDataImplCopyWith<_$UserDataImpl> get copyWith =>

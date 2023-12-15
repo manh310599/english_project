@@ -15,9 +15,9 @@ part 'lesson_state.dart';
 class LessonCubit extends Cubit<LessonState> {
   LessonCubit() : super(const LessonState());
 
-
   late final bool? checkPremium;
   InterstitialAd? interstitialAd;
+  late final int? total;
 
   void _createInterstitialAd() {
     InterstitialAd.load(
@@ -31,12 +31,8 @@ class LessonCubit extends Cubit<LessonState> {
         ));
   }
 
-
-
   FlipCardController controller = FlipCardController();
   QueryDatabase queryDatabase = QueryDatabase();
-
-
 
   Future<void> getListWordsByDay(
     int id,
@@ -44,7 +40,7 @@ class LessonCubit extends Cubit<LessonState> {
   ) async {
     checkPremium = premium;
     if (checkPremium == false) {
-     // _loadReWardedAd();
+      // _loadReWardedAd();
       _createInterstitialAd();
     }
     int date = DateTime.now().millisecondsSinceEpoch;
@@ -56,18 +52,20 @@ class LessonCubit extends Cubit<LessonState> {
     });
     if (checkPremium == false) {
       emit(state.copyWith(
-          words: list,
-          bannerAd: BannerAd(
-            size: AdSize.fullBanner,
-            adUnitId: AdMobService.banner,
-            listener: AdMobService.bannerAdListener,
-            request: const AdRequest(),
-          )..load()));
+        words: list,
+        bannerAd: BannerAd(
+          size: AdSize.fullBanner,
+          adUnitId: AdMobService.banner3,
+          listener: AdMobService.bannerAdListener,
+          request: const AdRequest(),
+        )..load(),
+      ));
     } else {
       emit(state.copyWith(
         words: list,
       ));
     }
+    total = list.length;
   }
 
   Future<void> setTime() async {
@@ -89,6 +87,16 @@ class LessonCubit extends Cubit<LessonState> {
             againTime: convertTime(forecastTimeMinute(1)),
             hardTime: convertTime(forecastTimeMinute(6)),
             goodTime: convertTime(forecastTimeMinute(10)),
+            easyTime: convertTime(forecastTimeDays(4)),
+          ),
+        );
+      } else if (state.words?[state.indexInLesson!]?.checkNew != 0 &&
+          state.words?[state.indexInLesson!]?.lastChoice == 1) {
+        emit(
+          state.copyWith(
+            againTime: convertTime(forecastTimeMinute(10)),
+            hardTime: convertTime(forecastTimeDays(1)),
+            goodTime: convertTime(forecastTimeDays(2)),
             easyTime: convertTime(forecastTimeDays(4)),
           ),
         );
@@ -164,7 +172,7 @@ class LessonCubit extends Cubit<LessonState> {
         temp.removeAt(state.indexInLesson!);
 
         temp.add(tempWord?.copyWith(
-            lastChoice: choice + 1, interval: 0, ease: 2.5, checkNew: 0));
+            lastChoice: choice + 1, interval: 0, ease: 2.5, checkNew: 1));
         emit(state.copyWith(words: temp, apiStatus: ApiStatus.success));
       }
     } else if (choice == 1) {
@@ -184,6 +192,7 @@ class LessonCubit extends Cubit<LessonState> {
         double e = ease(choice, state.words?[state.indexInLesson!]?.ease);
         if (e <= 1.3) {
           await queryDatabase.updateWords(
+              0,
               state.words?[state.indexInLesson!]?.word,
               DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
                   .add(const Duration(days: 1))
@@ -193,15 +202,29 @@ class LessonCubit extends Cubit<LessonState> {
               1,
               2.5);
         } else {
-          await queryDatabase.updateWords(
-              state.words?[state.indexInLesson!]?.word,
-              DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
-                  .add(Duration(days: interval))
-                  .millisecondsSinceEpoch,
-              1,
-              choice + 1,
-              interval,
-              e);
+          if (state.words?[state.indexInLesson!]?.lastChoice == 1) {
+            await queryDatabase.updateWords(
+                1,
+                state.words?[state.indexInLesson!]?.word,
+                DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
+                    .add(const Duration(days: 1))
+                    .millisecondsSinceEpoch,
+                1,
+                choice + 1,
+                1,
+                2.5);
+          } else {
+            await queryDatabase.updateWords(
+                1,
+                state.words?[state.indexInLesson!]?.word,
+                DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
+                    .add(Duration(days: interval))
+                    .millisecondsSinceEpoch,
+                1,
+                choice + 1,
+                interval,
+                e);
+          }
         }
         List<Words?>? temp = [];
         temp.addAll(state.words!);
@@ -212,6 +235,7 @@ class LessonCubit extends Cubit<LessonState> {
       if (state.words?[state.indexInLesson!]?.checkNew == 0 &&
           state.words?[state.indexInLesson!]?.lastChoice == 3) {
         await queryDatabase.updateWords(
+            1,
             state.words?[state.indexInLesson!]?.word,
             DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
                 .add(const Duration(days: 1))
@@ -235,22 +259,35 @@ class LessonCubit extends Cubit<LessonState> {
 
         temp.add(tempWord?.copyWith(lastChoice: choice + 1, interval: 0));
         emit(state.copyWith(words: temp, apiStatus: ApiStatus.success));
-
       } else if (state.words?[state.indexInLesson!]?.checkNew != 0) {
         int interval = intervalTime(
             state.words![state.indexInLesson!]!.interval!,
             choice,
             state.words![state.indexInLesson!]!.ease!);
         double e = ease(choice, state.words?[state.indexInLesson!]?.ease);
-        await queryDatabase.updateWords(
-            state.words?[state.indexInLesson!]?.word,
-            DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
-                .add(Duration(days: interval))
-                .millisecondsSinceEpoch,
-            1,
-            choice + 1,
-            interval,
-            e);
+        if (state.words?[state.indexInLesson!]?.lastChoice == 1) {
+          await queryDatabase.updateWords(
+              1,
+              state.words?[state.indexInLesson!]?.word,
+              DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
+                  .add(const Duration(days: 2))
+                  .millisecondsSinceEpoch,
+              1,
+              choice + 1,
+              1,
+              2.5);
+        } else {
+          await queryDatabase.updateWords(
+              1,
+              state.words?[state.indexInLesson!]?.word,
+              DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
+                  .add(Duration(days: interval))
+                  .millisecondsSinceEpoch,
+              1,
+              choice + 1,
+              interval,
+              e);
+        }
         List<Words?>? temp = [];
         temp.addAll(state.words!);
         temp.removeAt(state.indexInLesson!);
@@ -259,6 +296,7 @@ class LessonCubit extends Cubit<LessonState> {
     } else if (choice == 3) {
       if (state.words?[state.indexInLesson!]?.checkNew == 0) {
         await queryDatabase.updateWords(
+            1,
             state.words?[state.indexInLesson!]?.word,
             DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
                 .add(const Duration(days: 4))
@@ -278,15 +316,29 @@ class LessonCubit extends Cubit<LessonState> {
             choice,
             state.words![state.indexInLesson!]!.ease!);
         double e = ease(choice, state.words?[state.indexInLesson!]?.ease);
-        await queryDatabase.updateWords(
-            state.words?[state.indexInLesson!]?.word,
-            DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
-                .add(Duration(days: interval))
-                .millisecondsSinceEpoch,
-            1,
-            choice + 1,
-            interval,
-            e);
+        if (state.words?[state.indexInLesson!]?.lastChoice == 1) {
+          await queryDatabase.updateWords(
+              1,
+              state.words?[state.indexInLesson!]?.word,
+              DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
+                  .add(const Duration(days: 4))
+                  .millisecondsSinceEpoch,
+              1,
+              choice + 1,
+              1,
+              2.5);
+        } else {
+          await queryDatabase.updateWords(
+              1,
+              state.words?[state.indexInLesson!]?.word,
+              DateTime(n.year, n.month, n.day, 0, 0, 0, 0, 0)
+                  .add(Duration(days: interval))
+                  .millisecondsSinceEpoch,
+              1,
+              choice + 1,
+              interval,
+              e);
+        }
         List<Words?>? temp = [];
         temp.addAll(state.words!);
         temp.removeAt(state.indexInLesson!);

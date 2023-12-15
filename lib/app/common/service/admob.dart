@@ -9,6 +9,14 @@ class AdMobService {
       ? 'ca-app-pub-3940256099942544/6300978111'
       : 'ca-app-pub-3156525907485254/6624021624';
 
+  static const banner2 = kDebugMode == true
+      ? 'ca-app-pub-3940256099942544/6300978111'
+      : 'ca-app-pub-3156525907485254/8164914563';
+
+  static const banner3 = kDebugMode == true
+      ? 'ca-app-pub-3940256099942544/6300978111'
+      : 'ca-app-pub-3156525907485254/2187431636';
+
   static const interstitial = kDebugMode == true
       ? 'ca-app-pub-3940256099942544/1033173712'
       : 'ca-app-pub-3156525907485254/7931940265';

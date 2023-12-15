@@ -584,6 +584,7 @@ mixin _$CheckauthState {
   UserData? get idUser => throw _privateConstructorUsedError;
   BannerAd? get bannerAd => throw _privateConstructorUsedError;
   bool? get premium => throw _privateConstructorUsedError;
+  int? get gift => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CheckauthStateCopyWith<CheckauthState> get copyWith =>
@@ -601,7 +602,8 @@ abstract class $CheckauthStateCopyWith<$Res> {
       User? user,
       UserData? idUser,
       BannerAd? bannerAd,
-      bool? premium});
+      bool? premium,
+      int? gift});
 
   $UserDataCopyWith<$Res>? get idUser;
 }
@@ -624,6 +626,7 @@ class _$CheckauthStateCopyWithImpl<$Res, $Val extends CheckauthState>
     Object? idUser = freezed,
     Object? bannerAd = freezed,
     Object? premium = freezed,
+    Object? gift = freezed,
   }) {
     return _then(_value.copyWith(
       checkAuth: freezed == checkAuth
@@ -646,6 +649,10 @@ class _$CheckauthStateCopyWithImpl<$Res, $Val extends CheckauthState>
           ? _value.premium
           : premium // ignore: cast_nullable_to_non_nullable
               as bool?,
+      gift: freezed == gift
+          ? _value.gift
+          : gift // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -675,7 +682,8 @@ abstract class _$$CheckauthStateImplCopyWith<$Res>
       User? user,
       UserData? idUser,
       BannerAd? bannerAd,
-      bool? premium});
+      bool? premium,
+      int? gift});
 
   @override
   $UserDataCopyWith<$Res>? get idUser;
@@ -697,6 +705,7 @@ class __$$CheckauthStateImplCopyWithImpl<$Res>
     Object? idUser = freezed,
     Object? bannerAd = freezed,
     Object? premium = freezed,
+    Object? gift = freezed,
   }) {
     return _then(_$CheckauthStateImpl(
       checkAuth: freezed == checkAuth
@@ -719,6 +728,10 @@ class __$$CheckauthStateImplCopyWithImpl<$Res>
           ? _value.premium
           : premium // ignore: cast_nullable_to_non_nullable
               as bool?,
+      gift: freezed == gift
+          ? _value.gift
+          : gift // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -731,7 +744,8 @@ class _$CheckauthStateImpl extends _CheckauthState {
       this.user = null,
       this.idUser = null,
       this.bannerAd = null,
-      this.premium = null})
+      this.premium = null,
+      this.gift = null})
       : super._();
 
   @override
@@ -749,10 +763,13 @@ class _$CheckauthStateImpl extends _CheckauthState {
   @override
   @JsonKey()
   final bool? premium;
+  @override
+  @JsonKey()
+  final int? gift;
 
   @override
   String toString() {
-    return 'CheckauthState(checkAuth: $checkAuth, user: $user, idUser: $idUser, bannerAd: $bannerAd, premium: $premium)';
+    return 'CheckauthState(checkAuth: $checkAuth, user: $user, idUser: $idUser, bannerAd: $bannerAd, premium: $premium, gift: $gift)';
   }
 
   @override
@@ -766,12 +783,13 @@ class _$CheckauthStateImpl extends _CheckauthState {
             (identical(other.idUser, idUser) || other.idUser == idUser) &&
             (identical(other.bannerAd, bannerAd) ||
                 other.bannerAd == bannerAd) &&
-            (identical(other.premium, premium) || other.premium == premium));
+            (identical(other.premium, premium) || other.premium == premium) &&
+            (identical(other.gift, gift) || other.gift == gift));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, checkAuth, user, idUser, bannerAd, premium);
+  int get hashCode => Object.hash(
+      runtimeType, checkAuth, user, idUser, bannerAd, premium, gift);
 
   @JsonKey(ignore: true)
   @override
@@ -787,7 +805,8 @@ abstract class _CheckauthState extends CheckauthState {
       final User? user,
       final UserData? idUser,
       final BannerAd? bannerAd,
-      final bool? premium}) = _$CheckauthStateImpl;
+      final bool? premium,
+      final int? gift}) = _$CheckauthStateImpl;
   const _CheckauthState._() : super._();
 
   @override
@@ -800,6 +819,8 @@ abstract class _CheckauthState extends CheckauthState {
   BannerAd? get bannerAd;
   @override
   bool? get premium;
+  @override
+  int? get gift;
   @override
   @JsonKey(ignore: true)
   _$$CheckauthStateImplCopyWith<_$CheckauthStateImpl> get copyWith =>

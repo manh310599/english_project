@@ -1,16 +1,19 @@
+import 'dart:async';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/database/query_database.dart';
+import 'package:english_project/app/features/auth/presentation/check_user/viewmodel/checkauth_bloc.dart';
 import 'package:english_project/app/features/news/core/abs_repo/abs_news_repo.dart';
 import 'package:english_project/app/features/news/model/news_model.dart';
 import 'package:english_project/depedence.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:lottie/lottie.dart';
-import 'package:material_dialogs/material_dialogs.dart';
-import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 
 import '../../../../common/service/admob.dart';
 
@@ -19,24 +22,33 @@ part 'news_cubit.freezed.dart';
 part 'news_state.dart';
 
 class NewsCubit extends Cubit<NewsState> {
-  NewsCubit() : super(const NewsState());
+  NewsCubit(this.checkauthBloc)
+      : super(
+          const NewsState(),
+        );
 
   late bool? premium;
- // int? checkAD = 0;
-
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   RewardedAd? _rewardedAd;
 
+  final CheckauthBloc checkauthBloc;
+
   Future<void> loadReWardedAd(BuildContext context) async {
-   await RewardedAd.load(
+    await RewardedAd.load(
         adUnitId: AdMobService.rewarded,
         request: const AdRequest(),
         rewardedAdLoadCallback: RewardedAdLoadCallback(
           onAdLoaded: (ad) {
             ad.fullScreenContentCallback = FullScreenContentCallback(
                 // Called when the ad showed the full screen content.
-                onAdShowedFullScreenContent: (ad) {},
+                onAdShowedFullScreenContent: (ad) {
+                  _rewardedAd = ad;
+                },
                 // Called when an impression occurs on the ad.
-                onAdImpression: (ad) {},
+                onAdImpression: (ad) {
+                  _rewardedAd = ad;
+                },
                 // Called when the ad failed to show full screen content.
                 onAdFailedToShowFullScreenContent: (ad, err) {
                   // Dispose the ad here to free resources.
@@ -44,44 +56,18 @@ class NewsCubit extends Cubit<NewsState> {
                   ad.dispose();
                 },
                 // Called when the ad dismissed full screen content.
-                onAdDismissedFullScreenContent: (ad) {
-
-                  if(state.checkAD == 0) {
-                    Dialogs.materialDialog(
-                      color: Colors.black,
-                      msgAlign: TextAlign.center,
-                      msg:
-                          'Đây là chính năng nâng cao bạn phải mua hoặc chỉ đơn'
-                          ' giản là xem quảng cáo để ủng hộ chúng tôi',
-                      title: 'Tính năng tra bất kì trang web nào',
-                      lottieBuilder: Lottie.asset(
-                        'assets/animation/cry.json',
-                        fit: BoxFit.contain,
-                      ),
-                      context: context,
-                      actions: [
-                        IconsButton(
-                          onPressed: () {
-                            ad.dispose();
-                          },
-                          text: 'Đóng',
-                          iconData: Icons.workspace_premium,
-                          color: Colors.red,
-                          textStyle: const TextStyle(color: Colors.white),
-                          iconColor: Colors.white,
-                        ),
-                        IconsButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          text: 'Tiếp tục xem',
-                          iconData: Icons.movie_creation_outlined,
-                          color: Colors.blue,
-                          textStyle: const TextStyle(color: Colors.white),
-                          iconColor: Colors.white,
-                        ),
-                      ]);
-                  }
+                onAdDismissedFullScreenContent: (ad) async {
+                  emit(state.copyWith(checkAD: 1));
+                  await firebaseFirestore
+                      .collection('users')
+                      .doc(firebaseAuth.currentUser?.uid)
+                      .update(
+                    {
+                      'gift': DateTime.now()
+                          .add(const Duration(hours: 1))
+                          .millisecondsSinceEpoch,
+                    },
+                  );
                 },
                 // Called when a click is recorded for an ad.
                 onAdClicked: (ad) {});
@@ -90,15 +76,49 @@ class NewsCubit extends Cubit<NewsState> {
 
             _rewardedAd = ad;
           },
-          onAdFailedToLoad: (LoadAdError error) {
+          onAdFailedToLoad: (LoadAdError error) async {
+
+            if (FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) {
+              await FirebaseCrashlytics.instance.recordError(
+                  error,
+                  StackTrace.current,
+                  reason: 'a fatal error',
+                  // Pass in 'fatal' argument
+                  fatal: true
+              );
+            }
+
             debugPrint('RewardedAd failed to load: $error');
+            emit(state.copyWith(checkAD: 1));
+            await firebaseFirestore
+                .collection('users')
+                .doc(firebaseAuth.currentUser?.uid)
+                .update(
+              {
+                'gift': DateTime.now()
+                    .add(const Duration(hours: 1))
+                    .millisecondsSinceEpoch,
+              },
+            );
           },
         ));
 
-   await _rewardedAd?.show(onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+    await _rewardedAd?.show(
+        onUserEarnedReward: (AdWithoutView ad, RewardItem reward) async {
       emit(state.copyWith(checkAD: 1));
+      await firebaseFirestore
+          .collection('users')
+          .doc(firebaseAuth.currentUser?.uid)
+          .update(
+        {
+          'gift': DateTime.now()
+              .add(const Duration(hours: 1))
+              .millisecondsSinceEpoch,
+        },
 
-   });
+      );
+
+    });
   }
 
   NewsRepo newReponsitory = getIt<NewsRepo>();
@@ -107,9 +127,32 @@ class NewsCubit extends Cubit<NewsState> {
 
   void getPremium(bool? premium) async {
     this.premium = premium;
+
+  }
+
+  Future<void> getGift(int? time) async {
+
+    if (time != null && state.checkAD == 0) {
+      if (time <= DateTime.now().millisecondsSinceEpoch) {
+        emit(state.copyWith(checkAD: 0));
+
+      } else {
+        emit(state.copyWith(checkAD: 1));
+
+      }
+    }
+
   }
 
   Future<void> getNewsUpdate() async {
+    checkauthBloc.loginStream.listen((event) {
+      if (event == CheckAuth.loggedOut) {
+        emit(const NewsState());
+      } else {
+        getNewsUpdate();
+      }
+    });
+
     temp = null;
     final data = await newReponsitory.getNewsUpdate();
     final filter = data?.articles
@@ -120,29 +163,6 @@ class NewsCubit extends Cubit<NewsState> {
 
     emit(state.copyWith(news: data?.copyWith(articles: filter), min: 0));
   }
-
-  Future<void> getBBCNews() async {
-    temp = null;
-    final data = await newReponsitory.getHeadLinesBBCNew();
-    emit(state.copyWith(news: data, min: 0));
-  }
-
-  Future<void> getCNNNews() async {
-    temp = null;
-    final data = await newReponsitory.getHeadLinesCNNNews();
-    emit(state.copyWith(news: data, min: 0));
-  }
-
-  Future<void> getFoxNews() async {
-    temp = null;
-    final data = await newReponsitory.getHeadLinesFoxNews();
-    emit(state.copyWith(news: data, min: 0));
-  }
-
-  // Future<void> getGoogleNews() async {
-  //   final data = await newReponsitory.getHeadLinesGoogleNews();
-  //   emit(state.copyWith(news: data, min: 0));
-  // }
 
   Future<void> getNewsBusiness() async {
     temp = null;
@@ -216,8 +236,6 @@ class NewsCubit extends Cubit<NewsState> {
                       .contains(title!.toLowerCase()))
                   .toList() ??
               []);
-
-      print(temp);
 
       emit(state.copyWith(news: news, min: 0));
     }

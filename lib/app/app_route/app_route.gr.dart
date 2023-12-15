@@ -13,6 +13,8 @@ import 'package:english_project/app/common/widget/waiting/waiting_login.dart'
     as _i1;
 import 'package:english_project/app/common/widget/waiting/wating_screen.dart'
     as _i2;
+import 'package:english_project/app/features/auth/presentation/check_user/viewmodel/checkauth_bloc.dart'
+    as _i22;
 import 'package:english_project/app/features/auth/presentation/forgot_pass_word/forgot_pass_page.dart'
     as _i3;
 import 'package:english_project/app/features/auth/presentation/login/login_page.dart'
@@ -83,9 +85,13 @@ abstract class $AppAutoRoute extends _i20.RootStackRouter {
       );
     },
     FavoriteNewsRoute.name: (routeData) {
+      final args = routeData.argsAs<FavoriteNewsRouteArgs>();
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i6.FavoriteNewsPage(),
+        child: _i6.FavoriteNewsPage(
+          key: args.key,
+          premium: args.premium,
+        ),
       );
     },
     LearnVocabularyRoute.name: (routeData) {
@@ -131,9 +137,13 @@ abstract class $AppAutoRoute extends _i20.RootStackRouter {
       );
     },
     NewsRoute.name: (routeData) {
+      final args = routeData.argsAs<NewsRouteArgs>();
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i12.NewsPage(),
+        child: _i12.NewsPage(
+          key: args.key,
+          stateAuth: args.stateAuth,
+        ),
       );
     },
     NewsReadRoute.name: (routeData) {
@@ -144,6 +154,7 @@ abstract class $AppAutoRoute extends _i20.RootStackRouter {
           key: args.key,
           url: args.url,
           choice: args.choice,
+          premium: args.premium,
         ),
       );
     },
@@ -182,9 +193,13 @@ abstract class $AppAutoRoute extends _i20.RootStackRouter {
       );
     },
     MainRoute.name: (routeData) {
+      final args = routeData.argsAs<MainRouteArgs>();
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i19.MainPage(),
+        child: _i19.MainPage(
+          key: args.key,
+          stateAuth: args.stateAuth,
+        ),
       );
     },
   };
@@ -262,16 +277,40 @@ class RegisterRoute extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.FavoriteNewsPage]
-class FavoriteNewsRoute extends _i20.PageRouteInfo<void> {
-  const FavoriteNewsRoute({List<_i20.PageRouteInfo>? children})
-      : super(
+class FavoriteNewsRoute extends _i20.PageRouteInfo<FavoriteNewsRouteArgs> {
+  FavoriteNewsRoute({
+    _i21.Key? key,
+    required bool premium,
+    List<_i20.PageRouteInfo>? children,
+  }) : super(
           FavoriteNewsRoute.name,
+          args: FavoriteNewsRouteArgs(
+            key: key,
+            premium: premium,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'FavoriteNewsRoute';
 
-  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
+  static const _i20.PageInfo<FavoriteNewsRouteArgs> page =
+      _i20.PageInfo<FavoriteNewsRouteArgs>(name);
+}
+
+class FavoriteNewsRouteArgs {
+  const FavoriteNewsRouteArgs({
+    this.key,
+    required this.premium,
+  });
+
+  final _i21.Key? key;
+
+  final bool premium;
+
+  @override
+  String toString() {
+    return 'FavoriteNewsRouteArgs{key: $key, premium: $premium}';
+  }
 }
 
 /// generated route for
@@ -404,16 +443,40 @@ class LessonRouteArgs {
 
 /// generated route for
 /// [_i12.NewsPage]
-class NewsRoute extends _i20.PageRouteInfo<void> {
-  const NewsRoute({List<_i20.PageRouteInfo>? children})
-      : super(
+class NewsRoute extends _i20.PageRouteInfo<NewsRouteArgs> {
+  NewsRoute({
+    _i21.Key? key,
+    required _i22.CheckauthState stateAuth,
+    List<_i20.PageRouteInfo>? children,
+  }) : super(
           NewsRoute.name,
+          args: NewsRouteArgs(
+            key: key,
+            stateAuth: stateAuth,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'NewsRoute';
 
-  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
+  static const _i20.PageInfo<NewsRouteArgs> page =
+      _i20.PageInfo<NewsRouteArgs>(name);
+}
+
+class NewsRouteArgs {
+  const NewsRouteArgs({
+    this.key,
+    required this.stateAuth,
+  });
+
+  final _i21.Key? key;
+
+  final _i22.CheckauthState stateAuth;
+
+  @override
+  String toString() {
+    return 'NewsRouteArgs{key: $key, stateAuth: $stateAuth}';
+  }
 }
 
 /// generated route for
@@ -423,6 +486,7 @@ class NewsReadRoute extends _i20.PageRouteInfo<NewsReadRouteArgs> {
     _i21.Key? key,
     required String url,
     required int choice,
+    required bool? premium,
     List<_i20.PageRouteInfo>? children,
   }) : super(
           NewsReadRoute.name,
@@ -430,6 +494,7 @@ class NewsReadRoute extends _i20.PageRouteInfo<NewsReadRouteArgs> {
             key: key,
             url: url,
             choice: choice,
+            premium: premium,
           ),
           initialChildren: children,
         );
@@ -445,6 +510,7 @@ class NewsReadRouteArgs {
     this.key,
     required this.url,
     required this.choice,
+    required this.premium,
   });
 
   final _i21.Key? key;
@@ -453,9 +519,11 @@ class NewsReadRouteArgs {
 
   final int choice;
 
+  final bool? premium;
+
   @override
   String toString() {
-    return 'NewsReadRouteArgs{key: $key, url: $url, choice: $choice}';
+    return 'NewsReadRouteArgs{key: $key, url: $url, choice: $choice, premium: $premium}';
   }
 }
 
@@ -556,14 +624,38 @@ class UserAccountRoute extends _i20.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i19.MainPage]
-class MainRoute extends _i20.PageRouteInfo<void> {
-  const MainRoute({List<_i20.PageRouteInfo>? children})
-      : super(
+class MainRoute extends _i20.PageRouteInfo<MainRouteArgs> {
+  MainRoute({
+    _i21.Key? key,
+    required _i22.CheckauthState stateAuth,
+    List<_i20.PageRouteInfo>? children,
+  }) : super(
           MainRoute.name,
+          args: MainRouteArgs(
+            key: key,
+            stateAuth: stateAuth,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'MainRoute';
 
-  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
+  static const _i20.PageInfo<MainRouteArgs> page =
+      _i20.PageInfo<MainRouteArgs>(name);
+}
+
+class MainRouteArgs {
+  const MainRouteArgs({
+    this.key,
+    required this.stateAuth,
+  });
+
+  final _i21.Key? key;
+
+  final _i22.CheckauthState stateAuth;
+
+  @override
+  String toString() {
+    return 'MainRouteArgs{key: $key, stateAuth: $stateAuth}';
+  }
 }

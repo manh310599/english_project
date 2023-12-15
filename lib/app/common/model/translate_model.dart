@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'translate_model.g.dart';
-
 part 'translate_model.freezed.dart';
+
+part 'translate_model.g.dart';
 
 @freezed
 class Translate with _$Translate {
@@ -10,7 +10,6 @@ class Translate with _$Translate {
     List<Sentence>? sentences,
     List<Dict>? dict,
     String? src,
-
   }) = _Translate;
 
   factory Translate.fromJson(Map<String, dynamic> json) =>
@@ -51,5 +50,3 @@ class Sentence with _$Sentence {
   factory Sentence.fromJson(Map<String, dynamic> json) =>
       _$SentenceFromJson(json);
 }
-
-

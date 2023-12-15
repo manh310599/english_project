@@ -11,7 +11,9 @@ import '../../../all_file/all_file.dart';
 
 @RoutePage()
 class FavoriteNewsPage extends StatelessWidget {
-  const FavoriteNewsPage({super.key});
+  const FavoriteNewsPage({super.key, required this.premium});
+
+  final bool premium;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class FavoriteNewsPage extends StatelessWidget {
               children: [
                 const FavoriteNewsHeader(),
                 Gaps.vGap16,
-                const FavoriteBody().expand()
+                 FavoriteBody(premium: premium,).expand()
               ],
             )),
       ),

@@ -42,9 +42,7 @@ class InformationCardCubit extends Cubit<InformationCardState> {
 
         emit(state.copyWith(
             apiStatus: ApiStatus.success, imageFromText: dataImage));
-
-      }
-      catch (e) {
+      } catch (e) {
         emit(state.copyWith(
           apiStatus: ApiStatus.fail,
         ));
@@ -53,6 +51,7 @@ class InformationCardCubit extends Cubit<InformationCardState> {
   }
 
   Future<void> searchWord(String? query) async {
+    emit(state.copyWith(translate: null));
     final resultData = await queryDatabase.getAllFromStorageWord();
 
     if (query!.isNotEmpty) {
@@ -75,15 +74,13 @@ class InformationCardCubit extends Cubit<InformationCardState> {
   Future<void> selectImageFromGradle() async {
     final ImagePicker picker = ImagePicker();
     final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery, imageQuality: 25);
+    await picker.pickImage(source: ImageSource.gallery, imageQuality: 25);
     if (pickedFile!.path.isNotEmptyAndNotNull) {
       emit(state.copyWith(filePath: pickedFile.path, itemSelect: null));
     }
   }
 
-  changeId(
-    int? id,
-  ) {
+  changeId(int? id,) {
     emit(state.copyWith(idStorageWord: id));
   }
 
@@ -108,7 +105,15 @@ class InformationCardCubit extends Cubit<InformationCardState> {
           null,
           mean.toString(),
           0,
-          DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0)
+          DateTime(
+              now.year,
+              now.month,
+              now.day,
+              0,
+              0,
+              0,
+              0,
+              0)
               .millisecondsSinceEpoch,
           1.3,
           i,
@@ -124,7 +129,9 @@ class InformationCardCubit extends Cubit<InformationCardState> {
           base64String,
           mean.toString(),
           0,
-          DateTime.now().millisecondsSinceEpoch,
+          DateTime
+              .now()
+              .millisecondsSinceEpoch,
           1.3,
           i,
         );
@@ -165,5 +172,52 @@ class InformationCardCubit extends Cubit<InformationCardState> {
 
   disibleSave() {
     emit(state.copyWith(check: false));
+  }
+
+  fixTrans(String? data) {
+    List<Sentence>? sentence = [];
+    sentence.add(Sentence(
+        trans: data,
+        orig: state.translate?.sentences?.first.orig,
+        backend: state.translate?.sentences?.first.backend
+    ));
+    emit(state.copyWith(
+        translate: state.translate?.copyWith(sentences: sentence)));
+  }
+
+  fixTern(String? data, int index) {
+    final List<Dict> dict = [];
+
+    List<String?>? terms = [];
+    terms.addAll(state.translate?.dict?[0].terms ?? []);
+    terms[index] = data;
+
+    dict.add(state.translate?.dict?[0].copyWith(
+      terms:terms,
+    ) ?? const Dict(),);
+    emit(state.copyWith(translate: state.translate?.copyWith(dict: dict)));
+  }
+
+  deleteTern(int index){
+    final List<Dict> dict = [];
+
+    List<String?>? terms = [];
+    terms.addAll(state.translate?.dict?[0].terms ?? []);
+    terms.removeAt(index);
+
+    dict.add(state.translate?.dict?[0].copyWith(
+      terms:terms,
+    ) ?? const Dict(),);
+    emit(state.copyWith(translate: state.translate?.copyWith(dict: dict)));
+  }
+  deleteTrans() {
+    List<Sentence>? sentence = [];
+    sentence.add(Sentence(
+
+        orig: state.translate?.sentences?.first.orig,
+        backend: state.translate?.sentences?.first.backend
+    ));
+    emit(state.copyWith(
+        translate: state.translate?.copyWith(sentences: sentence)));
   }
 }

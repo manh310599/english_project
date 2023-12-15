@@ -1,18 +1,21 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:english_project/app/app_route/app_route.gr.dart';
+import 'package:english_project/app/features/auth/presentation/check_user/viewmodel/checkauth_bloc.dart';
 import 'package:flutter/material.dart';
 
+import 'all_file/all_file.dart';
 import 'check_internet.dart';
 
 @RoutePage()
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
-
+  const MainPage({super.key, required this.stateAuth});
+  final CheckauthState stateAuth;
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
+
   void initState() {
     // TODO: implement initState
 
@@ -24,11 +27,11 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-      routes:  const [
-        NewsRoute(),
+      routes:  [
+        NewsRoute(stateAuth: widget.stateAuth),
         SearchWordRoute(),
         LearnVocabularyRoute(),
-        FavoriteNewsRoute(),
+        FavoriteNewsRoute(premium: widget.stateAuth.premium ?? false),
         UserAccountRoute(),
       ],
       builder: (context, child) {
@@ -49,7 +52,7 @@ class _MainPageState extends State<MainPage> {
                   Icons.newspaper,
                   color: Colors.white,
                 ),
-                label: 'Đọc báo',
+                label: 'Trang chủ',
               ),
               BottomNavigationBarItem(
                   icon: Icon(

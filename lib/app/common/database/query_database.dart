@@ -77,12 +77,12 @@ class QueryDatabase extends AbsQueryDatabase {
       if (image != null) {
         final test = await data?.rawInsert(
             'insert into Words(word,image,mean,start_time,end_time,id) VALUES '
-            '("$word","$image","$mean","$startTime","$endTime","$id")');
+            '("$word","$image","$mean","0","$endTime","$id")');
         print(test);
       } else if (image == null && assetImage != null) {
         final test = await data?.rawInsert(
             'insert into Words(word,assets_image,mean,start_time,end_time,id) VALUES '
-            '("$word","$assetImage","$mean","$startTime","$endTime","$id")');
+            '("$word","$assetImage","$mean","0","$endTime","$id")');
 
         print(test);
       } else {
@@ -97,8 +97,11 @@ class QueryDatabase extends AbsQueryDatabase {
   @override
   Future<List<Map<String, Object?>>?> getAllFromDate(int date, int id) async {
     final data = await database;
-    final test = await data
-        ?.rawQuery('select * from Words where end_time < $date and id = $id');
+    final test = await data?.rawQuery('SELECT x.* FROM (SELECT * FROM Words'
+        ' WHERE start_time = 1 and end_time < $date and id = $id)'
+        ' AS x UNION ALL SELECT y.* FROM'
+        ' (SELECT * FROM Words WHERE start_time = 0 and'
+        ' end_time < $date and id = $id limit 20) AS y');
     return test;
   }
 
@@ -141,6 +144,7 @@ class QueryDatabase extends AbsQueryDatabase {
 
   @override
   Future<int?> updateWords(
+    int? startTime,
     String? word,
     int? endTime,
     int? checkNews,
@@ -151,9 +155,10 @@ class QueryDatabase extends AbsQueryDatabase {
     final data = await database;
     try {
       final test = await data?.rawUpdate(
-          "update Words set end_time = $endTime,checkNew = $checkNews"
+          "update Words set start_time = $startTime, end_time = $endTime,checkNew = $checkNews"
           ",lastChoice = $lastChoice,interval = $interval,ease = $ease where"
-          " word = ? "  ,[word]);
+          " word = ? ",
+          [word]);
       print(test);
       return 1;
     } catch (_) {
@@ -189,8 +194,8 @@ class QueryDatabase extends AbsQueryDatabase {
   ) async {
     final data = await database;
     try {
-
-      final insertResult = await data?.rawInsert('insert into StorageWord(name) values ("$name")');
+      final insertResult = await data
+          ?.rawInsert('insert into StorageWord(name) values ("$name")');
 
       if (insertResult == null || insertResult <= 0) {
         print('Lỗi khi thêm dữ liệu vào bảng StorageWord');
@@ -208,8 +213,7 @@ class QueryDatabase extends AbsQueryDatabase {
         try {
           addWords(element.word, element.image, element.assets_image,
               element.mean, 0, 0, 1.3, id);
-        } catch (_) {
-        }
+        } catch (_) {}
       }
       return 0;
     } catch (_) {

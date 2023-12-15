@@ -5,12 +5,14 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:english_project/app/common/api_status.dart';
 import 'package:english_project/app/common/cubit/information_card/information_card_cubit.dart';
 import 'package:english_project/app/common/widget/image/image_cache.dart';
+import 'package:english_project/app/common/widget/voice/set_voice.dart';
 import 'package:english_project/font_size.dart';
 import 'package:english_project/gaps.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../../../../all_file/all_file.dart';
+import '../../../all_file/all_file.dart';
+import 'edit_text/edit_text_no_icon.dart';
 
 class NewsSearchBottomSheet extends StatelessWidget {
   const NewsSearchBottomSheet({super.key, required this.query});
@@ -64,7 +66,6 @@ class NewsSearchBottomSheet extends StatelessWidget {
                               cubit.saveWord(
                                   state.idStorageWord ?? state.data?[0]?.id,
                                   context);
-
                             } else {
                               AwesomeDialog(
                                 context: context,
@@ -86,44 +87,140 @@ class NewsSearchBottomSheet extends StatelessWidget {
                             .make() ??
                         'Vocabulary'.text.make(),
                     Gaps.vGap10,
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        '👉🏻'.text.make(),
-                        Gaps.hGap4,
-                        state.translate?.sentences?[0].trans?.text
-                                .softWrap(true)
-                                .make()
-                                .flexible() ??
-                            ''.text.make().flexible(),
-                      ],
+                    IconButton(
+                      onPressed: () async {
+                        setVoice(state.translate?.sentences?[0].orig);
+                      },
+                      icon: const Icon(Icons.volume_down),
                     ),
-                    Gaps.vGap4,
-                    ListView.separated(
-                      itemBuilder: (context, index) {
-                        return Row(
+                    Gaps.vGap10,
+                    Row(
+                      children: [
+                        Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             '👉🏻'.text.make(),
                             Gaps.hGap4,
-                            state.translate?.dict?[0].terms?[index]?.text
+                            state.translate?.sentences?[0].trans?.text
                                     .softWrap(true)
                                     .make()
                                     .flexible() ??
-                                '${state.translate?.sentences?[0].trans}'
-                                    .text
-                                    .make()
-                                    .flexible(),
+                                ''.text.make().flexible(),
                           ],
-                        );
-                      },
-                      itemCount: state.translate?.dict?[0].terms?.length ?? 1,
-                      shrinkWrap: true,
-                      separatorBuilder: (BuildContext context, int index) {
-                        return Gaps.vGap4;
-                      },
+                        ).expand(),
+                        Row(
+                          children: [
+                            InkWell(
+                                onTap: () {
+                                  debugPrint('ok');
+                                  AwesomeDialog(
+                                    context: context,
+                                    dialogType: DialogType.warning,
+                                    title: 'sửa thông tin',
+                                    body: EditTextNoIcon(
+                                      text: 'Đồng ý',
+                                      data: (data) {
+                                        cubit.fixTrans(data);
+                                        Navigator.pop(context);
+                                      },
+                                      content:
+                                          state.translate?.sentences?[0].trans,
+                                    ).p16(),
+                                    btnCancelOnPress: () {},
+                                  ).show();
+                                },
+                                child: '🎨'.text.size(medium).make()),
+                            InkWell(
+                                onTap: () {
+                                  AwesomeDialog(
+                                    context: context,
+                                    dialogType: DialogType.warning,
+                                    title:
+                                        'xóa thông tin ${state.translate?.sentences?[0].trans}',
+                                    btnOkOnPress: () {
+                                      cubit.deleteTrans();
+                                    },
+                                    btnCancelOnPress: () {},
+                                  ).show();
+                                },
+                                child: '🗑️'.text.size(medium).make()),
+                          ],
+                        )
+                      ],
                     ),
-                    Gaps.vGap8,
+                    Gaps.vGap4,
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                          maxHeight: context.percentHeight * 10, minHeight: 0),
+                      child: ListView.separated(
+                        itemBuilder: (context, index) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  '👉🏻'.text.make(),
+                                  Gaps.hGap4,
+                                  state.translate?.dict?[0].terms?[index]?.text
+                                          .softWrap(true)
+                                          .make()
+                                          .flexible() ??
+                                      '${state.translate?.sentences?[0].trans}'
+                                          .text
+                                          .make()
+                                          .flexible(),
+                                ],
+                              ).expand(),
+                              Row(
+                                children: [
+                                  InkWell(
+                                      onTap: () {
+                                        AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.warning,
+                                          title: 'sửa thông tin',
+                                          body: EditTextNoIcon(
+                                            text: 'Đồng ý',
+                                            data: (data) {
+                                              cubit.fixTern(data, index);
+                                              Navigator.pop(context);
+                                            },
+                                            content: state.translate?.dict?[0]
+                                                    .terms?[index] ??
+                                                '${state.translate?.sentences?[0].trans}',
+                                          ).p16(),
+                                          btnCancelOnPress: () {},
+                                        ).show();
+                                      },
+                                      child: '🎨'.text.size(medium).make()),
+                                  InkWell(
+                                      onTap: () {
+                                        AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.warning,
+                                          title: 'xóa thông tin '
+                                              " '${state.translate?.dict?[0].terms?[index] ?? state.translate?.sentences?[0].trans}'",
+                                          btnOkOnPress: () {
+                                            cubit.deleteTern(index);
+                                          },
+                                          btnCancelOnPress: () {},
+                                        ).show();
+                                      },
+                                      child: '🗑️'.text.size(medium).make()),
+                                ],
+                              )
+                            ],
+                          );
+                        },
+                        itemCount: state.translate?.dict?[0].terms?.length ?? 1,
+                        shrinkWrap: true,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return Gaps.vGap4;
+                        },
+                      ),
+                    ),
+                    Gaps.vGap10,
                     state.imageFromText!.results!.isNotEmpty
                         ? GridView.builder(
                             gridDelegate:
@@ -151,7 +248,8 @@ class NewsSearchBottomSheet extends StatelessWidget {
                                     )
                                   : state.itemSelect == index
                                       ? ImageCacheCustom(
-                                          url: '${state.imageFromText?.results?[index].urls!.small}',
+                                          url:
+                                              '${state.imageFromText?.results?[index].urls!.small}',
                                           fit: BoxFit.cover,
                                           errorBuilder:
                                               (context, error, stackTrace) =>
@@ -167,7 +265,8 @@ class NewsSearchBottomSheet extends StatelessWidget {
                                                 .selectImage(index);
                                           },
                                           child: ImageCacheCustom(
-                                            url: '${state.imageFromText?.results?[index].urls!.small}',
+                                            url:
+                                                '${state.imageFromText?.results?[index].urls!.small}',
                                             fit: BoxFit.cover,
                                             errorBuilder:
                                                 (context, error, stackTrace) =>
