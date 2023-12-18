@@ -112,7 +112,7 @@ class LoginCubit extends Cubit<LoginState> {
           print("Đăng nhập lần đầu tiên!");
         }
 
-        return userCredential;
+         userCredential;
       } catch (error) {
         print("Lỗi khi đăng nhập với Google: $error");
         return null;

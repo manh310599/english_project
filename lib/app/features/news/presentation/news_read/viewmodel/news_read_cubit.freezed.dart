@@ -21,6 +21,7 @@ mixin _$NewsReadState {
   bool? get loading => throw _privateConstructorUsedError;
   BannerAd? get bannerAd => throw _privateConstructorUsedError;
   bool? get flag => throw _privateConstructorUsedError;
+  bool? get visible => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NewsReadStateCopyWith<NewsReadState> get copyWith =>
@@ -38,7 +39,8 @@ abstract class $NewsReadStateCopyWith<$Res> {
       String? word,
       bool? loading,
       BannerAd? bannerAd,
-      bool? flag});
+      bool? flag,
+      bool? visible});
 }
 
 /// @nodoc
@@ -59,6 +61,7 @@ class _$NewsReadStateCopyWithImpl<$Res, $Val extends NewsReadState>
     Object? loading = freezed,
     Object? bannerAd = freezed,
     Object? flag = freezed,
+    Object? visible = freezed,
   }) {
     return _then(_value.copyWith(
       contentBlocker: freezed == contentBlocker
@@ -81,6 +84,10 @@ class _$NewsReadStateCopyWithImpl<$Res, $Val extends NewsReadState>
           ? _value.flag
           : flag // ignore: cast_nullable_to_non_nullable
               as bool?,
+      visible: freezed == visible
+          ? _value.visible
+          : visible // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -98,7 +105,8 @@ abstract class _$$NewsReadStateImplCopyWith<$Res>
       String? word,
       bool? loading,
       BannerAd? bannerAd,
-      bool? flag});
+      bool? flag,
+      bool? visible});
 }
 
 /// @nodoc
@@ -117,6 +125,7 @@ class __$$NewsReadStateImplCopyWithImpl<$Res>
     Object? loading = freezed,
     Object? bannerAd = freezed,
     Object? flag = freezed,
+    Object? visible = freezed,
   }) {
     return _then(_$NewsReadStateImpl(
       contentBlocker: freezed == contentBlocker
@@ -139,6 +148,10 @@ class __$$NewsReadStateImplCopyWithImpl<$Res>
           ? _value.flag
           : flag // ignore: cast_nullable_to_non_nullable
               as bool?,
+      visible: freezed == visible
+          ? _value.visible
+          : visible // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -151,7 +164,8 @@ class _$NewsReadStateImpl extends _NewsReadState {
       this.word = null,
       this.loading = false,
       this.bannerAd = null,
-      this.flag = false})
+      this.flag = false,
+      this.visible = true})
       : super._();
 
   @override
@@ -169,10 +183,13 @@ class _$NewsReadStateImpl extends _NewsReadState {
   @override
   @JsonKey()
   final bool? flag;
+  @override
+  @JsonKey()
+  final bool? visible;
 
   @override
   String toString() {
-    return 'NewsReadState(contentBlocker: $contentBlocker, word: $word, loading: $loading, bannerAd: $bannerAd, flag: $flag)';
+    return 'NewsReadState(contentBlocker: $contentBlocker, word: $word, loading: $loading, bannerAd: $bannerAd, flag: $flag, visible: $visible)';
   }
 
   @override
@@ -186,12 +203,13 @@ class _$NewsReadStateImpl extends _NewsReadState {
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.bannerAd, bannerAd) ||
                 other.bannerAd == bannerAd) &&
-            (identical(other.flag, flag) || other.flag == flag));
+            (identical(other.flag, flag) || other.flag == flag) &&
+            (identical(other.visible, visible) || other.visible == visible));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, contentBlocker, word, loading, bannerAd, flag);
+  int get hashCode => Object.hash(
+      runtimeType, contentBlocker, word, loading, bannerAd, flag, visible);
 
   @JsonKey(ignore: true)
   @override
@@ -206,7 +224,8 @@ abstract class _NewsReadState extends NewsReadState {
       final String? word,
       final bool? loading,
       final BannerAd? bannerAd,
-      final bool? flag}) = _$NewsReadStateImpl;
+      final bool? flag,
+      final bool? visible}) = _$NewsReadStateImpl;
   const _NewsReadState._() : super._();
 
   @override
@@ -219,6 +238,8 @@ abstract class _NewsReadState extends NewsReadState {
   BannerAd? get bannerAd;
   @override
   bool? get flag;
+  @override
+  bool? get visible;
   @override
   @JsonKey(ignore: true)
   _$$NewsReadStateImplCopyWith<_$NewsReadStateImpl> get copyWith =>

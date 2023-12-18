@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:english_project/all_file/all_file.dart';
 import 'package:english_project/app/common/widget/button/cupertino_button.dart';
 import 'package:english_project/app/common/widget/news_search_bottom_sheet.dart';
@@ -6,9 +7,11 @@ import 'package:english_project/app/features/news/presentation/news_read/viewmod
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:lottie/lottie.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../../dimens.dart';
+
 
 @RoutePage()
 class NewsReadPage extends StatelessWidget {
@@ -128,6 +131,27 @@ class NewsReadPage extends StatelessWidget {
                         width: 0,
                         height: 0,
                       ),
+                if (state.visible == true && choice == 0) Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/images/select_text.png').px16(),
+                     CupertinoButtonEdit(color: Colors.black,textColor: Colors.white,text: 'Đóng',onPressed: () {
+                      cubit.hide();
+                    },)
+                  ],
+                )
+                else if(state.visible == true && choice == 1)
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/images/select_sentence.png').px16(),
+                      CupertinoButtonEdit(color: Colors.black,textColor: Colors.white,text: 'Đóng',onPressed: () {
+                        cubit.hide();
+                      },)
+                    ],
+                  )
+
+                else const SizedBox()
               ],
             );
           },

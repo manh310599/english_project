@@ -10,5 +10,6 @@ class LearnVocabularyState with _$LearnVocabularyState {
     @Default(null) bool? addOrCourse,
     @Default(ApiStatus.init) ApiStatus? apiStatus,
     @Default(null) BannerAd? bannerAd,
+    @Default(true) bool? tutorial,
   }) = _LearnVocabularyState;
 }

@@ -12,5 +12,6 @@ class NewsReadState with _$NewsReadState {
     @Default(false) bool? loading,
     @Default(null) BannerAd? bannerAd,
     @Default(false) bool? flag,
+    @Default(true) bool? visible,
   }) = _NewsReadState;
 }

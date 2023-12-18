@@ -22,18 +22,18 @@ class NewsHeader extends StatelessWidget {
           },
           hinText: 'tìm kiếm',
         ).expand(),
-        IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.local_fire_department,
-              size: Dimens.ic_XL2,
-            )),
-        IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.notifications,
-              size: Dimens.ic_XL2,
-            ))
+        // IconButton(
+        //     onPressed: () {},
+        //     icon: const Icon(
+        //       Icons.local_fire_department,
+        //       size: Dimens.ic_XL2,
+        //     )),
+        // IconButton(
+        //     onPressed: () {},
+        //     icon: const Icon(
+        //       Icons.notifications,
+        //       size: Dimens.ic_XL2,
+        //     ))
       ],
     ).px16();
   }

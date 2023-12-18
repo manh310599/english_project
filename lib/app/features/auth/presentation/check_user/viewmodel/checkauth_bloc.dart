@@ -24,12 +24,12 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
     on<_ChangeProfile>(ChangeProfile);
   }
 
-  final StreamController<CheckAuth> loginController =
-      StreamController<CheckAuth>.broadcast();
+  static final StreamController<CheckauthState> loginController =
+      StreamController<CheckauthState>.broadcast();
 
-  Stream<CheckAuth> get loginStream => loginController.stream;
+  static Stream<CheckauthState> get loginStream => loginController.stream;
 
-  StreamSink<CheckAuth> get gbaSink => loginController.sink;
+  static StreamSink<CheckauthState> get gbaSink => loginController.sink;
 
   final check = FirebaseAuth.instance;
   final data = FirebaseFirestore.instance;
@@ -44,8 +44,8 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
             await data.collection('users').doc(currentUser.uid).get();
 
         UserData u = UserData.fromFirestore(information);
-        print('khó hiểu ${u.finalDayPremium}');
-        print(DateTime.now().millisecondsSinceEpoch);
+       // print('khó hiểu ${u.finalDayPremium! - DateTime.now().millisecondsSinceEpoch}');
+       //  print(DateTime.now().millisecondsSinceEpoch);
         if (u.finalDayPremium! < DateTime.now().millisecondsSinceEpoch) {
           emit(
             state.copyWith(
@@ -65,7 +65,7 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
               .collection('users')
               .doc(check.currentUser?.uid)
               .update({'tokent': token});
-          gbaSink.add(CheckAuth.logged);
+
         } else {
           emit(
             state.copyWith(
@@ -80,7 +80,7 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
               .collection('users')
               .doc(check.currentUser?.uid)
               .update({'tokent': token});
-          gbaSink.add(CheckAuth.logged);
+
         }
       } else {
         emit(state.copyWith(
@@ -88,7 +88,7 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
             idUser: null,
             user: null,
             premium: null));
-        gbaSink.add(CheckAuth.loggedOut);
+
       }
     } catch (_) {
       emit(state.copyWith(
@@ -96,8 +96,11 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
           idUser: null,
           user: null,
           premium: null));
-      gbaSink.add(CheckAuth.loggedOut);
+
     }
+    loginStream.listen((event) {
+      emit(event);
+    });
   }
 
   Future<void> Login(event, Emitter<CheckauthState> emit) async {
@@ -109,7 +112,7 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
     final information =
         await data.collection('users').doc(currentUser?.uid).get();
     UserData u = UserData.fromFirestore(information);
-    print('khó hiểu ${u.finalDayPremium}');
+
     try {
       UserData u = UserData.fromFirestore(information);
       if (u.finalDayPremium! < DateTime.now().millisecondsSinceEpoch) {
@@ -130,7 +133,7 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
             .collection('users')
             .doc(check.currentUser?.uid)
             .update({'tokent': token});
-        gbaSink.add(CheckAuth.logged);
+
       } else {
         emit(
           state.copyWith(
@@ -145,12 +148,13 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
             .collection('users')
             .doc(check.currentUser?.uid)
             .update({'tokent': token});
-        gbaSink.add(CheckAuth.logged);
+
       }
     } catch (_) {
       emit(state.copyWith(checkAuth: CheckAuth.loggedOut));
-      gbaSink.add(CheckAuth.loggedOut);
+
     }
+    gbaSink.add(state);
   }
 
   Future<void> LogOut(event, Emitter<CheckauthState> emit) async {
@@ -160,7 +164,7 @@ class CheckauthBloc extends Bloc<CheckauthEvent, CheckauthState> {
         idUser: null,
         bannerAd: null,
         premium: null));
-    gbaSink.add(CheckAuth.loggedOut);
+    gbaSink.add(state);
   }
 
   Future<void> ChangeProfile(

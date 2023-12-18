@@ -103,22 +103,26 @@ class NewsCubit extends Cubit<NewsState> {
           },
         ));
 
+
+  }
+
+  showAD() async {
     await _rewardedAd?.show(
         onUserEarnedReward: (AdWithoutView ad, RewardItem reward) async {
-      emit(state.copyWith(checkAD: 1));
-      await firebaseFirestore
-          .collection('users')
-          .doc(firebaseAuth.currentUser?.uid)
-          .update(
-        {
-          'gift': DateTime.now()
-              .add(const Duration(hours: 1))
-              .millisecondsSinceEpoch,
-        },
+          emit(state.copyWith(checkAD: 1));
+          await firebaseFirestore
+              .collection('users')
+              .doc(firebaseAuth.currentUser?.uid)
+              .update(
+            {
+              'gift': DateTime.now()
+                  .add(const Duration(hours: 1))
+                  .millisecondsSinceEpoch,
+            },
 
-      );
+          );
 
-    });
+        });
   }
 
   NewsRepo newReponsitory = getIt<NewsRepo>();
@@ -145,13 +149,15 @@ class NewsCubit extends Cubit<NewsState> {
   }
 
   Future<void> getNewsUpdate() async {
-    checkauthBloc.loginStream.listen((event) {
-      if (event == CheckAuth.loggedOut) {
-        emit(const NewsState());
-      } else {
-        getNewsUpdate();
-      }
-    });
+    // checkauthBloc.loginStream.listen((event) {
+    //   if (event == CheckAuth.loggedOut) {
+    //     emit(const NewsState());
+    //   } else {
+    //     getNewsUpdate();
+    //   }
+    // });
+
+
 
     temp = null;
     final data = await newReponsitory.getNewsUpdate();

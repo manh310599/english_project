@@ -2,14 +2,11 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:english_project/app/common/service/admob.dart';
-import 'package:english_project/app/common/widget/news_search_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:velocity_x/velocity_x.dart';
-
-import '../../../../../../dimens.dart';
 
 part 'news_read_cubit.freezed.dart';
 
@@ -20,12 +17,17 @@ class NewsReadCubit extends Cubit<NewsReadState> {
 
   InAppWebViewController? webViewController;
 
+  bool? visible = true;
   late bool? checkPremium;
   bool flagBottom = false;
   final ContentBlocker contentBlocker = ContentBlocker(
       trigger: ContentBlockerTrigger(
           urlFilter: 'https://easylist.to/easylist/easylist.txt'),
       action: ContentBlockerAction(type: ContentBlockerActionType.BLOCK));
+
+  void startWeb() {
+    emit(state.copyWith(loading: false));
+  }
 
   void loadedWeb(int choice) {
     if (choice == 1) {
@@ -64,12 +66,14 @@ class NewsReadCubit extends Cubit<NewsReadState> {
       emit(state.copyWith(word: selectedText));
       await webViewController?.evaluateJavascript(
           source: 'window.getSelection().removeAllRanges();');
-
-
     } else {}
   }
 
-  removeSelect(){
+  removeSelect() {
     emit(state.copyWith(word: null));
+  }
+
+  hide() {
+    emit(state.copyWith(visible: false));
   }
 }

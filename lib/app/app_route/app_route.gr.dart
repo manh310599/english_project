@@ -193,12 +193,14 @@ abstract class $AppAutoRoute extends _i20.RootStackRouter {
       );
     },
     MainRoute.name: (routeData) {
-      final args = routeData.argsAs<MainRouteArgs>();
+      final args =
+          routeData.argsAs<MainRouteArgs>(orElse: () => const MainRouteArgs());
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i19.MainPage(
           key: args.key,
           stateAuth: args.stateAuth,
+          firstUse: args.firstUse,
         ),
       );
     },
@@ -446,7 +448,7 @@ class LessonRouteArgs {
 class NewsRoute extends _i20.PageRouteInfo<NewsRouteArgs> {
   NewsRoute({
     _i21.Key? key,
-    required _i22.CheckauthState stateAuth,
+    required _i22.CheckauthState? stateAuth,
     List<_i20.PageRouteInfo>? children,
   }) : super(
           NewsRoute.name,
@@ -471,7 +473,7 @@ class NewsRouteArgs {
 
   final _i21.Key? key;
 
-  final _i22.CheckauthState stateAuth;
+  final _i22.CheckauthState? stateAuth;
 
   @override
   String toString() {
@@ -627,13 +629,15 @@ class UserAccountRoute extends _i20.PageRouteInfo<void> {
 class MainRoute extends _i20.PageRouteInfo<MainRouteArgs> {
   MainRoute({
     _i21.Key? key,
-    required _i22.CheckauthState stateAuth,
+    _i22.CheckauthState? stateAuth,
+    bool? firstUse,
     List<_i20.PageRouteInfo>? children,
   }) : super(
           MainRoute.name,
           args: MainRouteArgs(
             key: key,
             stateAuth: stateAuth,
+            firstUse: firstUse,
           ),
           initialChildren: children,
         );
@@ -647,15 +651,18 @@ class MainRoute extends _i20.PageRouteInfo<MainRouteArgs> {
 class MainRouteArgs {
   const MainRouteArgs({
     this.key,
-    required this.stateAuth,
+    this.stateAuth,
+    this.firstUse,
   });
 
   final _i21.Key? key;
 
-  final _i22.CheckauthState stateAuth;
+  final _i22.CheckauthState? stateAuth;
+
+  final bool? firstUse;
 
   @override
   String toString() {
-    return 'MainRouteArgs{key: $key, stateAuth: $stateAuth}';
+    return 'MainRouteArgs{key: $key, stateAuth: $stateAuth, firstUse: $firstUse}';
   }
 }

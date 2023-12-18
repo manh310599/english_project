@@ -7,6 +7,7 @@ import 'package:english_project/app/common/widget/image/image_cache.dart';
 import 'package:english_project/app/features/news/presentation/viewmodel/news_cubit.dart';
 import 'package:english_project/font_size.dart';
 import 'package:english_project/gaps.dart';
+import 'package:english_project/use_app.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -15,6 +16,7 @@ class NewsBody extends StatelessWidget {
 
   final NewsState state;
   final bool? premium;
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -67,12 +69,15 @@ class NewsBody extends StatelessWidget {
             children: [
               state.news!.articles![state.min! + index].urlToImage.isEmptyOrNull
                   ? Image.asset(
+                      key: index == 0 ? HowToUseApp.newsButtonKey : key,
                       'assets/images/logo.png',
                       height: 100,
                       width: 100,
                     )
                   : ImageCacheCustom(
-                      url: state.news!.articles![state.min! + index].urlToImage ??
+                      key: index == 0 ? HowToUseApp.newsButtonKey : key,
+                      url: state
+                              .news!.articles![state.min! + index].urlToImage ??
                           'https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg',
                       height: 100,
                       width: 100,
